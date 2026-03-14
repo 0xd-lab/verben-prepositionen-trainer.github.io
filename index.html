@@ -16,6 +16,7 @@
   --prt:#D85A30;--prtl:#FAECE7;--prtt:#7C2D12;--prtb:#FDBA74;
   --dat:#7C3AED;--datl:#EDE9FE;--datt:#5B21B6;--datb:#C4B5FD;
   --dak:#0891B2;--dakl:#E0F2FE;--dakt:#0C4A6E;--dakb:#7DD3FC;
+  --ref:#0891B2;--refl:#E0F2FE;--reft:#0C4A6E;--refb:#7DD3FC;
   --amber:#B45309;--amberl:#FEF3C7;--amberb:#F59E0B;
   --border:rgba(28,25,23,0.10);--bm:rgba(28,25,23,0.15);
   --r:16px;--rs:12px;--sh:0 2px 16px rgba(28,25,23,0.08);--shc:0 8px 40px rgba(28,25,23,0.10)
@@ -49,6 +50,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .ref-link.c-prt::before{background:var(--prt)}
 .ref-link.c-dat::before{background:var(--dat)}
 .ref-link.c-dak::before{background:var(--dak)}
+.ref-link.c-ref::before{background:var(--ref)}
 .ref-left{display:flex;align-items:center;gap:14px}
 .ref-icon{font-size:24px;line-height:1}
 .ref-title{font-family:'DM Serif Display',serif;font-size:17px;line-height:1.2}
@@ -59,6 +61,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .ref-tag.prt{background:var(--prtl);color:var(--prtt);border:1px solid var(--prtb)}
 .ref-tag.dat{background:var(--datl);color:var(--datt);border:1px solid var(--datb)}
 .ref-tag.dak{background:var(--dakl);color:var(--dakt);border:1px solid var(--dakb)}
+.ref-tag.ref{background:var(--refl);color:var(--reft);border:1px solid var(--refb)}
 
 /* ── Game cards grid ── */
 .cards-grid{width:100%;max-width:640px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
@@ -74,6 +77,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .gc-prt::before{background:var(--prt)}    .gc-prt .card-cta{color:var(--prtt)}
 .gc-dat::before{background:var(--dat)}    .gc-dat .card-cta{color:var(--datt)}
 .gc-dak::before{background:var(--dak)}    .gc-dak .card-cta{color:var(--dakt)}
+.gc-ref::before{background:var(--ref)}    .gc-ref .card-cta{color:var(--reft)}
 .card-icon{font-size:26px;line-height:1}
 .card-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 9px;border-radius:20px}
 .b-popular{background:var(--greenl);color:var(--greent);border:1px solid var(--green)}
@@ -84,6 +88,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .b-prt{background:var(--prtl);color:var(--prtt);border:1px solid var(--prtb)}
 .b-dat{background:var(--datl);color:var(--datt);border:1px solid var(--datb)}
 .b-dak{background:var(--dakl);color:var(--dakt);border:1px solid var(--dakb)}
+.b-ref{background:var(--refl);color:var(--reft);border:1px solid var(--refb)}
 .card-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--text);line-height:1.2}
 .card-desc{font-size:13px;color:var(--muted);line-height:1.5}
 .card-meta{display:flex;align-items:center;gap:7px;margin-top:3px;flex-wrap:wrap}
@@ -239,7 +244,7 @@ body{display:flex;flex-direction:column;align-items:center}
   <span class="sl-text">Verben mit Dativ</span><div class="sl-line"></div>
 </div>
 <div class="ref-card">
-  <a class="ref-link c-dat" href="https://spiel-deutsch.github.io/dativ_uebersicht.html">
+  <a class="ref-link c-dat" href="https://spiel-deutsch.github.io/Verben-mit-Dativ-und-Akkusativ/dativ_uebersicht.html">
     <div class="ref-left"><div class="ref-icon">📖</div>
       <div><div class="ref-title">Übersicht &amp; Regeln</div><div class="ref-desc">37 Verben, die immer den Dativ verlangen — mit Typen, Präteritum und arabischen Bedeutungen.</div></div>
     </div>
@@ -247,7 +252,7 @@ body{display:flex;flex-direction:column;align-items:center}
   </a>
 </div>
 <div class="cards-grid">
-  <a class="game-card gc-dat" href="https://spiel-deutsch.github.io/dativ_karten.html">
+  <a class="game-card gc-dat" href="https://spiel-deutsch.github.io/Verben-mit-Dativ-und-Akkusativ/dativ_karten.html">
     <span class="card-badge b-dat">Lernen</span>
     <div class="card-icon">🃏</div>
     <div class="card-title">Lernkarten</div>
@@ -255,7 +260,7 @@ body{display:flex;flex-direction:column;align-items:center}
     <div class="card-meta"><span class="meta-pill">37 Karten</span><span class="meta-pill">+ Dativ</span></div>
     <div class="card-cta">Lernen <span class="card-cta-arrow">→</span></div>
   </a>
-  <a class="game-card gc-dat" href="https://spiel-deutsch.github.io/dativ_match.html">
+  <a class="game-card gc-dat" href="https://spiel-deutsch.github.io/Verben-mit-Dativ-und-Akkusativ/dativ_match.html">
     <span class="card-badge b-new">Neu</span>
     <div class="card-icon">🧩</div>
     <div class="card-title">Match &amp; Zuordnen</div>
@@ -270,7 +275,7 @@ body{display:flex;flex-direction:column;align-items:center}
   <span class="sl-text">Verben mit Dativ und Akkusativ</span><div class="sl-line"></div>
 </div>
 <div class="ref-card">
-  <a class="ref-link c-dak" href="https://spiel-deutsch.github.io/dativ_akkusativ_uebersicht.html">
+  <a class="ref-link c-dak" href="https://spiel-deutsch.github.io/Verben-mit-Dativ-und-Akkusativ/dativ_akkusativ_uebersicht.html">
     <div class="ref-left"><div class="ref-icon">📖</div>
       <div><div class="ref-title">Übersicht &amp; Regeln</div><div class="ref-desc">Verben mit zwei Objekten — Wem? (Dativ) + Was? (Akkusativ) — mit Satzmuster und 23 Verben.</div></div>
     </div>
@@ -278,12 +283,43 @@ body{display:flex;flex-direction:column;align-items:center}
   </a>
 </div>
 <div class="cards-grid">
-  <a class="game-card gc-dak" href="https://spiel-deutsch.github.io/dativ_akkusativ_quiz.html">
+  <a class="game-card gc-dak" href="https://spiel-deutsch.github.io/Verben-mit-Dativ-und-Akkusativ/dativ_akkusativ_quiz.html">
     <span class="card-badge b-dak">Quiz</span>
     <div class="card-icon">🎯</div>
     <div class="card-title">Satz-Quiz</div>
     <div class="card-desc">Wähle das richtige Dativ- und Akkusativ-Objekt — vervollständige den Satz.</div>
     <div class="card-meta"><span class="meta-pill">20 Sätze</span><span class="meta-pill">Wem? + Was?</span></div>
+    <div class="card-cta">Quiz starten <span class="card-cta-arrow">→</span></div>
+  </a>
+</div>
+
+<!-- ══ 6. Reflexive Verben ══ -->
+<div class="section-label">
+  <span class="sl-text">Reflexive Verben</span><div class="sl-line"></div>
+</div>
+<div class="ref-card">
+  <a class="ref-link c-ref" href="https://spiel-deutsch.github.io/Reflexive-Verben/index.html">
+    <div class="ref-left"><div class="ref-icon">📖</div>
+      <div><div class="ref-title">Übersicht &amp; Regeln</div><div class="ref-desc">Was sind Reflexivverben? Pronomen-Tabelle, 4 Typen, 50 Verben + interaktive Übung.</div></div>
+    </div>
+    <span class="ref-tag ref">Lesen →</span>
+  </a>
+</div>
+<div class="cards-grid">
+  <a class="game-card gc-ref" href="https://spiel-deutsch.github.io/Reflexive-Verben/karten.html">
+    <span class="card-badge b-ref">Lernen</span>
+    <div class="card-icon">🃏</div>
+    <div class="card-title">Lernkarten</div>
+    <div class="card-desc">Verb → Pronomen + Beispielsatz + Bedeutung. Filter nach Typ.</div>
+    <div class="card-meta"><span class="meta-pill">50 Karten</span><span class="meta-pill">4 Typen</span></div>
+    <div class="card-cta">Lernen <span class="card-cta-arrow">→</span></div>
+  </a>
+  <a class="game-card gc-ref" href="https://spiel-deutsch.github.io/Reflexive-Verben/quiz.html">
+    <span class="card-badge b-new">Quiz</span>
+    <div class="card-icon">🎯</div>
+    <div class="card-title">Pronomen Quiz</div>
+    <div class="card-desc">Ergänze das richtige Reflexivpronomen: mich · dich · sich · uns · euch · mir.</div>
+    <div class="card-meta"><span class="meta-pill">50 Sätze</span><span class="meta-pill">Streak</span></div>
     <div class="card-cta">Quiz starten <span class="card-cta-arrow">→</span></div>
   </a>
 </div>

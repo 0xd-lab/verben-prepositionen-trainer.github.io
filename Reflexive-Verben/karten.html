@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Reflexive Verben — Lernkarten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --c:#0891B2;--cl:#E0F2FE;--ct:#0C4A6E;--cb:#7DD3FC;
+  --akk:#185FA5;--akkl:#E6F1FB;--akkt:#0C447C;
+  --dat:#7C3AED;--datl:#EDE9FE;--datt:#5B21B6;
+  --pr:#1D9E75;--prl:#E1F5EE;--prt:#0F6E56;
+  --tr:#B45309;--trl:#FEF3C7;--trt:#92400E;
+  --red:#D85A30;--redl:#FAECE7;--redt:#993C1D;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.12)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:32px}
+.hdr{width:100%;max-width:540px;padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,24px)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.counter{font-size:13px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.prog-wrap{width:100%;max-width:540px;padding:12px 20px 0}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--c);border-radius:4px;transition:width .4s}
+.filters{width:100%;max-width:540px;padding:12px 20px 0;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter-row{display:flex;gap:7px;width:max-content}
+.fb{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.fb.all.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.fb.akk.active{background:var(--akkl);color:var(--akkt);border-color:var(--akk)}
+.fb.dat.active{background:var(--datl);color:var(--datt);border-color:var(--dat)}
+.fb.prp.active{background:var(--prl);color:var(--prt);border-color:var(--pr)}
+.fb.tr.active{background:var(--trl);color:var(--trt);border-color:var(--tr)}
+.card-area{width:100%;max-width:540px;padding:14px 20px 0;display:flex;flex-direction:column}
+.card-wrap{perspective:1000px;height:clamp(210px,46vw,270px);cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);background:var(--surface);box-shadow:var(--shc);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;gap:8px;border:1px solid var(--border)}
+.back{transform:rotateY(180deg)}
+.f-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--hint)}
+.f-verb{font-family:'DM Serif Display',serif;font-size:clamp(22px,6vw,32px);color:var(--text);line-height:1.2;text-align:center}
+.f-ar{font-size:14px;color:var(--muted);direction:rtl;text-align:center}
+.f-hint{font-size:11px;color:var(--hint);margin-top:4px}
+.pronoun-badge{padding:7px 20px;border-radius:20px;font-family:'DM Serif Display',serif;font-size:clamp(20px,6vw,28px)}
+.bakk{background:var(--akkl);color:var(--akkt)}
+.bdat{background:var(--datl);color:var(--datt)}
+.bprp{background:var(--prl);color:var(--prt)}
+.btr{background:var(--trl);color:var(--trt)}
+.f-type{font-size:11px;font-weight:600;color:var(--hint);margin-top:2px}
+.f-ex{font-size:13px;color:var(--muted);text-align:center;font-style:italic;max-width:280px;line-height:1.5;margin-top:2px}
+.btns{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;padding:13px;border-radius:var(--rs);border:1px solid var(--bm);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;box-shadow:var(--sh)}
+.btn:active{transform:scale(.97)}
+.btn.wrong{border-color:var(--red);color:var(--redt);background:var(--redl)}
+.btn.correct{border-color:var(--pr);color:var(--prt);background:var(--prl)}
+.btn.flip{background:var(--text);color:var(--bg);border-color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 8px;text-align:center;box-shadow:var(--sh)}
+.stat-n{font-family:'DM Serif Display',serif;font-size:24px;line-height:1}
+.stat-l{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);margin-top:3px}
+.done{text-align:center;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.done h2{font-family:'DM Serif Display',serif;font-size:28px}
+.restart{padding:13px 32px;border-radius:var(--rs);background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:none;cursor:pointer;margin-top:4px}
+.footer{padding:20px 0 8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);text-align:center;width:100%}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="title">Reflexive Verben</div><div class="subtitle">Verb → Pronomen + Bedeutung</div></div>
+  <span class="counter" id="counter">1 / 50</span>
+</div>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="prog-lbl">0%</span><span id="prog-done">0 fertig</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+</div>
+<div class="filters">
+  <div class="filter-row">
+    <button class="fb all active" onclick="setFilter('all',this)">Alle</button>
+    <button class="fb akk" onclick="setFilter('akk',this)">Akkusativ</button>
+    <button class="fb dat" onclick="setFilter('dat',this)">Dativ</button>
+    <button class="fb prp" onclick="setFilter('prp',this)">Mit Präp.</button>
+    <button class="fb tr" onclick="setFilter('tr',this)">Trennbar</button>
+  </div>
+</div>
+<div class="card-area" id="card-area">
+  <div class="card-wrap" onclick="flipCard()">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="f-label">Reflexives Verb</div>
+        <div class="f-verb" id="f-verb">sich ärgern über</div>
+        <div class="f-ar" id="f-ar">يغضب / ينزعج من</div>
+        <div class="f-hint">Welches Pronomen? (ich-Form)</div>
+      </div>
+      <div class="face back">
+        <div class="f-label">ich-Form</div>
+        <div class="f-verb" id="b-verb">sich ärgern über</div>
+        <div class="pronoun-badge bakk" id="b-pron">mich</div>
+        <div class="f-type" id="b-type">Akkusativ</div>
+        <div class="f-ex" id="b-ex">Ich ärgere mich über den Lärm.</div>
+        <div class="f-ar" id="b-ar">يغضب / ينزعج من</div>
+      </div>
+    </div>
+  </div>
+  <div class="btns" id="btns" style="display:none">
+    <button class="btn wrong" onclick="answer(false)">✗ nochmal</button>
+    <button class="btn correct" onclick="answer(true)">✓ gewusst</button>
+  </div>
+  <div class="btns" id="flipbtn">
+    <button class="btn flip" onclick="flipCard()">umdrehen</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="s-c" style="color:var(--pr)">0</div><div class="stat-l">Gewusst</div></div>
+    <div class="stat"><div class="stat-n" id="s-w" style="color:var(--red)">0</div><div class="stat-l">Nochmal</div></div>
+    <div class="stat"><div class="stat-n" id="s-l">50</div><div class="stat-l">Verbleibend</div></div>
+  </div>
+</div>
+<div class="footer">by Mostafa Toumi</div>
+<script>
+const ALL=[
+  {v:"sich ärgern über",t:"prp",ar:"يغضب / ينزعج من",pron:"mich",ex:"Ich ärgere mich über den Lärm."},
+  {v:"sich freuen über / auf",t:"prp",ar:"يفرح بـ / يتطلع إلى",pron:"mich",ex:"Ich freue mich auf den Urlaub."},
+  {v:"sich ändern",t:"akk",ar:"يتغير",pron:"mich",ex:"Ich ändere mich langsam."},
+  {v:"sich anmelden",t:"tr",ar:"يسجل",pron:"mich",ex:"Ich melde mich an."},
+  {v:"sich anziehen",t:"tr",ar:"يرتدي",pron:"mich",ex:"Ich ziehe mich an."},
+  {v:"sich ausruhen",t:"tr",ar:"يستريح",pron:"mich",ex:"Ich ruhe mich aus."},
+  {v:"sich bedanken bei / für",t:"prp",ar:"يشكر",pron:"mich",ex:"Ich bedanke mich bei dir."},
+  {v:"sich beeilen",t:"akk",ar:"يستعجل",pron:"mich",ex:"Ich beeile mich."},
+  {v:"sich befinden",t:"akk",ar:"يوجد / يتواجد",pron:"mich",ex:"Ich befinde mich in Berlin."},
+  {v:"sich bemühen",t:"akk",ar:"يبذل جهداً",pron:"mich",ex:"Ich bemühe mich sehr."},
+  {v:"sich beschweren über",t:"prp",ar:"يشتكي من",pron:"mich",ex:"Ich beschwere mich über den Service."},
+  {v:"sich bewegen",t:"akk",ar:"يتحرك",pron:"mich",ex:"Ich bewege mich jeden Tag."},
+  {v:"sich duschen",t:"akk",ar:"يستحم",pron:"mich",ex:"Ich dusche mich morgens."},
+  {v:"sich entscheiden für",t:"prp",ar:"يقرر",pron:"mich",ex:"Ich entscheide mich für Deutsch."},
+  {v:"sich entschuldigen bei / für",t:"prp",ar:"يعتذر",pron:"mich",ex:"Ich entschuldige mich bei dir."},
+  {v:"sich erinnern an",t:"prp",ar:"يتذكر",pron:"mich",ex:"Ich erinnere mich an dich."},
+  {v:"sich erkälten",t:"akk",ar:"يصاب بالزكام",pron:"mich",ex:"Ich erkälte mich im Winter."},
+  {v:"sich erholen",t:"akk",ar:"يتعافى / يستريح",pron:"mich",ex:"Ich erhole mich am Wochenende."},
+  {v:"sich erklären",t:"akk",ar:"يوضح",pron:"mich",ex:"Ich erkläre mich nochmal."},
+  {v:"sich fühlen",t:"akk",ar:"يشعر",pron:"mich",ex:"Ich fühle mich gut."},
+  {v:"sich interessieren für",t:"prp",ar:"يهتم بـ",pron:"mich",ex:"Ich interessiere mich für Musik."},
+  {v:"sich kümmern um",t:"prp",ar:"يعتني بـ",pron:"mich",ex:"Ich kümmere mich um das Kind."},
+  {v:"sich legen",t:"akk",ar:"يستلقي",pron:"mich",ex:"Ich lege mich hin."},
+  {v:"sich rasieren",t:"akk",ar:"يحلق",pron:"mich",ex:"Ich rasiere mich jeden Tag."},
+  {v:"sich setzen",t:"akk",ar:"يجلس",pron:"mich",ex:"Ich setze mich hin."},
+  {v:"sich treffen",t:"akk",ar:"يلتقي",pron:"mich",ex:"Ich treffe mich mit Freunden."},
+  {v:"sich trennen von",t:"prp",ar:"ينفصل عن",pron:"mich",ex:"Ich trenne mich von meinem Partner."},
+  {v:"sich umziehen",t:"tr",ar:"يغير ملابسه",pron:"mich",ex:"Ich ziehe mich um."},
+  {v:"sich unterhalten mit",t:"prp",ar:"يتحدث مع",pron:"mich",ex:"Ich unterhalte mich mit ihr."},
+  {v:"sich verabschieden von",t:"prp",ar:"يودع",pron:"mich",ex:"Ich verabschiede mich von den Freunden."},
+  {v:"sich verletzen",t:"akk",ar:"يصاب",pron:"mich",ex:"Ich verletze mich beim Sport."},
+  {v:"sich vorbereiten auf",t:"prp",ar:"يستعد لـ",pron:"mich",ex:"Ich bereite mich auf die Prüfung vor."},
+  {v:"sich vorstellen",t:"tr",ar:"يعرّف بنفسه / يتخيل",pron:"mich",ex:"Ich stelle mich vor."},
+  {v:"sich waschen",t:"akk",ar:"يغسل",pron:"mich",ex:"Ich wasche mich morgens."},
+  {v:"sich wundern über",t:"prp",ar:"يتعجب من",pron:"mich",ex:"Ich wundere mich über die Nachricht."},
+  {v:"sich wünschen",t:"dat",ar:"يتمنى",pron:"mir",ex:"Ich wünsche mir Glück."},
+  {v:"sich zeigen",t:"akk",ar:"يظهر",pron:"mich",ex:"Ich zeige mich von meiner besten Seite."},
+  {v:"sich sorgen um",t:"prp",ar:"يقلق بشأن",pron:"mich",ex:"Ich sorge mich um dich."},
+  {v:"sich streiten mit",t:"prp",ar:"يتشاجر مع",pron:"mich",ex:"Ich streite mich mit ihm."},
+  {v:"sich melden",t:"akk",ar:"يبلغ / يتواصل",pron:"mich",ex:"Ich melde mich später."},
+  {v:"sich entwickeln",t:"akk",ar:"يتطور",pron:"mich",ex:"Ich entwickle mich weiter."},
+  {v:"sich gewöhnen an",t:"prp",ar:"يعتاد على",pron:"mich",ex:"Ich gewöhne mich an das Wetter."},
+  {v:"sich konzentrieren auf",t:"prp",ar:"يركز على",pron:"mich",ex:"Ich konzentriere mich auf die Arbeit."},
+  {v:"sich verlaufen",t:"akk",ar:"يضيع الطريق",pron:"mich",ex:"Ich verlaufe mich in der Stadt."},
+  {v:"sich verirren",t:"akk",ar:"يضل الطريق",pron:"mich",ex:"Ich verirre mich im Wald."},
+  {v:"sich nähern",t:"akk",ar:"يقترب",pron:"mich",ex:"Ich nähere mich dem Ziel."},
+  {v:"sich an etwas erinnern",t:"prp",ar:"يتذكر شيئاً",pron:"mich",ex:"Ich erinnere mich an den Termin."},
+  {v:"sich schämen für",t:"prp",ar:"يخجل من",pron:"mich",ex:"Ich schäme mich für meine Fehler."},
+  {v:"sich verlassen auf",t:"prp",ar:"يعتمد على",pron:"mich",ex:"Ich verlasse mich auf dich."},
+  {v:"sich die Hände waschen",t:"dat",ar:"يغسل يديه",pron:"mir",ex:"Ich wasche mir die Hände."},
+];
+const TTYPE={akk:"Akkusativ",dat:"Dativ",prp:"Mit Präposition",tr:"Trennbar"};
+const BADGE={akk:"bakk",dat:"bdat",prp:"bprp",tr:"btr"};
+let deck=[],idx=0,correct=0,wrong=0,flipped=false,filter='all';
+function setFilter(f,btn){filter=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');resetDeck();}
+function resetDeck(){
+  deck=ALL.filter(x=>filter==='all'||x.t===filter).sort(()=>Math.random()-.5);
+  idx=0;correct=0;wrong=0;flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+  updateStats();showCard();
+}
+function showCard(){
+  if(idx>=deck.length){showDone();return;}
+  const c=deck[idx];
+  document.getElementById('f-verb').textContent=c.v;
+  document.getElementById('f-ar').textContent=c.ar;
+  document.getElementById('b-verb').textContent=c.v;
+  document.getElementById('b-pron').textContent='Ich … '+c.pron;
+  document.getElementById('b-pron').className='pronoun-badge '+BADGE[c.t];
+  document.getElementById('b-type').textContent=TTYPE[c.t];
+  document.getElementById('b-ex').textContent=c.ex;
+  document.getElementById('b-ar').textContent=c.ar;
+  const total=deck.length;
+  document.getElementById('counter').textContent=(idx+1)+' / '+total;
+  document.getElementById('prog-lbl').textContent=Math.round(idx/total*100)+'%';
+  document.getElementById('prog-done').textContent=idx+' fertig';
+  document.getElementById('prog').style.width=(idx/total*100)+'%';
+  flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+}
+function flipCard(){if(flipped)return;flipped=true;document.getElementById('card').classList.add('flipped');setTimeout(()=>{document.getElementById('btns').style.display='';document.getElementById('flipbtn').style.display='none';},250);}
+function answer(ok){if(ok)correct++;else{wrong++;deck.push(deck[idx]);}idx++;updateStats();showCard();}
+function updateStats(){document.getElementById('s-c').textContent=correct;document.getElementById('s-w').textContent=wrong;document.getElementById('s-l').textContent=Math.max(0,deck.length-idx);}
+function showDone(){const pct=Math.round(correct/(correct+wrong)*100)||0;document.getElementById('card-area').innerHTML=`<div class="done"><div style="font-size:48px">${pct>=80?'🎉':pct>=50?'💪':'📚'}</div><h2>Geschafft!</h2><p style="color:var(--muted);font-size:14px">${correct} gewusst · ${wrong} nochmal · ${pct}%</p><button class="restart" onclick="location.reload()">Nochmal ↺</button></div>`;}
+resetDeck();
+</script>
+</body>
+</html>

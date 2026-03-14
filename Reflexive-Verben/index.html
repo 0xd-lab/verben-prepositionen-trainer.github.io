@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reflexive Verben — Übersicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --c:#0891B2;--cl:#E0F2FE;--ct:#0C4A6E;--cb:#7DD3FC;
+  --akk:#185FA5;--akkl:#E6F1FB;--akkt:#0C447C;--akkb:#B5D4F4;
+  --dat:#7C3AED;--datl:#EDE9FE;--datt:#5B21B6;--datb:#C4B5FD;
+  --pr:#1D9E75;--prl:#E1F5EE;--prt:#0F6E56;--prb:#9FE1CB;
+  --tr:#B45309;--trl:#FEF3C7;--trt:#92400E;--trb:#FDE68A;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.11)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:48px}
+.hero{width:100%;max-width:700px;padding:clamp(32px,8vw,60px) 24px 0;text-align:center}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ct);background:var(--cl);border:1px solid var(--cb);border-radius:20px;padding:4px 14px;margin-bottom:16px}
+.h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,7vw,48px);letter-spacing:-.5px;line-height:1.1}
+.h1 em{font-style:italic;color:var(--c)}
+.sub{font-size:14px;color:var(--muted);margin:10px auto 0;line-height:1.6;max-width:460px}
+/* Nav */
+.nav{width:100%;max-width:700px;padding:18px 24px 0;display:flex;gap:8px;flex-wrap:wrap}
+.nb{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:var(--surface);color:var(--muted);text-decoration:none;transition:all .15s;box-shadow:var(--sh)}
+.nb:hover{background:var(--text);color:var(--bg);border-color:var(--text)}
+/* Section header */
+.sec-hdr{width:100%;max-width:700px;padding:clamp(24px,6vw,40px) 24px 0;display:flex;align-items:center;gap:12px}
+.sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,26px)}
+.sec-line{flex:1;height:1px;background:var(--border)}
+/* Intro box */
+.intro-wrap{width:100%;max-width:700px;padding:clamp(20px,5vw,32px) 24px 0}
+.intro-box{background:var(--cl);border:1px solid var(--cb);border-radius:var(--r);padding:22px 24px}
+.ib-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ct);margin-bottom:12px}
+.ib-body{font-size:14px;color:var(--ct);line-height:1.8}
+.ib-body strong{font-weight:600}
+.ib-body code{font-family:monospace;font-size:13px;background:rgba(8,145,178,.15);padding:1px 6px;border-radius:4px}
+.ib-ex{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.ex-row{display:flex;align-items:baseline;gap:10px;font-size:14px}
+.ex-de{font-weight:600;color:var(--text)}
+.ex-ar{color:var(--muted);direction:rtl;font-size:13px}
+/* Pronoun table */
+.ptbl-wrap{width:100%;max-width:700px;padding:12px 24px 0}
+.ptbl-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.ptbl{width:100%;border-collapse:collapse;font-size:14px}
+.ptbl th{padding:10px 16px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);border-bottom:1px solid var(--border);background:var(--bg)}
+.ptbl td{padding:10px 16px;border-bottom:1px solid var(--border);vertical-align:middle}
+.ptbl tr:last-child td{border-bottom:none}
+.ptbl td:first-child{color:var(--muted);width:180px}
+.ptbl td:nth-child(2){font-weight:600;color:var(--c);font-size:16px}
+.ptbl td:nth-child(3){font-size:13px;color:var(--muted)}
+/* Type cards */
+.type-grid{width:100%;max-width:700px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.type-card{border-radius:var(--r);padding:18px 20px;border:1px solid}
+.type-card.akk{background:var(--akkl);border-color:var(--akkb)}
+.type-card.dat{background:var(--datl);border-color:var(--datb)}
+.type-card.prp{background:var(--prl);border-color:var(--prb)}
+.type-card.tr{background:var(--trl);border-color:var(--trb)}
+.tc-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.tc-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.tc-title{font-family:'DM Serif Display',serif;font-size:17px}
+.type-card.akk .tc-title{color:var(--akkt)}
+.type-card.dat .tc-title{color:var(--datt)}
+.type-card.prp .tc-title{color:var(--prt)}
+.type-card.tr .tc-title{color:var(--trt)}
+.tc-rule{font-size:13px;line-height:1.7;margin-bottom:10px}
+.type-card.akk .tc-rule{color:var(--akkt)}
+.type-card.dat .tc-rule{color:var(--datt)}
+.type-card.prp .tc-rule{color:var(--prt)}
+.type-card.tr .tc-rule{color:var(--trt)}
+.tc-ex{font-size:13px;font-style:italic}
+.type-card.akk .tc-ex{color:var(--akkt)}
+.type-card.dat .tc-ex{color:var(--datt)}
+.type-card.prp .tc-ex{color:var(--prt)}
+.type-card.tr .tc-ex{color:var(--trt)}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.chip{padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600}
+.chip.akk{background:rgba(255,255,255,.5);color:var(--akkt)}
+.chip.dat{background:rgba(255,255,255,.5);color:var(--datt)}
+.chip.prp{background:rgba(255,255,255,.5);color:var(--prt)}
+.chip.tr{background:rgba(255,255,255,.5);color:var(--trt)}
+/* Verb table */
+.tbl-wrap{width:100%;max-width:700px;padding:12px 24px 0}
+.tbl-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.tf{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s}
+.tf.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tbl-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{padding:8px 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);border-bottom:1px solid var(--border);background:var(--bg)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:middle;color:var(--muted)}
+.tbl tr:last-child td{border-bottom:none}
+.tbl td:first-child{color:var(--hint);width:32px;text-align:center;font-size:12px}
+.tbl td:nth-child(2){font-weight:600;color:var(--text)}
+.cs{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.cakk{background:var(--akkl);color:var(--akkt)}
+.cdat{background:var(--datl);color:var(--datt)}
+.cprp{background:var(--prl);color:var(--prt)}
+.ctr{background:var(--trl);color:var(--trt)}
+.ar{direction:rtl;text-align:right;font-size:12px;color:var(--hint)}
+.hidden{display:none}
+/* Exercise */
+.ex-wrap{width:100%;max-width:700px;padding:12px 24px 0}
+.ex-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh)}
+.ex-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:14px;color:var(--text)}
+.q-item{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:15px;flex-wrap:wrap}
+.q-item:last-child{margin-bottom:0}
+.q-num{font-size:12px;color:var(--hint);min-width:20px}
+.blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--c);text-align:center;font-weight:600;color:var(--c);padding:0 4px;cursor:pointer;transition:all .2s}
+.blank.revealed{border-color:var(--pr);color:var(--prt)}
+.reveal-btn{margin-top:14px;padding:9px 20px;border-radius:var(--rs);background:var(--cl);color:var(--ct);border:1px solid var(--cb);font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;cursor:pointer}
+/* Footer */
+.footer{width:100%;max-width:700px;padding:clamp(36px,8vw,56px) 24px 32px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border-top:1px solid var(--border);margin-top:clamp(36px,8vw,56px)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:16px}
+.footer-credit{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);margin-top:2px}
+@media(max-width:500px){.tbl td:last-child,.tbl th:last-child{display:none}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="tag">Grammatik Übersicht</div>
+  <h1 class="h1"><em>Reflexive</em> Verben</h1>
+  <p class="sub">Was sie sind, wie sie funktionieren — Reflexivpronomen, 4 Typen und 50 wichtige Verben mit arabischen Bedeutungen.</p>
+</div>
+<div class="nav">
+  <a class="nb" href="#was">Was sind sie?</a>
+  <a class="nb" href="#pronomen">Pronomen</a>
+  <a class="nb" href="#typen">4 Typen</a>
+  <a class="nb" href="#liste">50 Verben</a>
+  <a class="nb" href="#uebung">Übung</a>
+</div>
+
+<!-- WAS SIND REFLEXIVE VERBEN -->
+<div class="intro-wrap" id="was">
+  <div class="intro-box">
+    <div class="ib-title">Was sind Reflexive Verben?</div>
+    <div class="ib-body">
+      Reflexive Verben sind Verben mit einem <strong>Reflexivpronomen</strong> (<code>mich</code>, <code>dich</code>, <code>sich</code> …).<br>
+      Das Subjekt macht die Handlung <strong>auf sich selbst</strong> — die Handlung kommt zum Sprecher zurück.<br><br>
+      <strong>Trick:</strong> Wenn du <code>sich</code> vor dem Infinitiv siehst → reflexives Verb. Immer das Pronomen mitlernen!
+    </div>
+    <div class="ib-ex">
+      <div class="ex-row"><span class="ex-de">Ich wasche <strong>mich</strong>.</span><span class="ex-ar">أنا أغسل نفسي</span></div>
+      <div class="ex-row"><span class="ex-de">Du freust <strong>dich</strong>.</span><span class="ex-ar">أنت تفرح</span></div>
+      <div class="ex-row"><span class="ex-de">Er erinnert <strong>sich</strong>.</span><span class="ex-ar">هو يتذكر</span></div>
+      <div class="ex-row"><span class="ex-de">Wir treffen <strong>uns</strong>.</span><span class="ex-ar">نحن نلتقي</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- REFLEXIVPRONOMEN TABLE -->
+<div class="sec-hdr" id="pronomen">
+  <div class="sec-dot" style="background:var(--c)"></div>
+  <div class="sec-title">Reflexivpronomen</div>
+  <div class="sec-line"></div>
+</div>
+<div class="ptbl-wrap">
+  <div class="ptbl-box">
+    <table class="ptbl">
+      <thead><tr><th>Person</th><th>Pronomen (Akk)</th><th>Beispiel</th></tr></thead>
+      <tbody>
+        <tr><td>ich</td><td>mich</td><td>Ich rasiere <strong>mich</strong>.</td></tr>
+        <tr><td>du</td><td>dich</td><td>Du kämmst <strong>dich</strong>.</td></tr>
+        <tr><td>er / sie / es</td><td>sich</td><td>Er erinnert <strong>sich</strong>.</td></tr>
+        <tr><td>wir</td><td>uns</td><td>Wir treffen <strong>uns</strong>.</td></tr>
+        <tr><td>ihr</td><td>euch</td><td>Ihr beeilt <strong>euch</strong>.</td></tr>
+        <tr><td>sie / Sie</td><td>sich</td><td>Sie unterhalten <strong>sich</strong>.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="ptbl-wrap" style="padding-top:10px">
+  <div class="ptbl-box">
+    <table class="ptbl">
+      <thead><tr><th>Person</th><th>Pronomen (Dat)</th><th>Beispiel</th></tr></thead>
+      <tbody>
+        <tr><td>ich</td><td>mir</td><td>Ich wasche <strong>mir</strong> die Hände.</td></tr>
+        <tr><td>du</td><td>dir</td><td>Du kämmst <strong>dir</strong> die Haare.</td></tr>
+        <tr><td>er / sie / es</td><td>sich</td><td>Er kauft <strong>sich</strong> ein Buch.</td></tr>
+        <tr><td>wir</td><td>uns</td><td>Wir kaufen <strong>uns</strong> ein Auto.</td></tr>
+        <tr><td>ihr</td><td>euch</td><td>Ihr kauft <strong>euch</strong> Tickets.</td></tr>
+        <tr><td>sie / Sie</td><td>sich</td><td>Sie kaufen <strong>sich</strong> etwas.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- 4 TYPEN -->
+<div class="sec-hdr" id="typen">
+  <div class="sec-dot" style="background:var(--text)"></div>
+  <div class="sec-title">Die 4 Typen</div>
+  <div class="sec-line"></div>
+</div>
+<div class="type-grid">
+  <div class="type-card akk">
+    <div class="tc-top"><div class="tc-dot" style="background:var(--akk)"></div><div class="tc-title">1. Akkusativ</div></div>
+    <div class="tc-rule">Die meisten Reflexivverben benutzen <strong>Akkusativ</strong>.<br>Frage: <strong>Wen / Was?</strong></div>
+    <div class="tc-ex">Ich wasche <em>mich</em>. · Ich setze <em>mich</em>. · Ich freue <em>mich</em>.</div>
+    <div class="chips"><span class="chip akk">sich waschen</span><span class="chip akk">sich freuen</span><span class="chip akk">sich setzen</span><span class="chip akk">sich beeilen</span></div>
+  </div>
+  <div class="type-card dat">
+    <div class="tc-top"><div class="tc-dot" style="background:var(--dat)"></div><div class="tc-title">2. Dativ</div></div>
+    <div class="tc-rule">Wenn ein <strong>anderes Objekt</strong> im Satz ist → Reflexivpronomen im <strong>Dativ</strong>.<br>Frage: <strong>Wem?</strong></div>
+    <div class="tc-ex">Ich wasche <em>mir</em> die Hände. · Ich kaufe <em>mir</em> ein Buch.</div>
+    <div class="chips"><span class="chip dat">sich die Hände waschen</span><span class="chip dat">sich etwas kaufen</span><span class="chip dat">sich die Haare kämmen</span></div>
+  </div>
+  <div class="type-card prp">
+    <div class="tc-top"><div class="tc-dot" style="background:var(--pr)"></div><div class="tc-title">3. Mit Präposition</div></div>
+    <div class="tc-rule">Viele Reflexivverben verlangen eine feste <strong>Präposition</strong>. Immer zusammen lernen!</div>
+    <div class="tc-ex">sich erinnern <em>an</em> · sich freuen <em>auf/über</em> · sich kümmern <em>um</em></div>
+    <div class="chips"><span class="chip prp">erinnern an</span><span class="chip prp">interessieren für</span><span class="chip prp">kümmern um</span><span class="chip prp">freuen auf</span></div>
+  </div>
+  <div class="type-card tr">
+    <div class="tc-top"><div class="tc-dot" style="background:var(--tr)"></div><div class="tc-title">4. Trennbar</div></div>
+    <div class="tc-rule">Manche Reflexivverben sind <strong>trennbar</strong> — das Präfix wandert ans Satzende.</div>
+    <div class="tc-ex">Ich melde <em>mich</em> an. · Ich ziehe <em>mich</em> an. · Ich ruhe <em>mich</em> aus.</div>
+    <div class="chips"><span class="chip tr">sich anmelden</span><span class="chip tr">sich anziehen</span><span class="chip tr">sich ausruhen</span><span class="chip tr">sich vorstellen</span></div>
+  </div>
+</div>
+
+<!-- 50 VERBEN TABLE -->
+<div class="sec-hdr" id="liste">
+  <div class="sec-dot" style="background:var(--c)"></div>
+  <div class="sec-title">50 wichtige Reflexivverben</div>
+  <div class="sec-line"></div>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-filter">
+    <button class="tf active" onclick="filterTbl('all',this)">Alle</button>
+    <button class="tf" onclick="filterTbl('akk',this)">Akkusativ</button>
+    <button class="tf" onclick="filterTbl('dat',this)">Dativ</button>
+    <button class="tf" onclick="filterTbl('prp',this)">Mit Präposition</button>
+    <button class="tf" onclick="filterTbl('tr',this)">Trennbar</button>
+  </div>
+  <div class="tbl-box">
+    <table class="tbl" id="verb-tbl">
+      <thead><tr><th>#</th><th>Verb</th><th>Typ</th><th>Arabisch</th></tr></thead>
+      <tbody id="tbl-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- KLEINE ÜBUNG -->
+<div class="sec-hdr" id="uebung">
+  <div class="sec-dot" style="background:var(--c)"></div>
+  <div class="sec-title">Kleine Übung</div>
+  <div class="sec-line"></div>
+</div>
+<div class="ex-wrap">
+  <div class="ex-box">
+    <div class="ex-title">Ergänze das Reflexivpronomen</div>
+    <div class="q-item"><span class="q-num">1.</span><span>Ich erinnere <span class="blank" data-ans="mich" onclick="reveal(this)">___</span> an den Termin.</span></div>
+    <div class="q-item"><span class="q-num">2.</span><span>Wir treffen <span class="blank" data-ans="uns" onclick="reveal(this)">___</span> morgen.</span></div>
+    <div class="q-item"><span class="q-num">3.</span><span>Du freust <span class="blank" data-ans="dich" onclick="reveal(this)">___</span> über das Geschenk.</span></div>
+    <div class="q-item"><span class="q-num">4.</span><span>Sie interessiert <span class="blank" data-ans="sich" onclick="reveal(this)">___</span> für Musik.</span></div>
+    <div class="q-item"><span class="q-num">5.</span><span>Ich wasche <span class="blank" data-ans="mir" onclick="reveal(this)">___</span> die Hände.</span></div>
+    <div class="q-item"><span class="q-num">6.</span><span>Ihr beeilt <span class="blank" data-ans="euch" onclick="reveal(this)">___</span> zum Unterricht.</span></div>
+    <div class="q-item"><span class="q-num">7.</span><span>Er meldet <span class="blank" data-ans="sich" onclick="reveal(this)">___</span> an.</span></div>
+    <div class="q-item"><span class="q-num">8.</span><span>Wir kümmern <span class="blank" data-ans="uns" onclick="reveal(this)">___</span> um das Kind.</span></div>
+    <button class="reveal-btn" onclick="revealAll()">Alle Antworten zeigen</button>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Spiel Deutsch</div>
+  <div class="footer-credit">by Mostafa Toumi</div>
+</div>
+
+<script>
+const VERBS=[
+  {n:1,v:"sich ärgern über",t:"prp",ar:"يغضب / ينزعج من"},
+  {n:2,v:"sich freuen über / auf",t:"prp",ar:"يفرح بـ / يتطلع إلى"},
+  {n:3,v:"sich ändern",t:"akk",ar:"يتغير"},
+  {n:4,v:"sich anmelden",t:"tr",ar:"يسجل"},
+  {n:5,v:"sich anziehen",t:"tr",ar:"يرتدي"},
+  {n:6,v:"sich ausruhen",t:"tr",ar:"يستريح"},
+  {n:7,v:"sich bedanken bei / für",t:"prp",ar:"يشكر"},
+  {n:8,v:"sich beeilen",t:"akk",ar:"يستعجل"},
+  {n:9,v:"sich befinden",t:"akk",ar:"يوجد / يتواجد"},
+  {n:10,v:"sich bemühen",t:"akk",ar:"يبذل جهداً"},
+  {n:11,v:"sich beschweren über",t:"prp",ar:"يشتكي من"},
+  {n:12,v:"sich bewegen",t:"akk",ar:"يتحرك"},
+  {n:13,v:"sich duschen",t:"akk",ar:"يستحم"},
+  {n:14,v:"sich entscheiden für",t:"prp",ar:"يقرر"},
+  {n:15,v:"sich entschuldigen bei / für",t:"prp",ar:"يعتذر"},
+  {n:16,v:"sich erinnern an",t:"prp",ar:"يتذكر"},
+  {n:17,v:"sich erkälten",t:"akk",ar:"يصاب بالزكام"},
+  {n:18,v:"sich erholen",t:"akk",ar:"يتعافى / يستريح"},
+  {n:19,v:"sich erklären",t:"akk",ar:"يوضح"},
+  {n:20,v:"sich fühlen",t:"akk",ar:"يشعر"},
+  {n:21,v:"sich interessieren für",t:"prp",ar:"يهتم بـ"},
+  {n:22,v:"sich kümmern um",t:"prp",ar:"يعتني بـ"},
+  {n:23,v:"sich legen",t:"akk",ar:"يستلقي"},
+  {n:24,v:"sich rasieren",t:"akk",ar:"يحلق"},
+  {n:25,v:"sich setzen",t:"akk",ar:"يجلس"},
+  {n:26,v:"sich treffen",t:"akk",ar:"يلتقي"},
+  {n:27,v:"sich trennen von",t:"prp",ar:"ينفصل عن"},
+  {n:28,v:"sich umziehen",t:"tr",ar:"يغير ملابسه"},
+  {n:29,v:"sich unterhalten mit",t:"prp",ar:"يتحدث مع"},
+  {n:30,v:"sich verabschieden von",t:"prp",ar:"يودع"},
+  {n:31,v:"sich verletzen",t:"akk",ar:"يصاب"},
+  {n:32,v:"sich vorbereiten auf",t:"prp",ar:"يستعد لـ"},
+  {n:33,v:"sich vorstellen",t:"tr",ar:"يعرّف بنفسه / يتخيل"},
+  {n:34,v:"sich waschen",t:"akk",ar:"يغسل"},
+  {n:35,v:"sich wundern über",t:"prp",ar:"يتعجب من"},
+  {n:36,v:"sich wünschen",t:"dat",ar:"يتمنى"},
+  {n:37,v:"sich zeigen",t:"akk",ar:"يظهر"},
+  {n:38,v:"sich sorgen um",t:"prp",ar:"يقلق بشأن"},
+  {n:39,v:"sich streiten mit",t:"prp",ar:"يتشاجر مع"},
+  {n:40,v:"sich melden",t:"akk",ar:"يبلغ / يتواصل"},
+  {n:41,v:"sich entwickeln",t:"akk",ar:"يتطور"},
+  {n:42,v:"sich gewöhnen an",t:"prp",ar:"يعتاد على"},
+  {n:43,v:"sich konzentrieren auf",t:"prp",ar:"يركز على"},
+  {n:44,v:"sich verlaufen",t:"akk",ar:"يضيع الطريق"},
+  {n:45,v:"sich verirren",t:"akk",ar:"يضل الطريق"},
+  {n:46,v:"sich nähern",t:"akk",ar:"يقترب"},
+  {n:47,v:"sich an etwas erinnern",t:"prp",ar:"يتذكر شيئاً"},
+  {n:48,v:"sich schämen für",t:"prp",ar:"يخجل من"},
+  {n:49,v:"sich verlassen auf",t:"prp",ar:"يعتمد على"},
+  {n:50,v:"sich rasieren",t:"akk",ar:"يحلق / يتحلق"},
+];
+const TYPE_LABEL={akk:"Akkusativ",dat:"Dativ",prp:"Mit Präposition",tr:"Trennbar"};
+const TYPE_CLASS={akk:"cakk",dat:"cdat",prp:"cprp",tr:"ctr"};
+let currentFilter='all';
+
+function renderTbl(f){
+  const tbody=document.getElementById('tbl-body');
+  tbody.innerHTML='';
+  let i=1;
+  VERBS.forEach(x=>{
+    if(f!=='all'&&x.t!==f)return;
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td>${i++}</td><td>${x.v}</td><td><span class="cs ${TYPE_CLASS[x.t]}">${TYPE_LABEL[x.t]}</span></td><td class="ar">${x.ar}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function filterTbl(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.tf').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTbl(f);
+}
+
+function reveal(el){el.textContent=el.dataset.ans;el.classList.add('revealed');}
+function revealAll(){document.querySelectorAll('.blank').forEach(reveal);}
+
+renderTbl('all');
+</script>
+</body>
+</html>
