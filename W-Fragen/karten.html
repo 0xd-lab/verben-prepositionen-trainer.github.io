@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>W-Fragen — Lernkarten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --c:#0F766E;--cl:#CCFBF1;--ct:#134E4A;--cb:#5EEAD4;
+  --green:#1D9E75;--greenl:#E1F5EE;--greent:#0F6E56;
+  --red:#D85A30;--redl:#FAECE7;--redt:#993C1D;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.12)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:32px}
+.hdr{width:100%;max-width:560px;padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,24px)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.counter{font-size:13px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.prog-wrap{width:100%;max-width:560px;padding:12px 20px 0}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--c);border-radius:4px;transition:width .4s}
+.filters{width:100%;max-width:560px;padding:12px 20px 0;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter-row{display:flex;gap:7px;width:max-content}
+.fb{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.fb.all.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.fb.ort.active{background:var(--greenl);color:var(--greent);border-color:var(--green)}
+.fb.person.active{background:#E6F1FB;color:#0C447C;border-color:#185FA5}
+.fb.sache.active{background:#FAECE7;color:#7C2D12;border-color:#D85A30}
+.fb.zeit.active{background:#FEF3C7;color:#92400E;border-color:#B45309}
+.fb.grund.active{background:#FCE7F3;color:#831843;border-color:#BE185D}
+.fb.art.active{background:#EDE9FE;color:#5B21B6;border-color:#7C3AED}
+.card-area{width:100%;max-width:560px;padding:14px 20px 0;display:flex;flex-direction:column}
+.card-wrap{perspective:1000px;height:clamp(220px,48vw,280px);cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);background:var(--surface);box-shadow:var(--shc);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 24px;gap:8px;border:1px solid var(--border)}
+.back{transform:rotateY(180deg)}
+.f-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--hint)}
+.f-word{font-family:'DM Serif Display',serif;font-size:clamp(40px,11vw,60px);color:var(--text);line-height:1;text-align:center}
+.f-hint{font-size:11px;color:var(--hint);margin-top:4px}
+.back-word{font-family:'DM Serif Display',serif;font-size:clamp(28px,8vw,38px);color:var(--text);line-height:1}
+.cat-badge{padding:5px 16px;border-radius:20px;font-size:13px;font-weight:600}
+.f-mean{font-size:15px;font-weight:600;color:var(--muted)}
+.f-ar{font-size:15px;color:var(--muted);direction:rtl;text-align:center}
+.f-ex{font-size:13px;color:var(--muted);text-align:center;font-style:italic;max-width:280px;line-height:1.5}
+.f-ex-a{font-size:12px;color:var(--hint);text-align:center;line-height:1.4}
+.btns{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;padding:13px;border-radius:var(--rs);border:1px solid var(--bm);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;box-shadow:var(--sh)}
+.btn:active{transform:scale(.97)}
+.btn.wrong{border-color:var(--red);color:var(--redt);background:var(--redl)}
+.btn.correct{border-color:var(--green);color:var(--greent);background:var(--greenl)}
+.btn.flip{background:var(--text);color:var(--bg);border-color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 8px;text-align:center;box-shadow:var(--sh)}
+.stat-n{font-family:'DM Serif Display',serif;font-size:24px;line-height:1}
+.stat-l{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);margin-top:3px}
+.done{text-align:center;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.done h2{font-family:'DM Serif Display',serif;font-size:28px}
+.restart{padding:13px 32px;border-radius:var(--rs);background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:none;cursor:pointer}
+.footer{padding:20px 0 8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);text-align:center;width:100%}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="title">W-Fragen Lernkarten</div><div class="subtitle">W-Frage → Bedeutung + Beispiel</div></div>
+  <span class="counter" id="counter">1 / 21</span>
+</div>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="prog-lbl">0%</span><span id="prog-done">0 fertig</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+</div>
+<div class="filters">
+  <div class="filter-row">
+    <button class="fb all active" onclick="setFilter('all',this)">Alle</button>
+    <button class="fb person" onclick="setFilter('person',this)">Person</button>
+    <button class="fb sache" onclick="setFilter('sache',this)">Sache</button>
+    <button class="fb ort" onclick="setFilter('ort',this)">Ort</button>
+    <button class="fb zeit" onclick="setFilter('zeit',this)">Zeit</button>
+    <button class="fb grund" onclick="setFilter('grund',this)">Grund</button>
+    <button class="fb art" onclick="setFilter('art',this)">Art/Wie</button>
+  </div>
+</div>
+<div class="card-area" id="card-area">
+  <div class="card-wrap" onclick="flipCard()">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="f-label">W-Frage</div>
+        <div class="f-word" id="f-word">wer?</div>
+        <div class="f-hint">Was bedeutet das?</div>
+      </div>
+      <div class="face back">
+        <div class="f-label">Bedeutung</div>
+        <div class="back-word" id="b-word">wer?</div>
+        <div class="cat-badge" id="b-cat"></div>
+        <div class="f-mean" id="b-mean">who?</div>
+        <div class="f-ar" id="b-ar">من؟</div>
+        <div class="f-ex" id="b-ex">Wer ist das?</div>
+        <div class="f-ex-a" id="b-exa">→ Das ist mein Freund.</div>
+      </div>
+    </div>
+  </div>
+  <div class="btns" id="btns" style="display:none">
+    <button class="btn wrong" onclick="answer(false)">✗ nochmal</button>
+    <button class="btn correct" onclick="answer(true)">✓ gewusst</button>
+  </div>
+  <div class="btns" id="flipbtn">
+    <button class="btn flip" onclick="flipCard()">umdrehen</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="s-c" style="color:var(--green)">0</div><div class="stat-l">Gewusst</div></div>
+    <div class="stat"><div class="stat-n" id="s-w" style="color:var(--red)">0</div><div class="stat-l">Nochmal</div></div>
+    <div class="stat"><div class="stat-n" id="s-l">21</div><div class="stat-l">Verbleibend</div></div>
+  </div>
+</div>
+<div class="footer">by ❤️ Mostafa Toumi</div>
+<script>
+const CAT_STYLE={
+  person:{bg:'#E6F1FB',color:'#0C447C',label:'Person'},
+  sache:{bg:'#FAECE7',color:'#7C2D12',label:'Sache / Ding'},
+  ort:{bg:'#E1F5EE',color:'#0F6E56',label:'Ort'},
+  zeit:{bg:'#FEF3C7',color:'#92400E',label:'Zeit'},
+  grund:{bg:'#FCE7F3',color:'#831843',label:'Grund'},
+  art:{bg:'#EDE9FE',color:'#5B21B6',label:'Art / Weise'},
+};
+const ALL=[
+  {w:"wer?",    cat:"person", mean:"who?",        ar:"من؟",       ex:"Wer ist das?",         exa:"→ Das ist mein Lehrer."},
+  {w:"wen?",    cat:"person", mean:"whom? (Akk)",  ar:"من؟ (مفعول)",ex:"Wen liebst du?",      exa:"→ Ich liebe meine Familie."},
+  {w:"wem?",    cat:"person", mean:"to whom? (Dat)",ar:"لمن؟",    ex:"Wem hilfst du?",        exa:"→ Meiner Mutter."},
+  {w:"wessen?", cat:"person", mean:"whose?",       ar:"ملك من؟",  ex:"Wessen Buch ist das?",  exa:"→ Das ist Marias Buch."},
+  {w:"was?",    cat:"sache",  mean:"what?",        ar:"ماذا؟ / ما؟",ex:"Was machst du?",     exa:"→ Ich lerne Deutsch."},
+  {w:"welch-?", cat:"sache",  mean:"which?",       ar:"أيّ؟",     ex:"Welchen Bus nimmst du?",exa:"→ Den Bus Nummer 5."},
+  {w:"wo?",     cat:"ort",    mean:"where?",       ar:"أين؟",     ex:"Wo wohnst du?",         exa:"→ Ich wohne in Berlin."},
+  {w:"woher?",  cat:"ort",    mean:"where from?",  ar:"من أين؟",  ex:"Woher kommst du?",      exa:"→ Aus Marokko."},
+  {w:"wohin?",  cat:"ort",    mean:"where to?",    ar:"إلى أين؟", ex:"Wohin gehst du?",       exa:"→ In die Schule."},
+  {w:"wann?",   cat:"zeit",   mean:"when?",        ar:"متى؟",     ex:"Wann kommst du?",       exa:"→ Um 8 Uhr."},
+  {w:"seit wann?",cat:"zeit", mean:"since when?",  ar:"منذ متى؟", ex:"Seit wann lernst du Deutsch?",exa:"→ Seit einem Jahr."},
+  {w:"bis wann?",cat:"zeit",  mean:"until when?",  ar:"حتى متى؟", ex:"Bis wann arbeitest du?",exa:"→ Bis 18 Uhr."},
+  {w:"warum?",  cat:"grund",  mean:"why?",         ar:"لماذا؟",   ex:"Warum lernst du Deutsch?",exa:"→ Weil ich in Deutschland arbeiten will."},
+  {w:"weshalb?",cat:"grund",  mean:"why? (formal)",ar:"لماذا؟ (رسمي)",ex:"Weshalb bist du so spät?",exa:"→ Weil der Bus Verspätung hatte."},
+  {w:"wieso?",  cat:"grund",  mean:"why? (casual)",ar:"لماذا؟ (عامي)",ex:"Wieso weinst du?",  exa:"→ Weil ich traurig bin."},
+  {w:"wie?",    cat:"art",    mean:"how?",         ar:"كيف؟",     ex:"Wie heißt du?",         exa:"→ Ich heiße Ali."},
+  {w:"wie viel?",cat:"art",   mean:"how much?",    ar:"كم؟",      ex:"Wie viel kostet das?",  exa:"→ 10 Euro."},
+  {w:"wie viele?",cat:"art",  mean:"how many?",    ar:"كم عدد؟",  ex:"Wie viele Sprachen sprichst du?",exa:"→ Zwei Sprachen."},
+  {w:"wie lange?",cat:"art",  mean:"how long?",    ar:"كم المدة؟",ex:"Wie lange dauert der Film?",exa:"→ Zwei Stunden."},
+  {w:"wie oft?",cat:"art",    mean:"how often?",   ar:"كم مرة؟",  ex:"Wie oft gehst du ins Gym?",exa:"→ Dreimal pro Woche."},
+  {w:"wie weit?",cat:"art",   mean:"how far?",     ar:"كم المسافة؟",ex:"Wie weit ist Berlin?",exa:"→ 600 km von hier."},
+];
+let deck=[],idx=0,correct=0,wrong=0,flipped=false,filter='all';
+function setFilter(f,btn){filter=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');resetDeck();}
+function resetDeck(){
+  deck=ALL.filter(x=>filter==='all'||x.cat===filter).sort(()=>Math.random()-.5);
+  idx=0;correct=0;wrong=0;flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+  updateStats();showCard();
+}
+function showCard(){
+  if(idx>=deck.length){showDone();return;}
+  const c=deck[idx];const cs=CAT_STYLE[c.cat];
+  document.getElementById('f-word').textContent=c.w;
+  document.getElementById('b-word').textContent=c.w;
+  document.getElementById('b-cat').textContent=cs.label;
+  document.getElementById('b-cat').style.cssText=`background:${cs.bg};color:${cs.color}`;
+  document.getElementById('b-mean').textContent=c.mean;
+  document.getElementById('b-ar').textContent=c.ar;
+  document.getElementById('b-ex').textContent=c.ex;
+  document.getElementById('b-exa').textContent=c.exa;
+  const total=deck.length;
+  document.getElementById('counter').textContent=(idx+1)+' / '+total;
+  document.getElementById('prog-lbl').textContent=Math.round(idx/total*100)+'%';
+  document.getElementById('prog-done').textContent=idx+' fertig';
+  document.getElementById('prog').style.width=(idx/total*100)+'%';
+  flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+}
+function flipCard(){if(flipped)return;flipped=true;document.getElementById('card').classList.add('flipped');setTimeout(()=>{document.getElementById('btns').style.display='';document.getElementById('flipbtn').style.display='none';},250);}
+function answer(ok){if(ok)correct++;else{wrong++;deck.push(deck[idx]);}idx++;updateStats();showCard();}
+function updateStats(){document.getElementById('s-c').textContent=correct;document.getElementById('s-w').textContent=wrong;document.getElementById('s-l').textContent=Math.max(0,deck.length-idx);}
+function showDone(){const pct=Math.round(correct/(correct+wrong)*100)||0;document.getElementById('card-area').innerHTML=`<div class="done"><div style="font-size:48px">${pct>=80?'🎉':pct>=50?'💪':'📚'}</div><h2>Geschafft!</h2><p style="color:var(--muted);font-size:14px">${correct} gewusst · ${wrong} nochmal · ${pct}%</p><button class="restart" onclick="location.reload()">Nochmal ↺</button></div>`;}
+resetDeck();
+</script>
+</body>
+</html>

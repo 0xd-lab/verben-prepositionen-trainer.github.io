@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>W-Fragen — Übersicht & Regeln</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --c:#0F766E;--cl:#CCFBF1;--ct:#134E4A;--cb:#5EEAD4;
+  --wer:#185FA5;--werl:#E6F1FB;--wert:#0C447C;--werb:#B5D4F4;
+  --was:#D85A30;--wasl:#FAECE7;--wast:#7C2D12;--wasb:#FDBA74;
+  --wo:#1D9E75;--wol:#E1F5EE;--wot:#0F6E56;--wob:#9FE1CB;
+  --wie:#7C3AED;--wiel:#EDE9FE;--wiet:#5B21B6;--wieb:#C4B5FD;
+  --wann:#B45309;--wannl:#FEF3C7;--wannt:#92400E;--wannb:#FDE68A;
+  --warum:#BE185D;--waruml:#FCE7F3;--warumt:#831843;--warumb:#F9A8D4;
+  --wessen:#4B5563;--wessl:#F3F4F6;--wesst:#1F2937;--wessb:#D1D5DB;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.10)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:60px}
+
+.hero{width:100%;max-width:720px;padding:clamp(32px,8vw,60px) 24px 0;text-align:center}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ct);background:var(--cl);border:1px solid var(--cb);border-radius:20px;padding:4px 14px;margin-bottom:16px}
+.h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,7vw,48px);letter-spacing:-.5px;line-height:1.1}
+.h1 em{font-style:italic;color:var(--c)}
+.sub{font-size:14px;color:var(--muted);margin:10px auto 0;line-height:1.6;max-width:460px}
+
+/* sticky nav */
+.snav{position:sticky;top:0;z-index:100;width:100%;background:rgba(247,244,239,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.snav-inner{max-width:720px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.snav-inner::-webkit-scrollbar{display:none}
+.snb{flex-shrink:0;padding:12px 16px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.snb:hover{color:var(--text)}
+.snb.active{color:var(--ct);border-bottom-color:var(--c)}
+
+/* section header */
+.sec-hdr{width:100%;max-width:720px;padding:clamp(28px,6vw,44px) 24px 0;display:flex;align-items:center;gap:12px;scroll-margin-top:52px}
+.sec-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,5vw,28px)}
+.sec-line{flex:1;height:1px;background:var(--border)}
+
+/* intro */
+.intro-wrap{width:100%;max-width:720px;padding:clamp(20px,5vw,32px) 24px 0}
+.intro-box{background:var(--cl);border:1px solid var(--cb);border-radius:var(--r);padding:22px 24px}
+.ib-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ct);margin-bottom:12px}
+.ib-body{font-size:14px;color:var(--ct);line-height:1.8}
+.ib-body strong{font-weight:600}
+.ib-body code{font-family:monospace;font-size:13px;background:rgba(15,118,110,.12);padding:1px 6px;border-radius:4px}
+
+/* word order box */
+.order-wrap{width:100%;max-width:720px;padding:12px 24px 0}
+.order-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh)}
+.ob-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:14px}
+.sentence-viz{display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end;margin-bottom:16px}
+.sv-slot{display:flex;flex-direction:column;align-items:center;gap:4px}
+.sv-word{padding:8px 14px;border-radius:var(--rs);font-size:14px;font-weight:600;border:1px solid}
+.sv-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint)}
+.sv-word.w{background:var(--cl);color:var(--ct);border-color:var(--cb)}
+.sv-word.v{background:var(--werl);color:var(--wert);border-color:var(--werb)}
+.sv-word.rest{background:var(--bg);color:var(--text);border-color:var(--bm)}
+.ob-note{font-size:13px;color:var(--muted);line-height:1.6}
+.ob-note strong{color:var(--text);font-weight:600}
+.vs-sep{font-size:20px;color:var(--border);align-self:center;flex-shrink:0}
+
+/* Big W-Fragen cards grid */
+.wgrid{width:100%;max-width:720px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+
+.wcard{border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.wcard-hdr{padding:16px 20px 12px;display:flex;align-items:center;gap:14px}
+.wword{font-family:'DM Serif Display',serif;font-size:clamp(28px,7vw,38px);line-height:1}
+.winfo{display:flex;flex-direction:column;gap:3px}
+.wmean{font-size:14px;font-weight:600;color:var(--muted)}
+.war{font-size:14px;direction:rtl;color:var(--muted)}
+.wkasus{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 9px;border-radius:20px;opacity:.8;align-self:flex-start;margin-top:2px}
+.wcard-body{background:var(--surface);border:1px solid var(--border);border-top:none;padding:14px 20px}
+.wex-list{display:flex;flex-direction:column;gap:8px}
+.wex-item{font-size:13px}
+.wex-q{font-weight:600;color:var(--text);line-height:1.4}
+.wex-a{color:var(--muted);font-style:italic;margin-top:2px;line-height:1.4}
+.wex-ar{font-size:12px;direction:rtl;color:var(--hint);margin-top:1px}
+.wcard-tip{background:var(--bg);border-top:1px solid var(--border);padding:10px 20px;font-size:12px;color:var(--muted);line-height:1.5}
+.wcard-tip strong{color:var(--text);font-weight:600}
+
+/* full table */
+.tbl-wrap{width:100%;max-width:720px;padding:12px 24px 0}
+.tbl-filter{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.tf{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s}
+.tf.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tbl-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{padding:8px 14px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);border-bottom:1px solid var(--border);background:var(--bg)}
+.tbl td{padding:8px 14px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--bg)}
+.tbl td:first-child{font-family:'DM Serif Display',serif;font-size:18px;font-weight:400;color:var(--text);width:90px}
+.tbl .ar{direction:rtl;text-align:right;font-size:12px}
+.w-chip{display:inline-block;padding:2px 9px;border-radius:20px;font-size:11px;font-weight:600}
+
+/* tips */
+.tips-grid{width:100%;max-width:720px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.tip-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh)}
+.tip-icon{font-size:20px;margin-bottom:8px;display:block}
+.tip-title{font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:8px}
+.tip-body{font-size:13px;color:var(--muted);line-height:1.7}
+.tip-body strong{color:var(--text);font-weight:600}
+.tip-body code{font-family:monospace;font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;border:1px solid var(--border)}
+
+.footer{width:100%;max-width:720px;padding:clamp(36px,8vw,56px) 24px 32px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border-top:1px solid var(--border);margin-top:clamp(36px,8vw,56px)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:16px}
+.footer-credit{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);margin-top:2px}
+@media(max-width:500px){.tbl td:nth-child(4),.tbl th:nth-child(4){display:none}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">Grammatik Übersicht</div>
+  <h1 class="h1"><em>W-Fragen</em></h1>
+  <p class="sub">Alle deutschen Fragewörter — wer, was, wo, wie, wann, warum, woher, wohin und mehr — mit arabischen Bedeutungen, Beispielen und Regeln.</p>
+</div>
+
+<nav class="snav">
+  <div class="snav-inner">
+    <a class="snb active" href="#intro">Einführung</a>
+    <a class="snb" href="#wortstellung">Wortstellung</a>
+    <a class="snb" href="#wer">wer</a>
+    <a class="snb" href="#was">was</a>
+    <a class="snb" href="#wo">wo</a>
+    <a class="snb" href="#wie">wie</a>
+    <a class="snb" href="#wann">wann</a>
+    <a class="snb" href="#warum">warum</a>
+    <a class="snb" href="#woher">woher</a>
+    <a class="snb" href="#wohin">wohin</a>
+    <a class="snb" href="#wem">wem</a>
+    <a class="snb" href="#wen">wen</a>
+    <a class="snb" href="#wessen">wessen</a>
+    <a class="snb" href="#welch">welch-</a>
+    <a class="snb" href="#tipps">Tipps</a>
+    <a class="snb" href="#alle">Alle</a>
+  </div>
+</nav>
+
+<!-- INTRO -->
+<div class="sec-hdr" id="intro">
+  <div class="sec-dot" style="background:var(--c)"></div>
+  <div class="sec-title">Was sind W-Fragen?</div>
+  <div class="sec-line"></div>
+</div>
+<div class="intro-wrap">
+  <div class="intro-box">
+    <div class="ib-title">Die Grundidee — أسئلة الاستفهام</div>
+    <div class="ib-body">
+      W-Fragen beginnen alle mit dem Buchstaben <strong>W</strong> und fragen nach einer bestimmten Information. Sie entsprechen den arabischen أسئلة الاستفهام (مَن، ما، أين، كيف، متى، لماذا...).<br><br>
+      Im Deutschen gibt es <strong>zwei Arten von Fragen</strong>:<br>
+      ① <strong>Ja/Nein-Fragen</strong> → <em>Bist du müde?</em> → Ja / Nein<br>
+      ② <strong>W-Fragen</strong> → <em>Wie heißt du?</em> → <em>Ich heiße Ali.</em><br><br>
+      Bei W-Fragen steht das <strong>Fragewort immer an erster Stelle</strong>, gefolgt vom Verb.
+    </div>
+  </div>
+</div>
+
+<!-- WORTSTELLUNG -->
+<div class="sec-hdr" id="wortstellung">
+  <div class="sec-dot" style="background:var(--text)"></div>
+  <div class="sec-title">Wortstellung in W-Fragen</div>
+  <div class="sec-line"></div>
+</div>
+<div class="order-wrap">
+  <div class="order-box">
+    <div class="ob-title">Die Regel — الترتيب في الجملة</div>
+    <div class="sentence-viz">
+      <div class="sv-slot">
+        <div class="sv-word w">W-Frage</div>
+        <div class="sv-label">Position 1</div>
+      </div>
+      <div class="vs-sep">+</div>
+      <div class="sv-slot">
+        <div class="sv-word v">Verb</div>
+        <div class="sv-label">Position 2</div>
+      </div>
+      <div class="vs-sep">+</div>
+      <div class="sv-slot">
+        <div class="sv-word rest">Subjekt + Rest</div>
+        <div class="sv-label">Position 3+</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px">
+      <div style="font-size:14px"><span style="font-family:'DM Serif Display',serif;color:var(--ct);font-size:16px">Wo</span> <span style="color:var(--wert);font-weight:600">wohnst</span> <span style="color:var(--muted)">du?</span> <span style="float:right;font-size:12px;color:var(--hint);direction:rtl">أين تسكن؟</span></div>
+      <div style="font-size:14px"><span style="font-family:'DM Serif Display',serif;color:var(--ct);font-size:16px">Was</span> <span style="color:var(--wert);font-weight:600">machst</span> <span style="color:var(--muted)">du morgen?</span> <span style="float:right;font-size:12px;color:var(--hint);direction:rtl">ماذا ستفعل غداً؟</span></div>
+      <div style="font-size:14px"><span style="font-family:'DM Serif Display',serif;color:var(--ct);font-size:16px">Wann</span> <span style="color:var(--wert);font-weight:600">kommt</span> <span style="color:var(--muted)">der Zug?</span> <span style="float:right;font-size:12px;color:var(--hint);direction:rtl">متى يأتي القطار؟</span></div>
+      <div style="font-size:14px"><span style="font-family:'DM Serif Display',serif;color:var(--ct);font-size:16px">Warum</span> <span style="color:var(--wert);font-weight:600">lernst</span> <span style="color:var(--muted)">du Deutsch?</span> <span style="float:right;font-size:12px;color:var(--hint);direction:rtl">لماذا تتعلم الألمانية؟</span></div>
+    </div>
+    <div class="ob-note" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">
+      <strong>Merke:</strong> Das Verb steht <strong>immer auf Position 2</strong> — genau wie in normalen Aussagesätzen. Das Fragewort verdrängt das Subjekt auf Position 3.
+    </div>
+  </div>
+</div>
+
+<!-- THE W-CARDS -->
+<!-- WER -->
+<div class="sec-hdr" id="wer">
+  <div class="sec-dot" style="background:var(--wer)"></div>
+  <div class="sec-title">wer — wen — wem — wessen</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--werl);border:1px solid var(--werb);border-bottom:none">
+      <div class="wword" style="color:var(--wert)">wer?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wert)">who? — من؟</div>
+        <div class="war" style="color:var(--wert)">→ يسأل عن الشخص (الفاعل)</div>
+        <span class="wkasus" style="background:rgba(24,95,165,.12);color:var(--wert)">Nominativ</span>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item">
+          <div class="wex-q">Wer ist das?</div>
+          <div class="wex-a">→ Das ist mein Lehrer.</div>
+          <div class="wex-ar">من هذا؟ — هذا معلمي</div>
+        </div>
+        <div class="wex-item">
+          <div class="wex-q">Wer kommt heute?</div>
+          <div class="wex-a">→ Meine Eltern kommen heute.</div>
+          <div class="wex-ar">من سيأتي اليوم؟ — سيأتي والداي</div>
+        </div>
+        <div class="wex-item">
+          <div class="wex-q">Wer hat das gesagt?</div>
+          <div class="wex-a">→ Mein Freund hat das gesagt.</div>
+          <div class="wex-ar">من قال ذلك؟ — قاله صديقي</div>
+        </div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Dekliniert wie Artikel:</strong> wer (Nom) · wen (Akk) · wem (Dat) · wessen (Gen) — genau wie er/ihn/ihm/seiner.</div>
+  </div>
+</div>
+
+<!-- WAS -->
+<div class="sec-hdr" id="was">
+  <div class="sec-dot" style="background:var(--was)"></div>
+  <div class="sec-title">was</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wasl);border:1px solid var(--wasb);border-bottom:none">
+      <div class="wword" style="color:var(--wast)">was?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wast)">what? — ماذا؟ / ما؟</div>
+        <div class="war" style="color:var(--wast)">→ يسأل عن الأشياء والأفعال</div>
+        <span class="wkasus" style="background:rgba(216,90,48,.12);color:var(--wast)">Nom / Akk</span>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item">
+          <div class="wex-q">Was ist das?</div>
+          <div class="wex-a">→ Das ist ein Buch.</div>
+          <div class="wex-ar">ما هذا؟ — هذا كتاب</div>
+        </div>
+        <div class="wex-item">
+          <div class="wex-q">Was machst du?</div>
+          <div class="wex-a">→ Ich lerne Deutsch.</div>
+          <div class="wex-ar">ماذا تفعل؟ — أتعلم الألمانية</div>
+        </div>
+        <div class="wex-item">
+          <div class="wex-q">Was isst du gern?</div>
+          <div class="wex-a">→ Ich esse gern Pizza.</div>
+          <div class="wex-ar">ما الذي تحب أن تأكله؟ — أحب أكل البيتزا</div>
+        </div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Kein Genitiv:</strong> "was" hat keine Genitivform. Stattdessen: <em>wessen</em> (für Personen). Was = immer für Sachen, nie für Personen.</div>
+  </div>
+</div>
+
+<!-- WO -->
+<div class="sec-hdr" id="wo">
+  <div class="sec-dot" style="background:var(--wo)"></div>
+  <div class="sec-title">wo — woher — wohin</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wol);border:1px solid var(--wob);border-bottom:none">
+      <div class="wword" style="color:var(--wot)">wo?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wot)">where? — أين؟</div>
+        <div class="war" style="color:var(--wot)">→ يسأل عن المكان (الوجود)</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wo wohnst du?</div><div class="wex-a">→ Ich wohne in Berlin.</div><div class="wex-ar">أين تسكن؟ — أسكن في برلين</div></div>
+        <div class="wex-item"><div class="wex-q">Wo ist die Schule?</div><div class="wex-a">→ Die Schule ist dort drüben.</div><div class="wex-ar">أين المدرسة؟ — المدرسة هناك</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wol);border:1px solid var(--wob);border-bottom:none">
+      <div class="wword" style="color:var(--wot)">woher?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wot)">where from? — من أين؟</div>
+        <div class="war" style="color:var(--wot)">→ يسأل عن المصدر / الأصل</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Woher kommst du?</div><div class="wex-a">→ Ich komme aus Marokko.</div><div class="wex-ar">من أين أنت؟ — أنا من المغرب</div></div>
+        <div class="wex-item"><div class="wex-q">Woher weißt du das?</div><div class="wex-a">→ Ich habe es gelesen.</div><div class="wex-ar">من أين علمت بذلك؟ — قرأته</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wol);border:1px solid var(--wob);border-bottom:none">
+      <div class="wword" style="color:var(--wot)">wohin?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wot)">where to? — إلى أين؟</div>
+        <div class="war" style="color:var(--wot)">→ يسأل عن الوجهة / الاتجاه</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wohin gehst du?</div><div class="wex-a">→ Ich gehe in die Schule.</div><div class="wex-ar">إلى أين تذهب؟ — أذهب إلى المدرسة</div></div>
+        <div class="wex-item"><div class="wex-q">Wohin fährt der Zug?</div><div class="wex-a">→ Er fährt nach München.</div><div class="wex-ar">إلى أين يذهب القطار؟ — يذهب إلى ميونخ</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Trick:</strong> wo = Lage (Wo <em>ist</em> er?) · wohin = Bewegung (Wo<em>hin geht</em> er?) · woher = Herkunft (Woher <em>kommt</em> er?)</div>
+  </div>
+</div>
+
+<!-- WIE -->
+<div class="sec-hdr" id="wie">
+  <div class="sec-dot" style="background:var(--wie)"></div>
+  <div class="sec-title">wie</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wiel);border:1px solid var(--wieb);border-bottom:none">
+      <div class="wword" style="color:var(--wiet)">wie?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wiet)">how? / what...like? — كيف؟</div>
+        <div class="war" style="color:var(--wiet)">→ يسأل عن الطريقة أو الحال</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wie heißt du?</div><div class="wex-a">→ Ich heiße Ali.</div><div class="wex-ar">ما اسمك؟ — اسمي علي</div></div>
+        <div class="wex-item"><div class="wex-q">Wie geht es dir?</div><div class="wex-a">→ Mir geht es gut.</div><div class="wex-ar">كيف حالك؟ — أنا بخير</div></div>
+        <div class="wex-item"><div class="wex-q">Wie alt bist du?</div><div class="wex-a">→ Ich bin 25 Jahre alt.</div><div class="wex-ar">كم عمرك؟ — عمري 25 سنة</div></div>
+        <div class="wex-item"><div class="wex-q">Wie viel kostet das?</div><div class="wex-a">→ Das kostet 10 Euro.</div><div class="wex-ar">كم يكلف هذا؟ — يكلف 10 يورو</div></div>
+        <div class="wex-item"><div class="wex-q">Wie lange dauert das?</div><div class="wex-a">→ Das dauert zwei Stunden.</div><div class="wex-ar">كم يستغرق؟ — يستغرق ساعتين</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>"wie" als Kombination:</strong> wie viel (كم) · wie lange (كم المدة) · wie oft (كم مرة) · wie weit (كم المسافة) · wie groß (ما الحجم)</div>
+  </div>
+</div>
+
+<!-- WANN -->
+<div class="sec-hdr" id="wann">
+  <div class="sec-dot" style="background:var(--wann)"></div>
+  <div class="sec-title">wann</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wannl);border:1px solid var(--wannb);border-bottom:none">
+      <div class="wword" style="color:var(--wannt)">wann?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wannt)">when? — متى؟</div>
+        <div class="war" style="color:var(--wannt)">→ يسأل عن الوقت</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wann kommst du?</div><div class="wex-a">→ Ich komme um 8 Uhr.</div><div class="wex-ar">متى ستأتي؟ — سآتي الساعة 8</div></div>
+        <div class="wex-item"><div class="wex-q">Wann fährt der Bus ab?</div><div class="wex-a">→ Er fährt um 14:30 Uhr ab.</div><div class="wex-ar">متى ينطلق الحافلة؟ — تنطلق الساعة 14:30</div></div>
+        <div class="wex-item"><div class="wex-q">Wann hast du Geburtstag?</div><div class="wex-a">→ Am 15. März.</div><div class="wex-ar">متى عيد ميلادك؟ — في 15 مارس</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Ähnliche Fragen:</strong> wie lange? (كم المدة؟) · seit wann? (منذ متى؟) · bis wann? (حتى متى؟)</div>
+  </div>
+</div>
+
+<!-- WARUM -->
+<div class="sec-hdr" id="warum">
+  <div class="sec-dot" style="background:var(--warum)"></div>
+  <div class="sec-title">warum — weshalb — wieso</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--waruml);border:1px solid var(--warumb);border-bottom:none">
+      <div class="wword" style="color:var(--warumt)">warum?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--warumt)">why? — لماذا؟</div>
+        <div class="war" style="color:var(--warumt)">→ يسأل عن السبب</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Warum lernst du Deutsch?</div><div class="wex-a">→ Weil ich in Deutschland arbeiten möchte.</div><div class="wex-ar">لماذا تتعلم الألمانية؟ — لأنني أريد العمل في ألمانيا</div></div>
+        <div class="wex-item"><div class="wex-q">Warum bist du müde?</div><div class="wex-a">→ Weil ich nicht geschlafen habe.</div><div class="wex-ar">لماذا أنت متعب؟ — لأنني لم أنم</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Antwort mit "weil":</strong> Warum → weil + Verb am Satzende: <em>Weil ich müde <strong>bin</strong>.</em></div>
+  </div>
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--waruml);border:1px solid var(--warumb);border-bottom:none">
+      <div class="wword" style="color:var(--warumt)">weshalb?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--warumt)">why? — لأي سبب؟</div>
+        <div class="war" style="color:var(--warumt)">→ أرسمى من warum</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Weshalb bist du so spät?</div><div class="wex-a">→ Weil der Bus Verspätung hatte.</div><div class="wex-ar">لماذا تأخرت؟ — لأن الحافلة تأخرت</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip">warum = wieso = weshalb — alle bedeuten "لماذا". warum ist am häufigsten im Alltag.</div>
+  </div>
+</div>
+
+<!-- WOHER -->
+<div class="sec-hdr" id="woher">
+  <div class="sec-dot" style="background:var(--wo)"></div>
+  <div class="sec-title">woher</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wol);border:1px solid var(--wob);border-bottom:none">
+      <div class="wword" style="color:var(--wot)">woher?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wot)">from where? — من أين؟</div>
+        <div class="war" style="color:var(--wot)">→ الأصل والمصدر</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Woher kommst du?</div><div class="wex-a">→ Ich komme aus Marokko.</div><div class="wex-ar">من أين أنت؟ — أنا من المغرب</div></div>
+        <div class="wex-item"><div class="wex-q">Woher kennst du ihn?</div><div class="wex-a">→ Wir haben zusammen studiert.</div><div class="wex-ar">من أين تعرفه؟ — درسنا معاً</div></div>
+        <div class="wex-item"><div class="wex-q">Woher hast du das Geld?</div><div class="wex-a">→ Ich habe gearbeitet.</div><div class="wex-ar">من أين حصلت على المال؟ — عملت</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WOHIN -->
+<div class="sec-hdr" id="wohin">
+  <div class="sec-dot" style="background:var(--wo)"></div>
+  <div class="sec-title">wohin</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wol);border:1px solid var(--wob);border-bottom:none">
+      <div class="wword" style="color:var(--wot)">wohin?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wot)">where to? — إلى أين؟</div>
+        <div class="war" style="color:var(--wot)">→ الوجهة والاتجاه</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wohin gehst du?</div><div class="wex-a">→ Ich gehe in die Schule.</div><div class="wex-ar">إلى أين تذهب؟ — أذهب إلى المدرسة</div></div>
+        <div class="wex-item"><div class="wex-q">Wohin fahrt ihr im Urlaub?</div><div class="wex-a">→ Wir fahren nach Spanien.</div><div class="wex-ar">إلى أين ستذهبون في الإجازة؟ — سنذهب إلى إسبانيا</div></div>
+        <div class="wex-item"><div class="wex-q">Wohin soll ich das stellen?</div><div class="wex-a">→ Stell es auf den Tisch.</div><div class="wex-ar">أين يجب أن أضعه؟ — ضعه على الطاولة</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WEM -->
+<div class="sec-hdr" id="wem">
+  <div class="sec-dot" style="background:var(--wer)"></div>
+  <div class="sec-title">wem (Dativ von wer)</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--werl);border:1px solid var(--werb);border-bottom:none">
+      <div class="wword" style="color:var(--wert)">wem?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wert)">to whom? — لمن؟</div>
+        <div class="war" style="color:var(--wert)">→ يسأل عن الشخص (المفعول غير المباشر)</div>
+        <span class="wkasus" style="background:rgba(124,58,237,.12);color:#5B21B6">Dativ</span>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wem gibst du das Buch?</div><div class="wex-a">→ Ich gebe es meinem Freund.</div><div class="wex-ar">لمن تعطي الكتاب؟ — أعطيه لصديقي</div></div>
+        <div class="wex-item"><div class="wex-q">Wem hilfst du?</div><div class="wex-a">→ Ich helfe meiner Mutter.</div><div class="wex-ar">من تساعد؟ — أساعد أمي</div></div>
+        <div class="wex-item"><div class="wex-q">Mit wem sprichst du?</div><div class="wex-a">→ Ich spreche mit meinem Chef.</div><div class="wex-ar">مع من تتحدث؟ — أتحدث مع مديري</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Wer-Deklination:</strong> wer (Nom) → wen (Akk) → <strong>wem</strong> (Dat) → wessen (Gen)</div>
+  </div>
+</div>
+
+<!-- WEN -->
+<div class="sec-hdr" id="wen">
+  <div class="sec-dot" style="background:var(--was)"></div>
+  <div class="sec-title">wen (Akkusativ von wer)</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wasl);border:1px solid var(--wasb);border-bottom:none">
+      <div class="wword" style="color:var(--wast)">wen?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wast)">whom? — من؟ (مفعول به)</div>
+        <div class="war" style="color:var(--wast)">→ يسأل عن الشخص (المفعول المباشر)</div>
+        <span class="wkasus" style="background:rgba(216,90,48,.12);color:var(--wast)">Akkusativ</span>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wen liebst du?</div><div class="wex-a">→ Ich liebe meine Familie.</div><div class="wex-ar">من تحب؟ — أحب عائلتي</div></div>
+        <div class="wex-item"><div class="wex-q">Wen hast du angerufen?</div><div class="wex-a">→ Ich habe meinen Bruder angerufen.</div><div class="wex-ar">من اتصلت به؟ — اتصلت بأخي</div></div>
+        <div class="wex-item"><div class="wex-q">Für wen kaufst du das?</div><div class="wex-a">→ Für meine Schwester.</div><div class="wex-ar">لمن تشتري هذا؟ — لأختي</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WESSEN -->
+<div class="sec-hdr" id="wessen">
+  <div class="sec-dot" style="background:var(--wessen)"></div>
+  <div class="sec-title">wessen (Genitiv von wer)</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wessl);border:1px solid var(--wessb);border-bottom:none">
+      <div class="wword" style="color:var(--wesst)">wessen?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wesst)">whose? — لمن؟ / ملك من؟</div>
+        <div class="war" style="color:var(--wesst)">→ يسأل عن الملكية</div>
+        <span class="wkasus" style="background:rgba(75,85,99,.1);color:var(--wesst)">Genitiv</span>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Wessen Buch ist das?</div><div class="wex-a">→ Das ist das Buch meines Freundes.</div><div class="wex-ar">كتاب من هذا؟ — هذا كتاب صديقي</div></div>
+        <div class="wex-item"><div class="wex-q">Wessen Auto steht dort?</div><div class="wex-a">→ Das ist das Auto meiner Mutter.</div><div class="wex-ar">سيارة من هذه؟ — هذه سيارة أمي</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Selten im Alltag:</strong> Im gesprochenen Deutsch sagt man oft: <em>"Wem gehört das Buch?"</em> statt "Wessen Buch ist das?"</div>
+  </div>
+</div>
+
+<!-- WELCH- -->
+<div class="sec-hdr" id="welch">
+  <div class="sec-dot" style="background:var(--wie)"></div>
+  <div class="sec-title">welch- (welcher / welche / welches)</div>
+  <div class="sec-line"></div>
+</div>
+<div class="wgrid" style="grid-template-columns:1fr">
+  <div class="wcard">
+    <div class="wcard-hdr" style="background:var(--wiel);border:1px solid var(--wieb);border-bottom:none">
+      <div class="wword" style="color:var(--wiet)">welch-?</div>
+      <div class="winfo">
+        <div class="wmean" style="color:var(--wiet)">which? — أي؟ / أيّ؟</div>
+        <div class="war" style="color:var(--wiet)">→ يسأل عن الاختيار من بين خيارات</div>
+      </div>
+    </div>
+    <div class="wcard-body">
+      <div style="background:var(--bg);border-radius:var(--rs);padding:12px 14px;margin-bottom:12px;font-size:13px">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;font-weight:600">
+          <div style="color:var(--wiet)">welcher<br><span style="font-size:11px;font-weight:400;color:var(--muted)">mask. (der)</span></div>
+          <div style="color:var(--wiet)">welche<br><span style="font-size:11px;font-weight:400;color:var(--muted)">fem. (die)</span></div>
+          <div style="color:var(--wiet)">welches<br><span style="font-size:11px;font-weight:400;color:var(--muted)">neutr. (das)</span></div>
+        </div>
+      </div>
+      <div class="wex-list">
+        <div class="wex-item"><div class="wex-q">Welcher Bus fährt zum Bahnhof?</div><div class="wex-a">→ Der Bus Nummer 5.</div><div class="wex-ar">أي حافلة تذهب إلى المحطة؟ — الحافلة رقم 5</div></div>
+        <div class="wex-item"><div class="wex-q">Welche Sprachen sprichst du?</div><div class="wex-a">→ Ich spreche Arabisch und Deutsch.</div><div class="wex-ar">أي لغات تتحدث؟ — أتحدث العربية والألمانية</div></div>
+        <div class="wex-item"><div class="wex-q">Welches Buch liest du?</div><div class="wex-a">→ Ich lese dieses Buch hier.</div><div class="wex-ar">أي كتاب تقرأ؟ — أقرأ هذا الكتاب</div></div>
+      </div>
+    </div>
+    <div class="wcard-tip"><strong>Dekliniert wie der Artikel:</strong> welcher/welche/welches richtet sich nach dem Genus des Nomens — genau wie der/die/das.</div>
+  </div>
+</div>
+
+<!-- TIPPS -->
+<div class="sec-hdr" id="tipps">
+  <div class="sec-dot" style="background:var(--text)"></div>
+  <div class="sec-title">Lerntipps</div>
+  <div class="sec-line"></div>
+</div>
+<div class="tips-grid">
+  <div class="tip-box">
+    <span class="tip-icon">🧠</span>
+    <div class="tip-title">wer / wessen / wen / wem</div>
+    <div class="tip-body">Das ist die Deklination von "wer" — genau wie ein Artikel:<br><br>
+    <strong>Nom:</strong> <code>wer</code> — Wer ist das?<br>
+    <strong>Gen:</strong> <code>wessen</code> — Wessen Buch?<br>
+    <strong>Dat:</strong> <code>wem</code> — Wem gibst du es?<br>
+    <strong>Akk:</strong> <code>wen</code> — Wen liebst du?</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">📍</span>
+    <div class="tip-title">wo / woher / wohin</div>
+    <div class="tip-body">Drei Ortsfragen — merke den Unterschied:<br><br>
+    <strong>wo</strong> = Lage, Stillstand → <em>Wo bist du?</em><br>
+    <strong>woher</strong> = Herkunft, Ursprung → <em>Woher kommst du?</em><br>
+    <strong>wohin</strong> = Ziel, Bewegung → <em>Wohin gehst du?</em></div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">⚡</span>
+    <div class="tip-title">wie-Kombinationen</div>
+    <div class="tip-body">"wie" kann mit anderen Wörtern kombiniert werden:<br><br>
+    <code>wie viel</code> — كم (Menge)<br>
+    <code>wie viele</code> — كم عدد (zählbar)<br>
+    <code>wie lange</code> — كم مدة (Zeit)<br>
+    <code>wie oft</code> — كم مرة (Häufigkeit)<br>
+    <code>wie weit</code> — كم المسافة</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🔤</span>
+    <div class="tip-title">warum = wieso = weshalb</div>
+    <div class="tip-body">Alle drei bedeuten "لماذا?" und sind austauschbar:<br><br>
+    <strong>warum</strong> — am häufigsten im Alltag<br>
+    <strong>wieso</strong> — umgangssprachlich, direkter<br>
+    <strong>weshalb</strong> — formeller, Schriftsprache<br><br>
+    Antwort immer mit <strong>weil</strong> + Verb am Satzende.</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🎯</span>
+    <div class="tip-title">wer vs. was vs. welch-</div>
+    <div class="tip-body">
+    <strong>wer</strong> → Personen (من — Menschen)<br>
+    <strong>was</strong> → Sachen/Dinge (ما/ماذا — Gegenstände)<br>
+    <strong>welch-</strong> → Auswahl aus mehreren (أيّ — welcher von diesen?)<br><br>
+    <em>Wer kommt?</em> (Person)<br>
+    <em>Was kommt?</em> (Sache)<br>
+    <em>Welcher Zug kommt?</em> (spezifisch)</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">📝</span>
+    <div class="tip-title">Wortstellung</div>
+    <div class="tip-body">W-Frage → Verb → Subjekt → Rest<br><br>
+    <em><strong>Wo</strong> wohnst <strong>du</strong>?</em><br>
+    <em><strong>Was</strong> macht <strong>er</strong> morgen?</em><br>
+    <em><strong>Warum</strong> lernt <strong>sie</strong> Deutsch?</em><br><br>
+    Das Verb bleibt <strong>immer auf Position 2</strong>.</div>
+  </div>
+</div>
+
+<!-- ALLE W-FRAGEN TABELLE -->
+<div class="sec-hdr" id="alle">
+  <div class="sec-dot" style="background:var(--c)"></div>
+  <div class="sec-title">Alle W-Fragen auf einen Blick</div>
+  <div class="sec-line"></div>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-box">
+    <table class="tbl">
+      <thead><tr><th>W-Frage</th><th>Bedeutung</th><th>Fragt nach</th><th class="ar">Arabisch</th></tr></thead>
+      <tbody id="all-tbody">
+        <tr><td>wer?</td><td>who?</td><td><span class="w-chip" style="background:var(--werl);color:var(--wert)">Person (Nom)</span></td><td class="ar">من؟</td></tr>
+        <tr><td>wen?</td><td>whom?</td><td><span class="w-chip" style="background:var(--wasl);color:var(--wast)">Person (Akk)</span></td><td class="ar">من؟ (مفعول)</td></tr>
+        <tr><td>wem?</td><td>to whom?</td><td><span class="w-chip" style="background:var(--datl);color:var(--datt)">Person (Dat)</span></td><td class="ar">لمن؟</td></tr>
+        <tr><td>wessen?</td><td>whose?</td><td><span class="w-chip" style="background:var(--wessl);color:var(--wesst)">Besitz (Gen)</span></td><td class="ar">ملك من؟</td></tr>
+        <tr><td>was?</td><td>what?</td><td><span class="w-chip" style="background:var(--wasl);color:var(--wast)">Sache / Ding</span></td><td class="ar">ما؟ / ماذا؟</td></tr>
+        <tr><td>welch-?</td><td>which?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Auswahl / Typ</span></td><td class="ar">أيّ؟</td></tr>
+        <tr><td>wo?</td><td>where?</td><td><span class="w-chip" style="background:var(--wol);color:var(--wot)">Ort (Lage)</span></td><td class="ar">أين؟</td></tr>
+        <tr><td>woher?</td><td>where from?</td><td><span class="w-chip" style="background:var(--wol);color:var(--wot)">Herkunft</span></td><td class="ar">من أين؟</td></tr>
+        <tr><td>wohin?</td><td>where to?</td><td><span class="w-chip" style="background:var(--wol);color:var(--wot)">Ziel / Richtung</span></td><td class="ar">إلى أين؟</td></tr>
+        <tr><td>wann?</td><td>when?</td><td><span class="w-chip" style="background:var(--wannl);color:var(--wannt)">Zeit / Zeitpunkt</span></td><td class="ar">متى؟</td></tr>
+        <tr><td>wie?</td><td>how?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Art / Weise</span></td><td class="ar">كيف؟</td></tr>
+        <tr><td>wie viel?</td><td>how much?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Menge (unzählbar)</span></td><td class="ar">كم؟</td></tr>
+        <tr><td>wie viele?</td><td>how many?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Anzahl (zählbar)</span></td><td class="ar">كم عدد؟</td></tr>
+        <tr><td>wie lange?</td><td>how long?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Dauer</span></td><td class="ar">كم المدة؟</td></tr>
+        <tr><td>wie oft?</td><td>how often?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Häufigkeit</span></td><td class="ar">كم مرة؟</td></tr>
+        <tr><td>wie weit?</td><td>how far?</td><td><span class="w-chip" style="background:var(--wiel);color:var(--wiet)">Entfernung</span></td><td class="ar">كم المسافة؟</td></tr>
+        <tr><td>warum?</td><td>why?</td><td><span class="w-chip" style="background:var(--waruml);color:var(--warumt)">Grund / Ursache</span></td><td class="ar">لماذا؟</td></tr>
+        <tr><td>weshalb?</td><td>why?</td><td><span class="w-chip" style="background:var(--waruml);color:var(--warumt)">Grund (formell)</span></td><td class="ar">لماذا؟ (رسمي)</td></tr>
+        <tr><td>wieso?</td><td>why?</td><td><span class="w-chip" style="background:var(--waruml);color:var(--warumt)">Grund (umgangsspr.)</span></td><td class="ar">لماذا؟ (عامي)</td></tr>
+        <tr><td>seit wann?</td><td>since when?</td><td><span class="w-chip" style="background:var(--wannl);color:var(--wannt)">Beginn</span></td><td class="ar">منذ متى؟</td></tr>
+        <tr><td>bis wann?</td><td>until when?</td><td><span class="w-chip" style="background:var(--wannl);color:var(--wannt)">Ende</span></td><td class="ar">حتى متى؟</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Spiel Deutsch</div>
+  <div class="footer-credit">by ❤️ Mostafa Toumi</div>
+</div>
+
+<script>
+const IDS=['intro','wortstellung','wer','was','wo','wie','wann','warum','woher','wohin','wem','wen','wessen','welch','tipps','alle'];
+const btns=document.querySelectorAll('.snb');
+function updateNav(){
+  let active=IDS[0];
+  IDS.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=80)active=id;});
+  btns.forEach(b=>{b.classList.toggle('active',b.getAttribute('href')==='#'+active);});
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
+</script>
+</body>
+</html>

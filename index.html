@@ -18,6 +18,7 @@
   --dak:#0891B2;--dakl:#E0F2FE;--dakt:#0C4A6E;--dakb:#7DD3FC;
   --ref:#0891B2;--refl:#E0F2FE;--reft:#0C4A6E;--refb:#7DD3FC;
   --pro:#185FA5;--prol:#E6F1FB;--prot:#0C447C;--prob:#B5D4F4;
+  --wfr:#0F766E;--wfrl:#CCFBF1;--wfrt:#134E4A;--wfrb:#5EEAD4;
   --amber:#B45309;--amberl:#FEF3C7;--amberb:#F59E0B;
   --border:rgba(28,25,23,0.10);--bm:rgba(28,25,23,0.15);
   --r:16px;--rs:12px;--sh:0 2px 16px rgba(28,25,23,0.08);--shc:0 8px 40px rgba(28,25,23,0.10)
@@ -50,6 +51,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .ref-link.c-dak::before{background:var(--dak)}
 .ref-link.c-ref::before{background:var(--ref)}
 .ref-link.c-pro::before{background:var(--pro)}
+.ref-link.c-wfr::before{background:var(--wfr)}
 .ref-left{display:flex;align-items:center;gap:14px}
 .ref-icon{font-size:24px;line-height:1}
 .ref-title{font-family:'DM Serif Display',serif;font-size:17px;line-height:1.2}
@@ -62,6 +64,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .ref-tag.dak{background:var(--dakl);color:var(--dakt);border:1px solid var(--dakb)}
 .ref-tag.ref{background:var(--refl);color:var(--reft);border:1px solid var(--refb)}
 .ref-tag.pro{background:var(--prol);color:var(--prot);border:1px solid var(--prob)}
+.ref-tag.wfr{background:var(--wfrl);color:var(--wfrt);border:1px solid var(--wfrb)}
 
 .cards-grid{width:100%;max-width:640px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
 .game-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shc);padding:22px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:9px;transition:transform .2s,box-shadow .2s;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden}
@@ -78,6 +81,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .gc-dak::before{background:var(--dak)}    .gc-dak .card-cta{color:var(--dakt)}
 .gc-ref::before{background:var(--ref)}    .gc-ref .card-cta{color:var(--reft)}
 .gc-pro::before{background:var(--pro)}    .gc-pro .card-cta{color:var(--prot)}
+.gc-wfr::before{background:var(--wfr)}   .gc-wfr .card-cta{color:var(--wfrt)}
 .card-icon{font-size:26px;line-height:1}
 .card-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 9px;border-radius:20px}
 .b-popular{background:var(--greenl);color:var(--greent);border:1px solid var(--green)}
@@ -90,6 +94,7 @@ body{display:flex;flex-direction:column;align-items:center}
 .b-dak{background:var(--dakl);color:var(--dakt);border:1px solid var(--dakb)}
 .b-ref{background:var(--refl);color:var(--reft);border:1px solid var(--refb)}
 .b-pro{background:var(--prol);color:var(--prot);border:1px solid var(--prob)}
+.b-wfr{background:var(--wfrl);color:var(--wfrt);border:1px solid var(--wfrb)}
 .card-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--text);line-height:1.2}
 .card-desc{font-size:13px;color:var(--muted);line-height:1.5}
 .card-meta{display:flex;align-items:center;gap:7px;margin-top:3px;flex-wrap:wrap}
@@ -455,6 +460,41 @@ body{display:flex;flex-direction:column;align-items:center}
   </a>
 </div>
 
+<!-- ══ 8. W-Fragen ══ -->
+<div class="section-label" id="s8">
+  <span class="sl-text">W-Fragen</span><div class="sl-line"></div>
+</div>
+<div class="ref-card">
+  <a class="ref-link c-wfr" href="https://spiel-deutsch.github.io/W-Fragen/index.html">
+    <div class="ref-left"><div class="ref-icon">📖</div>
+      <div><div class="ref-title">Übersicht &amp; Regeln</div><div class="ref-desc">Alle W-Fragen: wer · was · wo · wie · wann · warum · woher · wohin · wem · wen · wessen · welch- — mit Wortstellung, Beispielen und arabischen Bedeutungen.</div></div>
+    </div><span class="ref-tag wfr">Lesen →</span>
+  </a>
+</div>
+<div class="cards-grid">
+  <a class="game-card gc-wfr" href="https://spiel-deutsch.github.io/W-Fragen/karten.html">
+    <span class="card-badge b-wfr">Lernen</span>
+    <div class="card-icon">🃏</div><div class="card-title">Lernkarten</div>
+    <div class="card-desc">W-Frage → Bedeutung + Beispielsatz. Filter nach Kategorie.</div>
+    <div class="card-meta"><span class="meta-pill">21 Karten</span><span class="meta-pill">6 Kategorien</span></div>
+    <div class="card-cta">Lernen <span class="card-cta-arrow">→</span></div>
+  </a>
+  <a class="game-card gc-wfr" href="https://spiel-deutsch.github.io/W-Fragen/quiz.html">
+    <span class="card-badge b-new">Quiz</span>
+    <div class="card-icon">🎯</div><div class="card-title">Satz-Quiz</div>
+    <div class="card-desc">Welches Fragewort passt? Ergänze den Satz — 40 Fragen.</div>
+    <div class="card-meta"><span class="meta-pill">40 Sätze</span><span class="meta-pill">Streak</span></div>
+    <div class="card-cta">Quiz starten <span class="card-cta-arrow">→</span></div>
+  </a>
+  <a class="game-card gc-wfr" href="https://spiel-deutsch.github.io/W-Fragen/match.html">
+    <span class="card-badge b-new">Neu</span>
+    <div class="card-icon">🧩</div><div class="card-title">Match &amp; Zuordnen</div>
+    <div class="card-desc">Ziehe jedes Fragewort in die richtige Kategorie — Person, Ort, Zeit...</div>
+    <div class="card-meta"><span class="meta-pill">Drag &amp; Drop</span><span class="meta-pill">4 Runden</span></div>
+    <div class="card-cta">Spielen <span class="card-cta-arrow">→</span></div>
+  </a>
+</div>
+
 <div class="footer">
   <div class="footer-brand">Spiel Deutsch</div>
   <div class="footer-sub">Deutsch lernen — kostenlos, offen, spielerisch</div>
@@ -499,6 +539,7 @@ const SECTIONS = [
   { id:'s5', label:'Verben mit Dativ + Akkusativ',    color:'#0891B2' },
   { id:'s6', label:'Reflexive Verben',                color:'#0891B2' },
   { id:'s7', label:'Personalpronomen',                color:'#185FA5' },
+  { id:'s8', label:'W-Fragen',                        color:'#0F766E' },
 ];
 
 // ── Build drawer list ──
