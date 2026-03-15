@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Perfekt — haben oder sein?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --h:#7C3AED;--hl:#EDE9FE;--ht:#5B21B6;--hb:#C4B5FD;
+  --s:#0891B2;--sl:#E0F2FE;--st:#0C4A6E;--sb:#7DD3FC;
+  --green:#1D9E75;--greenl:#E1F5EE;--greent:#0F6E56;
+  --red:#D85A30;--redl:#FAECE7;--redt:#7C2D12;
+  --amber:#B45309;--amberl:#FEF3C7;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.12)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:32px}
+.hdr{width:100%;max-width:560px;padding:20px 20px 0}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,24px)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.prog-wrap{width:100%;max-width:560px;padding:12px 20px 0}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;transition:width .4s,background .3s;background:var(--h)}
+.scores{width:100%;max-width:560px;padding:10px 20px 0;display:flex;gap:10px}
+.sc{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px;text-align:center;box-shadow:var(--sh)}
+.sc-n{font-family:'DM Serif Display',serif;font-size:22px;line-height:1}
+.sc-l{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);margin-top:3px}
+
+/* Question card */
+.qwrap{width:100%;max-width:560px;padding:12px 20px 0}
+.qcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);box-shadow:var(--shc);padding:clamp(18px,5vw,26px) 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;min-height:200px;justify-content:center;position:relative;overflow:hidden}
+.qcard::after{content:'';position:absolute;inset:0;border-radius:var(--r);opacity:0;pointer-events:none}
+.qcard.fok::after{background:var(--greenl);animation:fl .35s ease forwards}
+.qcard.fno::after{background:var(--redl);animation:fl .35s ease forwards}
+@keyframes fl{0%{opacity:.7}100%{opacity:0}}
+.qcard.shake{animation:sk .4s cubic-bezier(.36,.07,.19,.97)}
+@keyframes sk{10%,90%{transform:translateX(-3px)}20%,80%{transform:translateX(4px)}30%,50%,70%{transform:translateX(-5px)}40%,60%{transform:translateX(5px)}}
+
+.q-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--hint)}
+/* The full sentence with a blank for haben/sein */
+.q-sentence{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,26px);color:var(--text);line-height:1.5;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px}
+.q-subj{color:var(--muted)}
+.q-blank{display:inline-block;min-width:80px;border-bottom:3px solid var(--h);text-align:center;font-size:clamp(18px,5vw,26px);padding:0 6px;color:var(--ht);transition:all .2s}
+.q-blank.filled-h{border-radius:6px;padding:2px 10px;background:var(--hl);border-color:var(--h);color:var(--ht)}
+.q-blank.filled-s{border-radius:6px;padding:2px 10px;background:var(--sl);border-color:var(--s);color:var(--st)}
+.q-blank.filled-no{border-radius:6px;padding:2px 10px;background:var(--redl);border-color:var(--red);color:var(--redt)}
+.q-part{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,26px);color:var(--greent);font-weight:400}
+.q-dot{color:var(--hint)}
+/* Arabic + verb info */
+.q-info{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center}
+.q-ar{font-size:13px;color:var(--muted);direction:rtl}
+.q-verb-chip{font-size:12px;font-weight:600;padding:2px 9px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--muted)}
+
+/* Two big buttons */
+.choice-btns{width:100%;max-width:560px;padding:12px 20px 0;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.choice{border-radius:var(--r);border:2px solid;padding:clamp(18px,5vw,24px) 16px;font-family:'DM Serif Display',serif;font-size:clamp(24px,7vw,36px);cursor:pointer;text-align:center;transition:all .15s;box-shadow:var(--sh);-webkit-tap-highlight-color:transparent;display:flex;flex-direction:column;align-items:center;gap:4px}
+.choice:active:not([disabled]){transform:scale(.96)}
+.choice.haben{background:var(--hl);border-color:var(--hb);color:var(--ht)}
+.choice.sein{background:var(--sl);border-color:var(--sb);color:var(--st)}
+.choice.correct-h{background:var(--hl);border-color:var(--h);color:var(--ht);box-shadow:0 0 0 3px var(--h)}
+.choice.correct-s{background:var(--sl);border-color:var(--s);color:var(--st);box-shadow:0 0 0 3px var(--s)}
+.choice.wrong-pick{background:var(--redl);border-color:var(--red);color:var(--redt)}
+.choice.dim{opacity:.35}
+.choice[disabled]{cursor:default}
+.choice-sub{font-size:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;opacity:.7}
+
+/* Rule hint shown after wrong */
+.rule-hint{width:100%;max-width:560px;padding:0 20px;min-height:36px}
+.rh-box{background:var(--bg);border:1px solid var(--border);border-radius:var(--rs);padding:10px 16px;font-size:13px;color:var(--muted);line-height:1.5}
+.rh-box strong{color:var(--text);font-weight:600}
+
+.fbrow{width:100%;max-width:560px;padding:8px 20px 0;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px}
+.fbmsg{font-size:14px;font-weight:500;color:var(--muted);flex:1;line-height:1.5}
+.fbmsg.ok{color:var(--greent)}
+.fbmsg.no{color:var(--redt)}
+.nxt{padding:10px 22px;border-radius:var(--rs);background:var(--text);color:var(--bg);border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;white-space:nowrap}
+
+/* Done */
+.done-scr{width:100%;max-width:560px;padding:40px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.done-scr h2{font-family:'DM Serif Display',serif;font-size:30px}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;margin-top:8px}
+.dg{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:14px 8px;text-align:center;box-shadow:var(--sh)}
+.dg-n{font-family:'DM Serif Display',serif;font-size:26px;line-height:1}
+.dg-l{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--hint);margin-top:4px}
+.restart{padding:13px 32px;border-radius:var(--rs);background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:none;cursor:pointer;margin-top:4px}
+.footer{padding:20px 0 8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);text-align:center;width:100%}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="title">haben oder sein?</div>
+  <div class="subtitle">Perfekt — wähle das richtige Hilfsverb</div>
+</div>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="counter">Frage 1 / 85</span><span id="pct">0%</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+</div>
+<div class="scores">
+  <div class="sc"><div class="sc-n" id="sc-c" style="color:var(--green)">0</div><div class="sc-l">Richtig</div></div>
+  <div class="sc"><div class="sc-n" id="sc-w" style="color:var(--red)">0</div><div class="sc-l">Falsch</div></div>
+  <div class="sc"><div class="sc-n" id="sc-s" style="color:var(--amber)">0</div><div class="sc-l">Streak</div></div>
+</div>
+<div class="qwrap">
+  <div class="qcard" id="qcard">
+    <div class="q-label">Welches Hilfsverb?</div>
+    <div class="q-sentence" id="qsentence"></div>
+    <div class="q-info">
+      <span class="q-verb-chip" id="q-type"></span>
+      <span class="q-ar" id="q-ar"></span>
+    </div>
+  </div>
+</div>
+<div class="choice-btns">
+  <button class="choice haben" id="btn-haben" onclick="pick('haben')" aria-label="haben">
+    haben
+    <span class="choice-sub">habe · hast · hat...</span>
+  </button>
+  <button class="choice sein" id="btn-sein" onclick="pick('sein')" aria-label="sein">
+    sein
+    <span class="choice-sub">bin · bist · ist...</span>
+  </button>
+</div>
+<div class="rule-hint" id="rule-hint"></div>
+<div class="fbrow" id="fbrow"><div class="fbmsg" id="fbmsg"></div></div>
+<div class="footer">by ❤️ Mostafa Toumi</div>
+
+<script>
+
+
+// Sein rules for hints
+const SEIN_HINTS={
+  bewegung:"Bewegungsverb mit Richtung → sein",
+  zustand:"Zustandsänderung → sein",
+  sonder:"Sonderverb (sein/bleiben/passieren) → sein",
+  schwach:"Regelmäßiges Verb mit Ortsveränderung → sein",
+};
+const HABEN_HINT="Kein Bewegungsverb, kein Zustandswechsel → haben";
+
+const ALL=[
+  {v:"lernen",    p2:"gelernt",     h:"haben",t:"schwach",    ar:"يتعلم",       hint:HABEN_HINT},
+  {v:"kaufen",    p2:"gekauft",     h:"haben",t:"schwach",    ar:"يشتري",       hint:HABEN_HINT},
+  {v:"spielen",   p2:"gespielt",    h:"haben",t:"schwach",    ar:"يلعب",        hint:HABEN_HINT},
+  {v:"machen",    p2:"gemacht",     h:"haben",t:"schwach",    ar:"يفعل / يصنع", hint:HABEN_HINT},
+  {v:"sagen",     p2:"gesagt",      h:"haben",t:"schwach",    ar:"يقول",        hint:HABEN_HINT},
+  {v:"fragen",    p2:"gefragt",     h:"haben",t:"schwach",    ar:"يسأل",        hint:HABEN_HINT},
+  {v:"kochen",    p2:"gekocht",     h:"haben",t:"schwach",    ar:"يطبخ",        hint:HABEN_HINT},
+  {v:"hören",     p2:"gehört",     h:"haben",t:"schwach",    ar:"يسمع",        hint:HABEN_HINT},
+  {v:"brauchen",  p2:"gebraucht",   h:"haben",t:"schwach",    ar:"يحتاج",       hint:HABEN_HINT},
+  {v:"warten",    p2:"gewartet",    h:"haben",t:"schwach",    ar:"ينتظر",       hint:HABEN_HINT},
+  {v:"reden",     p2:"geredet",     h:"haben",t:"schwach",    ar:"يتكلم",       hint:HABEN_HINT},
+  {v:"arbeiten",  p2:"gearbeitet",  h:"haben",t:"schwach",    ar:"يعمل",        hint:HABEN_HINT},
+  {v:"lachen",    p2:"gelacht",     h:"haben",t:"schwach",    ar:"يضحك",        hint:HABEN_HINT},
+  {v:"weinen",    p2:"geweint",     h:"haben",t:"schwach",    ar:"يبكي",        hint:HABEN_HINT},
+  {v:"tanzen",    p2:"getanzt",     h:"haben",t:"schwach",    ar:"يرقص",        hint:HABEN_HINT},
+  {v:"leben",     p2:"gelebt",      h:"haben",t:"schwach",    ar:"يعيش",        hint:HABEN_HINT},
+  {v:"lieben",    p2:"geliebt",     h:"haben",t:"schwach",    ar:"يحب",         hint:HABEN_HINT},
+  {v:"heiraten",  p2:"geheiratet",  h:"haben",t:"schwach",    ar:"يتزوج",       hint:HABEN_HINT},
+  {v:"reisen",    p2:"gereist",     h:"sein", t:"schwach",    ar:"يسافر",       hint:SEIN_HINTS.schwach},
+  {v:"passieren", p2:"passiert",    h:"sein", t:"untrennbar", ar:"يحدث",        hint:SEIN_HINTS.sonder},
+  {v:"fahren",    p2:"gefahren",    h:"sein", t:"stark",      ar:"يسافر / يقود",hint:SEIN_HINTS.bewegung},
+  {v:"gehen",     p2:"gegangen",    h:"sein", t:"stark",      ar:"يذهب",        hint:SEIN_HINTS.bewegung},
+  {v:"kommen",    p2:"gekommen",    h:"sein", t:"stark",      ar:"يأتي",        hint:SEIN_HINTS.bewegung},
+  {v:"laufen",    p2:"gelaufen",    h:"sein", t:"stark",      ar:"يجري / يمشي", hint:SEIN_HINTS.bewegung},
+  {v:"fliegen",   p2:"geflogen",    h:"sein", t:"stark",      ar:"يطير",        hint:SEIN_HINTS.bewegung},
+  {v:"schwimmen", p2:"geschwommen", h:"sein", t:"stark",      ar:"يسبح",        hint:SEIN_HINTS.bewegung},
+  {v:"steigen",   p2:"gestiegen",   h:"sein", t:"stark",      ar:"يصعد",        hint:SEIN_HINTS.bewegung},
+  {v:"fallen",    p2:"gefallen",    h:"sein", t:"stark",      ar:"يسقط",        hint:SEIN_HINTS.zustand},
+  {v:"lesen",     p2:"gelesen",     h:"haben",t:"stark",      ar:"يقرأ",        hint:HABEN_HINT},
+  {v:"schreiben", p2:"geschrieben", h:"haben",t:"stark",      ar:"يكتب",        hint:HABEN_HINT},
+  {v:"sprechen",  p2:"gesprochen",  h:"haben",t:"stark",      ar:"يتكلم",       hint:HABEN_HINT},
+  {v:"essen",     p2:"gegessen",    h:"haben",t:"stark",      ar:"يأكل",        hint:HABEN_HINT},
+  {v:"trinken",   p2:"getrunken",   h:"haben",t:"stark",      ar:"يشرب",        hint:HABEN_HINT},
+  {v:"sehen",     p2:"gesehen",     h:"haben",t:"stark",      ar:"يرى",         hint:HABEN_HINT},
+  {v:"geben",     p2:"gegeben",     h:"haben",t:"stark",      ar:"يعطي",        hint:HABEN_HINT},
+  {v:"nehmen",    p2:"genommen",    h:"haben",t:"stark",      ar:"يأخذ",        hint:HABEN_HINT},
+  {v:"schlafen",  p2:"geschlafen",  h:"haben",t:"stark",      ar:"ينام",        hint:HABEN_HINT},
+  {v:"helfen",    p2:"geholfen",    h:"haben",t:"stark",      ar:"يساعد",       hint:HABEN_HINT},
+  {v:"finden",    p2:"gefunden",    h:"haben",t:"stark",      ar:"يجد",         hint:HABEN_HINT},
+  {v:"rufen",     p2:"gerufen",     h:"haben",t:"stark",      ar:"يصرخ / ينادي",hint:HABEN_HINT},
+  {v:"tragen",    p2:"getragen",    h:"haben",t:"stark",      ar:"يحمل / يلبس", hint:HABEN_HINT},
+  {v:"treffen",   p2:"getroffen",   h:"haben",t:"stark",      ar:"يلتقي",       hint:HABEN_HINT},
+  {v:"verlieren", p2:"verloren",    h:"haben",t:"stark",      ar:"يخسر / يضيع", hint:HABEN_HINT},
+  {v:"vergessen", p2:"vergessen",   h:"haben",t:"stark",      ar:"ينسى",        hint:HABEN_HINT},
+  {v:"waschen",   p2:"gewaschen",   h:"haben",t:"stark",      ar:"يغسل",        hint:HABEN_HINT},
+  {v:"werden",    p2:"geworden",    h:"sein", t:"stark",      ar:"يصبح",        hint:SEIN_HINTS.zustand},
+  {v:"sterben",   p2:"gestorben",   h:"sein", t:"stark",      ar:"يموت",        hint:SEIN_HINTS.zustand},
+  {v:"bleiben",   p2:"geblieben",   h:"sein", t:"stark",      ar:"يبقى",        hint:SEIN_HINTS.sonder},
+  {v:"sein",      p2:"gewesen",     h:"sein", t:"stark",      ar:"يكون",        hint:SEIN_HINTS.sonder},
+  {v:"haben",     p2:"gehabt",      h:"haben",t:"stark",      ar:"يملك",        hint:HABEN_HINT},
+  {v:"denken",    p2:"gedacht",     h:"haben",t:"gemischt",   ar:"يفكر",        hint:HABEN_HINT},
+  {v:"bringen",   p2:"gebracht",    h:"haben",t:"gemischt",   ar:"يحضر / يجلب", hint:HABEN_HINT},
+  {v:"kennen",    p2:"gekannt",     h:"haben",t:"gemischt",   ar:"يعرف (شخصاً)",hint:HABEN_HINT},
+  {v:"wissen",    p2:"gewusst",     h:"haben",t:"gemischt",   ar:"يعرف (حقيقة)",hint:HABEN_HINT},
+  {v:"nennen",    p2:"genannt",     h:"haben",t:"gemischt",   ar:"يسمي",        hint:HABEN_HINT},
+  {v:"rennen",    p2:"gerannt",     h:"sein", t:"gemischt",   ar:"يركض",        hint:SEIN_HINTS.bewegung},
+  {v:"senden",    p2:"gesandt",     h:"haben",t:"gemischt",   ar:"يرسل",        hint:HABEN_HINT},
+  {v:"aufmachen", p2:"aufgemacht",  h:"haben",t:"trennbar",   ar:"يفتح",        hint:HABEN_HINT},
+  {v:"anrufen",   p2:"angerufen",   h:"haben",t:"trennbar",   ar:"يتصل هاتفياً",hint:HABEN_HINT},
+  {v:"aufstehen", p2:"aufgestanden",h:"sein", t:"trennbar",   ar:"يقوم / ينهض", hint:SEIN_HINTS.zustand},
+  {v:"einschlafen",p2:"eingeschlafen",h:"sein",t:"trennbar",  ar:"ينام / يغفو", hint:SEIN_HINTS.zustand},
+  {v:"aufwachen", p2:"aufgewacht",  h:"sein", t:"trennbar",   ar:"يستيقظ",      hint:SEIN_HINTS.zustand},
+  {v:"fernsehen", p2:"ferngesehen", h:"haben",t:"trennbar",   ar:"يشاهد التلفاز",hint:HABEN_HINT},
+  {v:"einkaufen", p2:"eingekauft",  h:"haben",t:"trennbar",   ar:"يتسوق",       hint:HABEN_HINT},
+  {v:"ankommen",  p2:"angekommen",  h:"sein", t:"trennbar",   ar:"يصل",         hint:SEIN_HINTS.bewegung},
+  {v:"abfahren",  p2:"abgefahren",  h:"sein", t:"trennbar",   ar:"ينطلق / يغادر",hint:SEIN_HINTS.bewegung},
+  {v:"mitbringen",p2:"mitgebracht", h:"haben",t:"trennbar",   ar:"يحضر معه",    hint:HABEN_HINT},
+  {v:"zumachen",  p2:"zugemacht",   h:"haben",t:"trennbar",   ar:"يغلق",        hint:HABEN_HINT},
+  {v:"ausgehen",  p2:"ausgegangen", h:"sein", t:"trennbar",   ar:"يخرج للترفيه",hint:SEIN_HINTS.bewegung},
+  {v:"anfangen",  p2:"angefangen",  h:"haben",t:"trennbar",   ar:"يبدأ",        hint:HABEN_HINT},
+  {v:"aufräumen", p2:"aufgeräumt",  h:"haben",t:"trennbar",   ar:"يرتب / ينظف", hint:HABEN_HINT},
+  {v:"besuchen",  p2:"besucht",     h:"haben",t:"untrennbar", ar:"يزور",        hint:HABEN_HINT},
+  {v:"verstehen", p2:"verstanden",  h:"haben",t:"untrennbar", ar:"يفهم",        hint:HABEN_HINT},
+  {v:"erklären",  p2:"erklärt",     h:"haben",t:"untrennbar", ar:"يشرح",        hint:HABEN_HINT},
+  {v:"verkaufen", p2:"verkauft",    h:"haben",t:"untrennbar", ar:"يبيع",        hint:HABEN_HINT},
+  {v:"bezahlen",  p2:"bezahlt",     h:"haben",t:"untrennbar", ar:"يدفع",        hint:HABEN_HINT},
+  {v:"bestellen", p2:"bestellt",    h:"haben",t:"untrennbar", ar:"يطلب",        hint:HABEN_HINT},
+  {v:"empfehlen", p2:"empfohlen",   h:"haben",t:"untrennbar", ar:"ينصح / يوصي", hint:HABEN_HINT},
+  {v:"entscheiden",p2:"entschieden",h:"haben",t:"untrennbar", ar:"يقرر",        hint:HABEN_HINT},
+  {v:"erzählen",  p2:"erzählt",     h:"haben",t:"untrennbar", ar:"يحكي / يروي", hint:HABEN_HINT},
+  {v:"gewinnen",  p2:"gewonnen",    h:"haben",t:"untrennbar", ar:"يفوز / يكسب", hint:HABEN_HINT},
+  {v:"verlassen", p2:"verlassen",   h:"haben",t:"untrennbar", ar:"يغادر / يترك",hint:HABEN_HINT},
+  {v:"studieren", p2:"studiert",    h:"haben",t:"untrennbar", ar:"يدرس (جامعة)",hint:HABEN_HINT},
+  {v:"telefonieren",p2:"telefoniert",h:"haben",t:"untrennbar",ar:"يتحدث هاتفياً",hint:HABEN_HINT},
+  {v:"fotografieren",p2:"fotografiert",h:"haben",t:"untrennbar",ar:"يلتقط صوراً",hint:HABEN_HINT},
+];
+
+const SUBJS=["Ich","Du","Er","Sie","Wir","Ihr","Sie (formell)"];
+const CONJ={haben:{Ich:"habe",Du:"hast",Er:"hat",Sie:"hat",Wir:"haben",Ihr:"habt","Sie (formell)":"haben"},
+            sein: {Ich:"bin", Du:"bist",Er:"ist", Sie:"ist", Wir:"sind", Ihr:"seid","Sie (formell)":"sind"}};
+
+function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
+let qs=[],qi=0,correct=0,wrong=0,streak=0,answered=false;
+let curSubj='Ich';
+
+function init(){qs=shuffle(ALL);qi=0;correct=0;wrong=0;streak=0;answered=false;showQ();}
+
+function showQ(){
+  if(qi>=qs.length){showDone();return;}
+  answered=false;
+  const q=qs[qi];
+  curSubj=SUBJS[Math.floor(Math.random()*SUBJS.length)];
+  document.getElementById('counter').textContent='Frage '+(qi+1)+' / '+qs.length;
+  document.getElementById('pct').textContent=Math.round(qi/qs.length*100)+'%';
+  document.getElementById('prog').style.width=(qi/qs.length*100)+'%';
+  document.getElementById('fbmsg').textContent='';
+  document.getElementById('fbmsg').className='fbmsg';
+  document.getElementById('rule-hint').innerHTML='';
+  const oldnxt=document.getElementById('nxt-btn');if(oldnxt)oldnxt.remove();
+  document.getElementById('btn-haben').disabled=false;
+  document.getElementById('btn-sein').disabled=false;
+  document.getElementById('btn-haben').className='choice haben';
+  document.getElementById('btn-sein').className='choice sein';
+
+  // Build sentence: Subj + [BLANK] + Partizip II + .
+  const sent=document.getElementById('qsentence');sent.innerHTML='';
+  const addS=(txt,cls='')=>{const s=document.createElement('span');s.textContent=txt;if(cls)s.className=cls;sent.appendChild(s);};
+  addS(curSubj+' ','q-subj');
+  const blank=document.createElement('span');blank.id='q-blank';blank.className='q-blank';blank.textContent='___';sent.appendChild(blank);
+  addS(' ');addS(q.p2,'q-part');addS('.','q-dot');
+
+  document.getElementById('q-ar').textContent=q.ar;
+  document.getElementById('q-type').textContent=q.t;
+}
+
+function pick(h){
+  if(answered)return;answered=true;
+  const q=qs[qi];
+  const ok=h===q.h;
+  const conj=CONJ[q.h][curSubj];
+  const blank=document.getElementById('q-blank');
+  blank.textContent=conj;
+  blank.className='q-blank '+(ok?(q.h==='haben'?'filled-h':'filled-s'):'filled-no');
+
+  const bh=document.getElementById('btn-haben');
+  const bs=document.getElementById('btn-sein');
+  bh.disabled=true;bs.disabled=true;
+
+  if(ok){
+    correct++;streak++;
+    if(q.h==='haben'){bh.className='choice correct-h';bs.className='choice dim';}
+    else{bs.className='choice correct-s';bh.className='choice dim';}
+    document.getElementById('fbmsg').textContent='✓ Richtig!'+(streak>=3?' 🔥 '+streak+'er Streak!':'');
+    document.getElementById('fbmsg').className='fbmsg ok';
+    const qcard=document.getElementById('qcard');
+    qcard.classList.add('fok');setTimeout(()=>qcard.classList.remove('fok'),350);
+  } else {
+    wrong++;streak=0;
+    if(q.h==='haben'){bh.className='choice correct-h';bs.className='choice wrong-pick';}
+    else{bs.className='choice correct-s';bh.className='choice wrong-pick';}
+    blank.textContent=CONJ[q.h][curSubj];
+    blank.className='q-blank '+(q.h==='haben'?'filled-h':'filled-s');
+    document.getElementById('fbmsg').textContent='✗ Es ist '+q.h+'!';
+    document.getElementById('fbmsg').className='fbmsg no';
+    document.getElementById('rule-hint').innerHTML=`<div class="rh-box"><strong>Regel:</strong> ${q.hint}</div>`;
+    const qcard=document.getElementById('qcard');
+    qcard.classList.add('fno','shake');setTimeout(()=>qcard.classList.remove('fno','shake'),400);
+  }
+  document.getElementById('sc-c').textContent=correct;
+  document.getElementById('sc-w').textContent=wrong;
+  document.getElementById('sc-s').textContent=streak;
+  const nb=document.createElement('button');nb.className='nxt';nb.id='nxt-btn';
+  nb.textContent=qi+1<qs.length?'Weiter →':'Ergebnis →';
+  nb.onclick=()=>{qi++;showQ();};
+  document.getElementById('fbrow').appendChild(nb);
+}
+
+function showDone(){
+  const total=correct+wrong,pct=Math.round(correct/total*100)||0;
+  document.querySelector('.qwrap').style.display='none';
+  document.querySelector('.choice-btns').style.display='none';
+  document.getElementById('fbrow').style.display='none';
+  document.getElementById('rule-hint').style.display='none';
+  const d=document.createElement('div');d.className='done-scr';
+  d.innerHTML=`<div style="font-size:52px">${pct>=90?'🏆':pct>=70?'🎉':pct>=50?'💪':'📚'}</div>
+  <h2>Quiz beendet!</h2>
+  <div style="font-family:'DM Serif Display',serif;font-size:60px;line-height:1">${pct}%</div>
+  <div class="dgrid">
+    <div class="dg"><div class="dg-n" style="color:var(--green)">${correct}</div><div class="dg-l">Richtig</div></div>
+    <div class="dg"><div class="dg-n" style="color:var(--red)">${wrong}</div><div class="dg-l">Falsch</div></div>
+    <div class="dg"><div class="dg-n">${total}</div><div class="dg-l">Gesamt</div></div>
+  </div>
+  <button class="restart" onclick="location.reload()">Nochmal ↺</button>`;
+  document.querySelector('.footer').before(d);
+}
+init();
+</script>
+</body>
+</html>

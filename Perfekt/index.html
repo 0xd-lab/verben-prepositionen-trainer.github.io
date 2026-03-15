@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Das Perfekt — Übersicht & Regeln</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --h:#7C3AED;--hl:#EDE9FE;--ht:#5B21B6;--hb:#C4B5FD;
+  --s:#0891B2;--sl:#E0F2FE;--st:#0C4A6E;--sb:#7DD3FC;
+  --sw:#1D9E75;--swl:#E1F5EE;--swt:#0F6E56;--swb:#9FE1CB;
+  --stark:#D85A30;--starkl:#FAECE7;--starkt:#7C2D12;--starkb:#FDBA74;
+  --mix:#B45309;--mixl:#FEF3C7;--mixt:#92400E;--mixb:#FDE68A;
+  --tr:#BE185D;--trl:#FCE7F3;--trt:#831843;--trb:#F9A8D4;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.10)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:60px}
+
+.hero{width:100%;max-width:740px;padding:clamp(32px,8vw,60px) 24px 0;text-align:center}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ht);background:var(--hl);border:1px solid var(--hb);border-radius:20px;padding:4px 14px;margin-bottom:16px}
+.h1{font-family:'DM Serif Display',serif;font-size:clamp(28px,7vw,50px);letter-spacing:-.5px;line-height:1.1}
+.h1 em{font-style:italic;color:var(--h)}
+.sub{font-size:14px;color:var(--muted);margin:10px auto 0;line-height:1.6;max-width:480px}
+
+/* sticky nav */
+.snav{position:sticky;top:0;z-index:100;width:100%;background:rgba(247,244,239,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.snav-i{max-width:740px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.snav-i::-webkit-scrollbar{display:none}
+.snb{flex-shrink:0;padding:12px 15px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.snb:hover{color:var(--text)}
+.snb.active{color:var(--ht);border-bottom-color:var(--h)}
+
+/* section header */
+.sh{width:100%;max-width:740px;padding:clamp(28px,6vw,44px) 24px 0;display:flex;align-items:center;gap:12px;scroll-margin-top:52px}
+.sh-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sh-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,5vw,28px)}
+.sh-line{flex:1;height:1px;background:var(--border)}
+
+/* intro */
+.box-wrap{width:100%;max-width:740px;padding:clamp(18px,4vw,28px) 24px 0}
+.intro-box{background:var(--hl);border:1px solid var(--hb);border-radius:var(--r);padding:22px 24px}
+.ib-title{font-family:'DM Serif Display',serif;font-size:20px;color:var(--ht);margin-bottom:12px}
+.ib-body{font-size:14px;color:var(--ht);line-height:1.85}
+.ib-body strong{font-weight:600}
+.ib-body code{font-family:monospace;font-size:13px;background:rgba(124,58,237,.12);padding:1px 6px;border-radius:4px}
+.ex-rows{margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.ex-r{display:flex;align-items:baseline;gap:10px;font-size:14px;flex-wrap:wrap}
+.ex-de{font-weight:600;color:var(--text)}
+.ex-de .hl-h{color:var(--h);font-style:italic}
+.ex-de .hl-s{color:var(--s);font-style:italic}
+.ex-ar{font-size:13px;color:var(--muted);direction:rtl}
+
+/* Formel viz */
+.formel-wrap{width:100%;max-width:740px;padding:12px 24px 0}
+.formel-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:20px 22px;box-shadow:var(--sh)}
+.fb-title{font-family:'DM Serif Display',serif;font-size:18px;margin-bottom:16px}
+.formel-viz{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap}
+.fv-slot{display:flex;flex-direction:column;align-items:center;gap:5px}
+.fv-word{padding:9px 16px;border-radius:var(--rs);font-size:15px;font-weight:600;border:1px solid;text-align:center}
+.fv-label{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint)}
+.fv-plus{font-size:20px;color:var(--border);align-self:center;padding-bottom:20px}
+.fv-word.subj{background:var(--bg);border-color:var(--bm);color:var(--text)}
+.fv-word.hilf{background:var(--hl);border-color:var(--hb);color:var(--ht)}
+.fv-word.part{background:var(--swl);border-color:var(--swb);color:var(--swt)}
+.fv-word.satz{background:var(--sl);border-color:var(--sb);color:var(--st);font-size:13px;padding:9px 12px}
+.fb-examples{display:flex;flex-direction:column;gap:8px;margin-top:16px;padding-top:14px;border-top:1px solid var(--border)}
+.fb-ex{font-size:14px;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.fb-ex-de{font-weight:500;color:var(--text)}
+.fb-ex-de .hh{color:var(--ht);font-weight:700}
+.fb-ex-de .hs{color:var(--st);font-weight:700}
+.fb-ex-de .hp{color:var(--swt);font-weight:700}
+.fb-ex-ar{font-size:12px;color:var(--hint);direction:rtl}
+
+/* haben vs sein cards */
+.two-col{width:100%;max-width:740px;padding:12px 24px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.two-col{grid-template-columns:1fr}}
+.hs-card{border-radius:var(--r);padding:18px 20px;border:1px solid}
+.hs-card.haben{background:var(--hl);border-color:var(--hb)}
+.hs-card.sein{background:var(--sl);border-color:var(--sb)}
+.hs-top{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.hs-dot{width:9px;height:9px;border-radius:50%}
+.hs-title{font-family:'DM Serif Display',serif;font-size:20px}
+.haben .hs-title{color:var(--ht)}
+.sein .hs-title{color:var(--st)}
+.hs-rule{font-size:13px;line-height:1.7;margin-bottom:12px}
+.haben .hs-rule{color:var(--ht)}
+.sein .hs-rule{color:var(--st)}
+.hs-rule strong{font-weight:600}
+.hs-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.chip{padding:4px 11px;border-radius:20px;font-size:12px;font-weight:600}
+.chip.h{background:rgba(124,58,237,.12);color:var(--ht)}
+.chip.s{background:rgba(8,145,178,.12);color:var(--st)}
+.hs-ex{font-size:13px;font-style:italic;margin-top:10px;line-height:1.6}
+.haben .hs-ex{color:var(--ht)}
+.sein .hs-ex{color:var(--st)}
+
+/* Partizip II rules */
+.prules-grid{width:100%;max-width:740px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.prule{border-radius:var(--r);padding:18px 20px;border:1px solid}
+.pr-top{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.pr-dot{width:8px;height:8px;border-radius:50%}
+.pr-title{font-family:'DM Serif Display',serif;font-size:16px}
+.pr-formula{font-family:monospace;font-size:16px;font-weight:700;padding:6px 14px;border-radius:var(--rs);display:inline-block;margin:6px 0 10px}
+.pr-body{font-size:13px;line-height:1.7}
+.pr-body strong{font-weight:600}
+.pr-examples{margin-top:8px;display:flex;flex-direction:column;gap:4px;font-size:12px}
+.pr-ex{display:flex;gap:8px}
+.pr-inf{color:var(--muted)}
+.pr-arrow{color:var(--hint)}
+.pr-p2{font-weight:700}
+
+/* Verb table */
+.tbl-wrap{width:100%;max-width:740px;padding:12px 24px 0}
+.tbl-filter{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.tbl-filter::-webkit-scrollbar{display:none}
+.tf{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s;white-space:nowrap}
+.tf.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tbl-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{padding:8px 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);border-bottom:1px solid var(--border);background:var(--bg)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--muted);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:var(--bg)}
+.tbl td:first-child{color:var(--hint);width:28px;text-align:center;font-size:11px}
+.tbl td:nth-child(2){font-weight:600;color:var(--text)}
+.tbl td:nth-child(3){font-weight:600;color:var(--swt)}
+.ar{direction:rtl;text-align:right;font-size:12px}
+.cs{display:inline-block;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
+.csw{background:var(--swl);color:var(--swt)}
+.cst{background:var(--starkl);color:var(--starkt)}
+.cmx{background:var(--mixl);color:var(--mixt)}
+.ctr{background:var(--trl);color:var(--trt)}
+.haben-badge{background:var(--hl);color:var(--ht);padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600}
+.sein-badge{background:var(--sl);color:var(--st);padding:2px 7px;border-radius:20px;font-size:11px;font-weight:600}
+
+/* tips */
+.tips-grid{width:100%;max-width:740px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.tip-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh)}
+.tip-icon{font-size:20px;margin-bottom:8px;display:block}
+.tip-title{font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:8px}
+.tip-body{font-size:13px;color:var(--muted);line-height:1.75}
+.tip-body strong{color:var(--text);font-weight:600}
+.tip-body code{font-family:monospace;font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;border:1px solid var(--border)}
+
+.footer{width:100%;max-width:740px;padding:clamp(36px,8vw,56px) 24px 32px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border-top:1px solid var(--border);margin-top:clamp(36px,8vw,56px)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:16px}
+.footer-credit{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);margin-top:2px}
+@media(max-width:500px){.tbl td:nth-child(5),.tbl th:nth-child(5){display:none}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">Grammatik Übersicht</div>
+  <h1 class="h1">Das <em>Perfekt</em></h1>
+  <p class="sub">Die wichtigste Vergangenheitsform im Deutschen — Bildung, haben vs. sein, Partizip II Regeln und über 80 Verben mit arabischen Bedeutungen.</p>
+</div>
+
+<nav class="snav">
+  <div class="snav-i">
+    <a class="snb active" href="#was">Was ist Perfekt?</a>
+    <a class="snb" href="#formel">Die Formel</a>
+    <a class="snb" href="#haben-sein">haben vs. sein</a>
+    <a class="snb" href="#partizip">Partizip II</a>
+    <a class="snb" href="#schwache">Schwache</a>
+    <a class="snb" href="#starke">Starke</a>
+    <a class="snb" href="#gemischte">Gemischte</a>
+    <a class="snb" href="#trennbare">Trennbare</a>
+    <a class="snb" href="#untrennbare">Untrennbare</a>
+    <a class="snb" href="#alle">Alle Verben</a>
+    <a class="snb" href="#tipps">Tipps</a>
+  </div>
+</nav>
+
+<!-- WAS IST PERFEKT -->
+<div class="sh" id="was">
+  <div class="sh-dot" style="background:var(--h)"></div>
+  <div class="sh-title">Was ist das Perfekt?</div>
+  <div class="sh-line"></div>
+</div>
+<div class="box-wrap">
+  <div class="intro-box">
+    <div class="ib-title">الماضي في الألمانية — الأكثر استخداماً في الحديث</div>
+    <div class="ib-body">
+      Das Perfekt ist die <strong>häufigste Vergangenheitsform</strong> im gesprochenen Deutschen. Du benutzt es, wenn du über etwas sprichst, das <strong>in der Vergangenheit passiert ist</strong>.<br><br>
+      Es entspricht dem العربية <strong>الماضي</strong> — aber mit zwei Teilen: einem Hilfsverb (<em>haben</em> oder <em>sein</em>) + dem <em>Partizip II</em>.<br><br>
+      <strong>Präteritum vs. Perfekt:</strong> Im Alltag benutzen Deutsche fast immer das Perfekt. Das Präteritum wird hauptsächlich beim Schreiben und in der Literatur verwendet — außer bei <code>sein</code>, <code>haben</code> und Modalverben.
+    </div>
+    <div class="ex-rows">
+      <div class="ex-r">
+        <span class="ex-de">Ich <span class="hl-h">habe</span> Deutsch <span class="hl-h">gelernt</span>.</span>
+        <span class="ex-ar">تعلمت الألمانية</span>
+      </div>
+      <div class="ex-r">
+        <span class="ex-de">Er <span class="hl-h">hat</span> das Buch <span class="hl-h">gelesen</span>.</span>
+        <span class="ex-ar">قرأ الكتاب</span>
+      </div>
+      <div class="ex-r">
+        <span class="ex-de">Wir <span class="hl-s">sind</span> nach Berlin <span class="hl-s">gefahren</span>.</span>
+        <span class="ex-ar">ذهبنا إلى برلين</span>
+      </div>
+      <div class="ex-r">
+        <span class="ex-de">Sie <span class="hl-s">ist</span> um 8 Uhr <span class="hl-s">aufgestanden</span>.</span>
+        <span class="ex-ar">استيقظت الساعة 8</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DIE FORMEL -->
+<div class="sh" id="formel">
+  <div class="sh-dot" style="background:var(--text)"></div>
+  <div class="sh-title">Die Formel</div>
+  <div class="sh-line"></div>
+</div>
+<div class="formel-wrap">
+  <div class="formel-box">
+    <div class="fb-title">Subjekt + haben/sein (konj.) + … + Partizip II</div>
+    <div class="formel-viz">
+      <div class="fv-slot">
+        <div class="fv-word subj">Ich</div>
+        <div class="fv-label">Subjekt</div>
+      </div>
+      <div class="fv-plus">+</div>
+      <div class="fv-slot">
+        <div class="fv-word hilf">habe / bin</div>
+        <div class="fv-label">Hilfsverb (Pos. 2)</div>
+      </div>
+      <div class="fv-plus">+</div>
+      <div class="fv-slot">
+        <div class="fv-word satz">... Objekte / Ergänzungen ...</div>
+        <div class="fv-label">Mitte des Satzes</div>
+      </div>
+      <div class="fv-plus">+</div>
+      <div class="fv-slot">
+        <div class="fv-word part">ge…t / ge…en</div>
+        <div class="fv-label">Partizip II (Ende!)</div>
+      </div>
+    </div>
+    <div class="fb-examples">
+      <div class="fb-ex">
+        <span class="fb-ex-de">Ich <span class="hh">habe</span> das Buch <span class="hp">gelesen</span>.</span>
+        <span class="fb-ex-ar">قرأت الكتاب</span>
+      </div>
+      <div class="fb-ex">
+        <span class="fb-ex-de">Er <span class="hh">hat</span> seiner Mutter <span class="hp">geholfen</span>.</span>
+        <span class="fb-ex-ar">ساعد أمه</span>
+      </div>
+      <div class="fb-ex">
+        <span class="fb-ex-de">Wir <span class="hs">sind</span> gestern nach Hause <span class="hp">gegangen</span>.</span>
+        <span class="fb-ex-ar">ذهبنا إلى البيت أمس</span>
+      </div>
+      <div class="fb-ex">
+        <span class="fb-ex-de">Sie <span class="hs">ist</span> um 7 Uhr <span class="hp">aufgewacht</span>.</span>
+        <span class="fb-ex-ar">استيقظت الساعة 7</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- HABEN VS SEIN -->
+<div class="sh" id="haben-sein">
+  <div class="sh-dot" style="background:var(--h)"></div>
+  <div class="sh-title">haben oder sein?</div>
+  <div class="sh-line"></div>
+</div>
+<div class="two-col">
+  <div class="hs-card haben">
+    <div class="hs-top"><div class="hs-dot" style="background:var(--h)"></div><div class="hs-title">haben</div></div>
+    <div class="hs-rule">
+      <strong>Die Mehrheit der Verben</strong> bildet das Perfekt mit <strong>haben</strong>.<br><br>
+      ① Transitive Verben (mit Akkusativobjekt):<br>
+      <em>kaufen, lesen, essen, trinken, sehen...</em><br><br>
+      ② Reflexive Verben:<br>
+      <em>sich waschen, sich freuen, sich erinnern...</em><br><br>
+      ③ Modalverben:<br>
+      <em>müssen, können, wollen, dürfen...</em><br><br>
+      ④ Verben ohne Bewegung / Zustandsänderung:<br>
+      <em>schlafen, arbeiten, lernen, warten...</em>
+    </div>
+    <div class="hs-chips">
+      <span class="chip h">kaufen → hat gekauft</span>
+      <span class="chip h">essen → hat gegessen</span>
+      <span class="chip h">lesen → hat gelesen</span>
+      <span class="chip h">arbeiten → hat gearbeitet</span>
+    </div>
+    <div class="hs-ex">Ich <strong>habe</strong> Kaffee <strong>getrunken</strong>.<br>Er <strong>hat</strong> lange <strong>geschlafen</strong>.</div>
+  </div>
+  <div class="hs-card sein">
+    <div class="hs-top"><div class="hs-dot" style="background:var(--s)"></div><div class="hs-title">sein</div></div>
+    <div class="hs-rule">
+      <strong>Sein</strong> wird verwendet bei:<br><br>
+      ① <strong>Bewegungsverben</strong> mit Richtung:<br>
+      <em>gehen, fahren, fliegen, laufen, reisen, kommen...</em><br><br>
+      ② <strong>Zustandsänderungen</strong>:<br>
+      <em>aufwachen, einschlafen, aufstehen, sterben, werden, wachsen...</em><br><br>
+      ③ <strong>Die drei Sonderverben</strong>:<br>
+      <code>sein → ist gewesen</code><br>
+      <code>bleiben → ist geblieben</code><br>
+      <code>passieren → ist passiert</code>
+    </div>
+    <div class="hs-chips">
+      <span class="chip s">gehen → ist gegangen</span>
+      <span class="chip s">kommen → ist gekommen</span>
+      <span class="chip s">fahren → ist gefahren</span>
+      <span class="chip s">aufwachen → ist aufgewacht</span>
+    </div>
+    <div class="hs-ex">Ich <strong>bin</strong> nach Hause <strong>gegangen</strong>.<br>Er <strong>ist</strong> um 8 Uhr <strong>aufgewacht</strong>.</div>
+  </div>
+</div>
+
+<!-- PARTIZIP II BILDUNG -->
+<div class="sh" id="partizip">
+  <div class="sh-dot" style="background:var(--sw)"></div>
+  <div class="sh-title">Partizip II — Bildung</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prules-grid">
+  <!-- Schwache -->
+  <div class="prule" style="background:var(--swl);border-color:var(--swb)">
+    <div class="pr-top"><div class="pr-dot" style="background:var(--sw)"></div><div class="pr-title" style="color:var(--swt)">Schwache Verben</div></div>
+    <div class="pr-formula" style="background:rgba(29,158,117,.12);color:var(--swt)">ge + Stamm + t</div>
+    <div class="pr-body" style="color:var(--swt)">Regelmäßige Verben — der Stamm ändert sich nicht.<br><strong>Stamm auf -d/-t:</strong> + et statt +t</div>
+    <div class="pr-examples" style="color:var(--swt)">
+      <div class="pr-ex"><span class="pr-inf">lernen</span><span class="pr-arrow">→</span><span class="pr-p2">gelernt</span></div>
+      <div class="pr-ex"><span class="pr-inf">kaufen</span><span class="pr-arrow">→</span><span class="pr-p2">gekauft</span></div>
+      <div class="pr-ex"><span class="pr-inf">spielen</span><span class="pr-arrow">→</span><span class="pr-p2">gespielt</span></div>
+      <div class="pr-ex"><span class="pr-inf">warten</span><span class="pr-arrow">→</span><span class="pr-p2">gewartet</span></div>
+      <div class="pr-ex"><span class="pr-inf">arbeiten</span><span class="pr-arrow">→</span><span class="pr-p2">gearbeitet</span></div>
+    </div>
+  </div>
+  <!-- Starke -->
+  <div class="prule" style="background:var(--starkl);border-color:var(--starkb)">
+    <div class="pr-top"><div class="pr-dot" style="background:var(--stark)"></div><div class="pr-title" style="color:var(--starkt)">Starke Verben</div></div>
+    <div class="pr-formula" style="background:rgba(216,90,48,.12);color:var(--starkt)">ge + Stamm* + en</div>
+    <div class="pr-body" style="color:var(--starkt)">Unregelmäßige Verben — der Stammvokal ändert sich oft. <strong>Muss auswendig gelernt werden!</strong></div>
+    <div class="pr-examples" style="color:var(--starkt)">
+      <div class="pr-ex"><span class="pr-inf">fahren</span><span class="pr-arrow">→</span><span class="pr-p2">gefahren</span></div>
+      <div class="pr-ex"><span class="pr-inf">schreiben</span><span class="pr-arrow">→</span><span class="pr-p2">geschrieben</span></div>
+      <div class="pr-ex"><span class="pr-inf">trinken</span><span class="pr-arrow">→</span><span class="pr-p2">getrunken</span></div>
+      <div class="pr-ex"><span class="pr-inf">lesen</span><span class="pr-arrow">→</span><span class="pr-p2">gelesen</span></div>
+      <div class="pr-ex"><span class="pr-inf">sprechen</span><span class="pr-arrow">→</span><span class="pr-p2">gesprochen</span></div>
+    </div>
+  </div>
+  <!-- Gemischte -->
+  <div class="prule" style="background:var(--mixl);border-color:var(--mixb)">
+    <div class="pr-top"><div class="pr-dot" style="background:var(--mix)"></div><div class="pr-title" style="color:var(--mixt)">Gemischte Verben</div></div>
+    <div class="pr-formula" style="background:rgba(180,83,9,.12);color:var(--mixt)">ge + Stamm* + t</div>
+    <div class="pr-body" style="color:var(--mixt)">Stamm ändert sich wie starke Verben, Endung <strong>-t</strong> wie schwache Verben.</div>
+    <div class="pr-examples" style="color:var(--mixt)">
+      <div class="pr-ex"><span class="pr-inf">denken</span><span class="pr-arrow">→</span><span class="pr-p2">gedacht</span></div>
+      <div class="pr-ex"><span class="pr-inf">bringen</span><span class="pr-arrow">→</span><span class="pr-p2">gebracht</span></div>
+      <div class="pr-ex"><span class="pr-inf">kennen</span><span class="pr-arrow">→</span><span class="pr-p2">gekannt</span></div>
+      <div class="pr-ex"><span class="pr-inf">wissen</span><span class="pr-arrow">→</span><span class="pr-p2">gewusst</span></div>
+      <div class="pr-ex"><span class="pr-inf">nennen</span><span class="pr-arrow">→</span><span class="pr-p2">genannt</span></div>
+    </div>
+  </div>
+  <!-- Trennbare -->
+  <div class="prule" style="background:var(--trl);border-color:var(--trb)">
+    <div class="pr-top"><div class="pr-dot" style="background:var(--tr)"></div><div class="pr-title" style="color:var(--trt)">Trennbare Verben</div></div>
+    <div class="pr-formula" style="background:rgba(190,24,93,.12);color:var(--trt)">Präfix + ge + Stamm + t/en</div>
+    <div class="pr-body" style="color:var(--trt)">Das <strong>ge-</strong> kommt zwischen Präfix und Verbstamm!</div>
+    <div class="pr-examples" style="color:var(--trt)">
+      <div class="pr-ex"><span class="pr-inf">aufmachen</span><span class="pr-arrow">→</span><span class="pr-p2">aufgemacht</span></div>
+      <div class="pr-ex"><span class="pr-inf">anrufen</span><span class="pr-arrow">→</span><span class="pr-p2">angerufen</span></div>
+      <div class="pr-ex"><span class="pr-inf">aufstehen</span><span class="pr-arrow">→</span><span class="pr-p2">aufgestanden</span></div>
+      <div class="pr-ex"><span class="pr-inf">einschlafen</span><span class="pr-arrow">→</span><span class="pr-p2">eingeschlafen</span></div>
+      <div class="pr-ex"><span class="pr-inf">fernsehen</span><span class="pr-arrow">→</span><span class="pr-p2">ferngesehen</span></div>
+    </div>
+  </div>
+  <!-- Untrennbare -->
+  <div class="prule" style="background:var(--hl);border-color:var(--hb)">
+    <div class="pr-top"><div class="pr-dot" style="background:var(--h)"></div><div class="pr-title" style="color:var(--ht)">Untrennbare Verben</div></div>
+    <div class="pr-formula" style="background:rgba(124,58,237,.12);color:var(--ht)">Präfix + Stamm + t/en (kein ge-!)</div>
+    <div class="pr-body" style="color:var(--ht)">Verben mit <strong>be-, er-, ver-, ent-, ge-, zer-, miss-</strong> bekommen <strong>kein ge-</strong>!</div>
+    <div class="pr-examples" style="color:var(--ht)">
+      <div class="pr-ex"><span class="pr-inf">verstehen</span><span class="pr-arrow">→</span><span class="pr-p2">verstanden</span></div>
+      <div class="pr-ex"><span class="pr-inf">besuchen</span><span class="pr-arrow">→</span><span class="pr-p2">besucht</span></div>
+      <div class="pr-ex"><span class="pr-inf">erklären</span><span class="pr-arrow">→</span><span class="pr-p2">erklärt</span></div>
+      <div class="pr-ex"><span class="pr-inf">verkaufen</span><span class="pr-arrow">→</span><span class="pr-p2">verkauft</span></div>
+      <div class="pr-ex"><span class="pr-inf">vergessen</span><span class="pr-arrow">→</span><span class="pr-p2">vergessen</span></div>
+    </div>
+  </div>
+  <!-- -ieren -->
+  <div class="prule" style="background:var(--sl);border-color:var(--sb)">
+    <div class="pr-top"><div class="pr-dot" style="background:var(--s)"></div><div class="pr-title" style="color:var(--st)">Verben auf -ieren</div></div>
+    <div class="pr-formula" style="background:rgba(8,145,178,.12);color:var(--st)">Stamm + iert (kein ge-!)</div>
+    <div class="pr-body" style="color:var(--st)">Alle Verben auf <strong>-ieren</strong> bekommen <strong>kein ge-</strong> — sie enden einfach auf <strong>-iert</strong>.</div>
+    <div class="pr-examples" style="color:var(--st)">
+      <div class="pr-ex"><span class="pr-inf">studieren</span><span class="pr-arrow">→</span><span class="pr-p2">studiert</span></div>
+      <div class="pr-ex"><span class="pr-inf">telefonieren</span><span class="pr-arrow">→</span><span class="pr-p2">telefoniert</span></div>
+      <div class="pr-ex"><span class="pr-inf">fotografieren</span><span class="pr-arrow">→</span><span class="pr-p2">fotografiert</span></div>
+      <div class="pr-ex"><span class="pr-inf">reparieren</span><span class="pr-arrow">→</span><span class="pr-p2">repariert</span></div>
+      <div class="pr-ex"><span class="pr-inf">passieren</span><span class="pr-arrow">→</span><span class="pr-p2">passiert</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- VERB TABLES by type -->
+<div class="sh" id="schwache">
+  <div class="sh-dot" style="background:var(--sw)"></div>
+  <div class="sh-title">Schwache Verben</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-box">
+    <table class="tbl" id="schwache-tbl">
+      <thead><tr><th>#</th><th>Infinitiv</th><th>Partizip II</th><th>Hilfsverb</th><th class="ar">Arabisch</th></tr></thead>
+      <tbody id="schwache-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sh" id="starke">
+  <div class="sh-dot" style="background:var(--stark)"></div>
+  <div class="sh-title">Starke Verben</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-box">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Infinitiv</th><th>Partizip II</th><th>Hilfsverb</th><th class="ar">Arabisch</th></tr></thead>
+      <tbody id="starke-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sh" id="gemischte">
+  <div class="sh-dot" style="background:var(--mix)"></div>
+  <div class="sh-title">Gemischte Verben</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-box">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Infinitiv</th><th>Partizip II</th><th>Hilfsverb</th><th class="ar">Arabisch</th></tr></thead>
+      <tbody id="gemischte-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sh" id="trennbare">
+  <div class="sh-dot" style="background:var(--tr)"></div>
+  <div class="sh-title">Trennbare &amp; untrennbare Verben</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tbl-wrap">
+  <div class="tbl-box">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Infinitiv</th><th>Partizip II</th><th>Hilfsverb</th><th class="ar">Arabisch</th></tr></thead>
+      <tbody id="trennbare-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="sh" id="untrennbare">
+  <div class="sh-dot" style="background:var(--h)"></div>
+  <div class="sh-title">Alle Verben — filtern</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tbl-wrap" id="alle">
+  <div class="tbl-filter">
+    <button class="tf active" onclick="filterAll('all',this)">Alle</button>
+    <button class="tf" onclick="filterAll('schwach',this)">Schwach</button>
+    <button class="tf" onclick="filterAll('stark',this)">Stark</button>
+    <button class="tf" onclick="filterAll('gemischt',this)">Gemischt</button>
+    <button class="tf" onclick="filterAll('trennbar',this)">Trennbar</button>
+    <button class="tf" onclick="filterAll('untrennbar',this)">Untrennbar</button>
+    <button class="tf" onclick="filterAll('haben',this)">+ haben</button>
+    <button class="tf" onclick="filterAll('sein',this)">+ sein</button>
+  </div>
+  <div class="tbl-box">
+    <table class="tbl">
+      <thead><tr><th>#</th><th>Infinitiv</th><th>Partizip II</th><th>Hilfsverb</th><th class="ar">Arabisch</th></tr></thead>
+      <tbody id="all-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- TIPPS -->
+<div class="sh" id="tipps">
+  <div class="sh-dot" style="background:var(--text)"></div>
+  <div class="sh-title">Lerntipps</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tips-grid">
+  <div class="tip-box">
+    <span class="tip-icon">🚀</span>
+    <div class="tip-title">sein = Bewegung oder Änderung</div>
+    <div class="tip-body">Einfache Regel für sein: Stell dir vor, die Person <strong>bewegt sich von A nach B</strong> oder ihr Zustand ändert sich:<br><br><strong>gehen, fahren, fliegen, kommen, reisen</strong> → sein<br><strong>aufwachen, einschlafen, aufstehen, sterben</strong> → sein</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🧠</span>
+    <div class="tip-title">ge- kommt in die Mitte</div>
+    <div class="tip-body">Bei trennbaren Verben kommt <strong>ge-</strong> zwischen Präfix und Stamm:<br><br><code>auf-ge-standen</code><br><code>an-ge-rufen</code><br><code>ein-ge-schlafen</code><br><br>Bei untrennbaren (be-, ver-, er-...) → <strong>kein ge-!</strong><br><code>ver-standen</code>, <code>be-sucht</code></div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">📍</span>
+    <div class="tip-title">Partizip II steht am Satzende</div>
+    <div class="tip-body">Das Partizip II steht <strong>immer am Ende des Satzes</strong>:<br><br><em>Ich habe gestern Abend mit meiner Familie <strong>gegessen</strong>.</em><br><br>Das Hilfsverb (haben/sein) steht auf <strong>Position 2</strong> — genau wie ein normales Verb.</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🎯</span>
+    <div class="tip-title">-ieren → kein ge-</div>
+    <div class="tip-body">Alle Fremdwörter auf <strong>-ieren</strong> bekommen <strong>kein ge-</strong>:<br><br><code>studieren → studiert</code><br><code>telefonieren → telefoniert</code><br><code>reparieren → repariert</code><br><br>Sie werden behandelt wie untrennbare Verben.</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">⚡</span>
+    <div class="tip-title">Immer mit Beispielsatz lernen</div>
+    <div class="tip-body">Lerne nie nur das Partizip allein — lerne immer einen ganzen Satz:<br><br><em>Ich <strong>habe</strong> Kaffee <strong>getrunken</strong>.</em><br><em>Er <strong>ist</strong> nach Hause <strong>gegangen</strong>.</em><br><br>So prägt sich das Muster (haben vs. sein) automatisch ein.</div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🔑</span>
+    <div class="tip-title">Die 3 Sonderverben mit sein</div>
+    <div class="tip-body">Diese drei Verben bilden das Perfekt mit <strong>sein</strong>, obwohl sie keine Bewegung ausdrücken — auswendig lernen!<br><br><code>sein → ist gewesen</code><br><code>bleiben → ist geblieben</code><br><code>passieren → ist passiert</code><br><br><em>Wo <strong>bist</strong> du gewesen? — Ich <strong>bin</strong> zu Hause <strong>geblieben</strong>.</em></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Spiel Deutsch</div>
+  <div class="footer-credit">by ❤️ Mostafa Toumi</div>
+</div>
+
+<script>
+const VERBS = [
+  // SCHWACHE
+  {v:"lernen",   p2:"gelernt",   h:"haben", t:"schwach",    ar:"يتعلم"},
+  {v:"kaufen",   p2:"gekauft",   h:"haben", t:"schwach",    ar:"يشتري"},
+  {v:"spielen",  p2:"gespielt",  h:"haben", t:"schwach",    ar:"يلعب"},
+  {v:"machen",   p2:"gemacht",   h:"haben", t:"schwach",    ar:"يفعل / يصنع"},
+  {v:"sagen",    p2:"gesagt",    h:"haben", t:"schwach",    ar:"يقول"},
+  {v:"fragen",   p2:"gefragt",   h:"haben", t:"schwach",    ar:"يسأل"},
+  {v:"kochen",   p2:"gekocht",   h:"haben", t:"schwach",    ar:"يطبخ"},
+  {v:"hören",    p2:"gehört",    h:"haben", t:"schwach",    ar:"يسمع"},
+  {v:"suchen",   p2:"gesucht",   h:"haben", t:"schwach",    ar:"يبحث"},
+  {v:"zeigen",   p2:"gezeigt",   h:"haben", t:"schwach",    ar:"يُريـ / يُظهر"},
+  {v:"glauben",  p2:"geglaubt",  h:"haben", t:"schwach",    ar:"يصدق / يؤمن"},
+  {v:"brauchen", p2:"gebraucht", h:"haben", t:"schwach",    ar:"يحتاج"},
+  {v:"warten",   p2:"gewartet",  h:"haben", t:"schwach",    ar:"ينتظر"},
+  {v:"reden",    p2:"geredet",   h:"haben", t:"schwach",    ar:"يتكلم / يتحدث"},
+  {v:"arbeiten", p2:"gearbeitet",h:"haben", t:"schwach",    ar:"يعمل"},
+  {v:"lachen",   p2:"gelacht",   h:"haben", t:"schwach",    ar:"يضحك"},
+  {v:"weinen",   p2:"geweint",   h:"haben", t:"schwach",    ar:"يبكي"},
+  {v:"tanzen",   p2:"getanzt",   h:"haben", t:"schwach",    ar:"يرقص"},
+  {v:"leben",    p2:"gelebt",    h:"haben", t:"schwach",    ar:"يعيش"},
+  {v:"lieben",   p2:"geliebt",   h:"haben", t:"schwach",    ar:"يحب"},
+  {v:"heiraten", p2:"geheiratet",h:"haben", t:"schwach",    ar:"يتزوج"},
+  {v:"reisen",   p2:"gereist",   h:"sein",  t:"schwach",    ar:"يسافر"},
+  {v:"passieren",p2:"passiert",  h:"sein",  t:"schwach",    ar:"يحدث"},
+  // STARKE
+  {v:"fahren",   p2:"gefahren",  h:"sein",  t:"stark",      ar:"يسافر / يقود"},
+  {v:"gehen",    p2:"gegangen",  h:"sein",  t:"stark",      ar:"يذهب"},
+  {v:"kommen",   p2:"gekommen",  h:"sein",  t:"stark",      ar:"يأتي"},
+  {v:"laufen",   p2:"gelaufen",  h:"sein",  t:"stark",      ar:"يجري / يمشي"},
+  {v:"fliegen",  p2:"geflogen",  h:"sein",  t:"stark",      ar:"يطير"},
+  {v:"schwimmen",p2:"geschwommen",h:"sein", t:"stark",      ar:"يسبح"},
+  {v:"steigen",  p2:"gestiegen", h:"sein",  t:"stark",      ar:"يصعد / يرتفع"},
+  {v:"fallen",   p2:"gefallen",  h:"sein",  t:"stark",      ar:"يسقط"},
+  {v:"lesen",    p2:"gelesen",   h:"haben", t:"stark",      ar:"يقرأ"},
+  {v:"schreiben",p2:"geschrieben",h:"haben",t:"stark",      ar:"يكتب"},
+  {v:"sprechen", p2:"gesprochen",h:"haben", t:"stark",      ar:"يتكلم"},
+  {v:"essen",    p2:"gegessen",  h:"haben", t:"stark",      ar:"يأكل"},
+  {v:"trinken",  p2:"getrunken", h:"haben", t:"stark",      ar:"يشرب"},
+  {v:"sehen",    p2:"gesehen",   h:"haben", t:"stark",      ar:"يرى"},
+  {v:"geben",    p2:"gegeben",   h:"haben", t:"stark",      ar:"يعطي"},
+  {v:"nehmen",   p2:"genommen",  h:"haben", t:"stark",      ar:"يأخذ"},
+  {v:"schlafen", p2:"geschlafen",h:"haben", t:"stark",      ar:"ينام"},
+  {v:"helfen",   p2:"geholfen",  h:"haben", t:"stark",      ar:"يساعد"},
+  {v:"finden",   p2:"gefunden",  h:"haben", t:"stark",      ar:"يجد"},
+  {v:"rufen",    p2:"gerufen",   h:"haben", t:"stark",      ar:"يصرخ / ينادي"},
+  {v:"tragen",   p2:"getragen",  h:"haben", t:"stark",      ar:"يحمل / يلبس"},
+  {v:"treffen",  p2:"getroffen", h:"haben", t:"stark",      ar:"يلتقي"},
+  {v:"verlieren",p2:"verloren",  h:"haben", t:"stark",      ar:"يخسر / يضيع"},
+  {v:"vergessen",p2:"vergessen", h:"haben", t:"stark",      ar:"ينسى"},
+  {v:"waschen",  p2:"gewaschen", h:"haben", t:"stark",      ar:"يغسل"},
+  {v:"werden",   p2:"geworden",  h:"sein",  t:"stark",      ar:"يصبح"},
+  {v:"sterben",  p2:"gestorben", h:"sein",  t:"stark",      ar:"يموت"},
+  {v:"bleiben",  p2:"geblieben", h:"sein",  t:"stark",      ar:"يبقى"},
+  {v:"sein",     p2:"gewesen",   h:"sein",  t:"stark",      ar:"يكون"},
+  {v:"haben",    p2:"gehabt",    h:"haben", t:"stark",      ar:"يملك / عنده"},
+  // GEMISCHTE
+  {v:"denken",   p2:"gedacht",   h:"haben", t:"gemischt",   ar:"يفكر"},
+  {v:"bringen",  p2:"gebracht",  h:"haben", t:"gemischt",   ar:"يحضر / يجلب"},
+  {v:"kennen",   p2:"gekannt",   h:"haben", t:"gemischt",   ar:"يعرف (شخصاً)"},
+  {v:"wissen",   p2:"gewusst",   h:"haben", t:"gemischt",   ar:"يعرف (حقيقة)"},
+  {v:"nennen",   p2:"genannt",   h:"haben", t:"gemischt",   ar:"يسمي"},
+  {v:"rennen",   p2:"gerannt",   h:"sein",  t:"gemischt",   ar:"يركض"},
+  {v:"senden",   p2:"gesandt",   h:"haben", t:"gemischt",   ar:"يرسل"},
+  // TRENNBARE
+  {v:"aufmachen",  p2:"aufgemacht",   h:"haben", t:"trennbar",   ar:"يفتح"},
+  {v:"anrufen",    p2:"angerufen",    h:"haben", t:"trennbar",   ar:"يتصل هاتفياً"},
+  {v:"aufstehen",  p2:"aufgestanden", h:"sein",  t:"trennbar",   ar:"يقوم / ينهض"},
+  {v:"einschlafen",p2:"eingeschlafen",h:"sein",  t:"trennbar",   ar:"ينام / يغفو"},
+  {v:"aufwachen",  p2:"aufgewacht",   h:"sein",  t:"trennbar",   ar:"يستيقظ"},
+  {v:"fernsehen",  p2:"ferngesehen",  h:"haben", t:"trennbar",   ar:"يشاهد التلفاز"},
+  {v:"einkaufen",  p2:"eingekauft",   h:"haben", t:"trennbar",   ar:"يتسوق"},
+  {v:"ankommen",   p2:"angekommen",   h:"sein",  t:"trennbar",   ar:"يصل"},
+  {v:"abfahren",   p2:"abgefahren",   h:"sein",  t:"trennbar",   ar:"ينطلق / يغادر"},
+  {v:"mitbringen", p2:"mitgebracht",  h:"haben", t:"trennbar",   ar:"يحضر معه"},
+  {v:"zumachen",   p2:"zugemacht",    h:"haben", t:"trennbar",   ar:"يغلق"},
+  {v:"ausgehen",   p2:"ausgegangen",  h:"sein",  t:"trennbar",   ar:"يخرج (للترفيه)"},
+  {v:"anfangen",   p2:"angefangen",   h:"haben", t:"trennbar",   ar:"يبدأ"},
+  {v:"aufräumen",  p2:"aufgeräumt",   h:"haben", t:"trennbar",   ar:"يرتب / ينظف"},
+  // UNTRENNBARE
+  {v:"besuchen",   p2:"besucht",      h:"haben", t:"untrennbar", ar:"يزور"},
+  {v:"verstehen",  p2:"verstanden",   h:"haben", t:"untrennbar", ar:"يفهم"},
+  {v:"erklären",   p2:"erklärt",      h:"haben", t:"untrennbar", ar:"يشرح"},
+  {v:"verkaufen",  p2:"verkauft",     h:"haben", t:"untrennbar", ar:"يبيع"},
+  {v:"bezahlen",   p2:"bezahlt",      h:"haben", t:"untrennbar", ar:"يدفع"},
+  {v:"bestellen",  p2:"bestellt",     h:"haben", t:"untrennbar", ar:"يطلب (طعاماً...)"},
+  {v:"empfehlen",  p2:"empfohlen",    h:"haben", t:"untrennbar", ar:"ينصح / يوصي"},
+  {v:"entscheiden",p2:"entschieden",  h:"haben", t:"untrennbar", ar:"يقرر"},
+  {v:"erzählen",   p2:"erzählt",      h:"haben", t:"untrennbar", ar:"يحكي / يروي"},
+  {v:"gewinnen",   p2:"gewonnen",     h:"haben", t:"untrennbar", ar:"يفوز / يكسب"},
+  {v:"verlassen",  p2:"verlassen",    h:"haben", t:"untrennbar", ar:"يغادر / يترك"},
+  {v:"studieren",  p2:"studiert",     h:"haben", t:"untrennbar", ar:"يدرس (جامعة)"},
+  {v:"telefonieren",p2:"telefoniert", h:"haben", t:"untrennbar", ar:"يتحدث هاتفياً"},
+  {v:"fotografieren",p2:"fotografiert",h:"haben",t:"untrennbar", ar:"يلتقط صوراً"},
+];
+
+const H_BADGE = `<span class="haben-badge">haben</span>`;
+const S_BADGE = `<span class="sein-badge">sein</span>`;
+const TYPE_CS  = {schwach:'csw',stark:'cst',gemischt:'cmx',trennbar:'ctr',untrennbar:'cs-un'};
+
+// inject .cs-un style
+const style=document.createElement('style');
+style.textContent='.cs-un{background:var(--hl);color:var(--ht)}';
+document.head.appendChild(style);
+
+function buildRows(list) {
+  let html='',i=1;
+  list.forEach(v=>{
+    const tc=TYPE_CS[v.t]||'csw';
+    html+=`<tr><td>${i++}</td><td>${v.v}</td><td>${v.p2}</td><td>${v.h==='haben'?H_BADGE:S_BADGE}</td><td class="ar">${v.ar}</td></tr>`;
+  });
+  return html;
+}
+
+document.getElementById('schwache-body').innerHTML  = buildRows(VERBS.filter(v=>v.t==='schwach'));
+document.getElementById('starke-body').innerHTML    = buildRows(VERBS.filter(v=>v.t==='stark'));
+document.getElementById('gemischte-body').innerHTML = buildRows(VERBS.filter(v=>v.t==='gemischt'));
+document.getElementById('trennbare-body').innerHTML = buildRows(VERBS.filter(v=>v.t==='trennbar'||v.t==='untrennbar'));
+
+function filterAll(f, btn) {
+  document.querySelectorAll('.tf').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  let list = VERBS;
+  if(f==='haben') list=VERBS.filter(v=>v.h==='haben');
+  else if(f==='sein') list=VERBS.filter(v=>v.h==='sein');
+  else if(f!=='all') list=VERBS.filter(v=>v.t===f);
+  document.getElementById('all-body').innerHTML = buildRows(list);
+}
+filterAll('all', document.querySelector('.tf.active'));
+
+// sticky nav
+const IDS=['was','formel','haben-sein','partizip','schwache','starke','gemischte','trennbare','untrennbare','alle','tipps'];
+const btns=document.querySelectorAll('.snb');
+function updateNav(){
+  let active=IDS[0];
+  IDS.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=80)active=id;});
+  btns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+active));
+}
+window.addEventListener('scroll',updateNav,{passive:true});
+updateNav();
+</script>
+</body>
+</html>

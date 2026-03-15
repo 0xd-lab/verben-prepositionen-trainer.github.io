@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Perfekt — Lernkarten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --h:#7C3AED;--hl:#EDE9FE;--ht:#5B21B6;--hb:#C4B5FD;
+  --s:#0891B2;--sl:#E0F2FE;--st:#0C4A6E;--sb:#7DD3FC;
+  --sw:#1D9E75;--swl:#E1F5EE;--swt:#0F6E56;
+  --stark:#D85A30;--starkl:#FAECE7;--starkt:#7C2D12;
+  --mix:#B45309;--mixl:#FEF3C7;--mixt:#92400E;
+  --tr:#BE185D;--trl:#FCE7F3;--trt:#831843;
+  --green:#1D9E75;--greenl:#E1F5EE;--greent:#0F6E56;
+  --red:#D85A30;--redl:#FAECE7;--redt:#993C1D;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.12)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:32px}
+.hdr{width:100%;max-width:560px;padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,24px)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.counter{font-size:13px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.prog-wrap{width:100%;max-width:560px;padding:12px 20px 0}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--h);border-radius:4px;transition:width .4s}
+.filters{width:100%;max-width:560px;padding:12px 20px 0;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter-row{display:flex;gap:7px;width:max-content}
+.fb{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.fb.all.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.fb.schwach.active{background:var(--swl);color:var(--swt);border-color:var(--sw)}
+.fb.stark.active{background:var(--starkl);color:var(--starkt);border-color:var(--stark)}
+.fb.gemischt.active{background:var(--mixl);color:var(--mixt);border-color:var(--mix)}
+.fb.trennbar.active{background:var(--trl);color:var(--trt);border-color:var(--tr)}
+.fb.untrennbar.active{background:var(--hl);color:var(--ht);border-color:var(--h)}
+.fb.haben.active{background:var(--hl);color:var(--ht);border-color:var(--h)}
+.fb.sein.active{background:var(--sl);color:var(--st);border-color:var(--s)}
+
+.card-area{width:100%;max-width:560px;padding:14px 20px 0;display:flex;flex-direction:column}
+.card-wrap{perspective:1000px;height:clamp(230px,50vw,290px);cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);background:var(--surface);box-shadow:var(--shc);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 24px;gap:8px;border:1px solid var(--border)}
+.back{transform:rotateY(180deg)}
+
+/* front */
+.f-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--hint)}
+.f-verb{font-family:'DM Serif Display',serif;font-size:clamp(32px,9vw,48px);color:var(--text);line-height:1}
+.f-ar{font-size:14px;color:var(--muted);direction:rtl;text-align:center}
+.f-hint{font-size:11px;color:var(--hint);margin-top:4px}
+
+/* back — 3-part display */
+.back-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--hint)}
+.perfekt-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
+.hilf-badge{padding:8px 18px;border-radius:var(--rs);font-family:'DM Serif Display',serif;font-size:clamp(20px,5.5vw,28px)}
+.hilf-badge.h{background:var(--hl);color:var(--ht)}
+.hilf-badge.s{background:var(--sl);color:var(--st)}
+.part-badge{padding:8px 18px;border-radius:var(--rs);font-family:'DM Serif Display',serif;font-size:clamp(20px,5.5vw,28px);background:var(--swl);color:var(--swt)}
+.verb-chip{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+.type-chip{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px}
+.ex-sentence{font-size:13px;color:var(--muted);font-style:italic;text-align:center;margin-top:2px;line-height:1.4;max-width:280px}
+
+.btns{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;padding:13px;border-radius:var(--rs);border:1px solid var(--bm);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;box-shadow:var(--sh)}
+.btn:active{transform:scale(.97)}
+.btn.wrong{border-color:var(--red);color:var(--redt);background:var(--redl)}
+.btn.correct{border-color:var(--green);color:var(--greent);background:var(--greenl)}
+.btn.flip{background:var(--text);color:var(--bg);border-color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 8px;text-align:center;box-shadow:var(--sh)}
+.stat-n{font-family:'DM Serif Display',serif;font-size:24px;line-height:1}
+.stat-l{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);margin-top:3px}
+.done{text-align:center;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.done h2{font-family:'DM Serif Display',serif;font-size:28px}
+.restart{padding:13px 32px;border-radius:var(--rs);background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:none;cursor:pointer}
+.footer{padding:20px 0 8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);text-align:center;width:100%}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="title">Perfekt Lernkarten</div><div class="subtitle">Infinitiv → Partizip II + haben/sein</div></div>
+  <span class="counter" id="counter">1 / 85</span>
+</div>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="prog-lbl">0%</span><span id="prog-done">0 fertig</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+</div>
+<div class="filters">
+  <div class="filter-row">
+    <button class="fb all active" onclick="setFilter('all',this)">Alle</button>
+    <button class="fb schwach" onclick="setFilter('schwach',this)">Schwach</button>
+    <button class="fb stark" onclick="setFilter('stark',this)">Stark</button>
+    <button class="fb gemischt" onclick="setFilter('gemischt',this)">Gemischt</button>
+    <button class="fb trennbar" onclick="setFilter('trennbar',this)">Trennbar</button>
+    <button class="fb untrennbar" onclick="setFilter('untrennbar',this)">Untrennbar</button>
+    <button class="fb haben" onclick="setFilter('haben',this)">+ haben</button>
+    <button class="fb sein" onclick="setFilter('sein',this)">+ sein</button>
+  </div>
+</div>
+<div class="card-area" id="card-area">
+  <div class="card-wrap" onclick="flipCard()">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="f-label">Infinitiv</div>
+        <div class="f-verb" id="f-verb">lernen</div>
+        <div class="f-ar" id="f-ar">يتعلم</div>
+        <div class="f-hint">Was ist Partizip II + Hilfsverb?</div>
+      </div>
+      <div class="face back">
+        <div class="back-label">Perfekt</div>
+        <div class="f-verb" id="b-verb" style="font-size:clamp(18px,5vw,24px)">lernen</div>
+        <div class="perfekt-row">
+          <div class="hilf-badge h" id="b-hilf">habe</div>
+          <div class="part-badge" id="b-part">gelernt</div>
+        </div>
+        <div class="type-chip" id="b-type"></div>
+        <div class="ex-sentence" id="b-ex">Ich habe Deutsch gelernt.</div>
+        <div class="f-ar" id="b-ar">يتعلم</div>
+      </div>
+    </div>
+  </div>
+  <div class="btns" id="btns" style="display:none">
+    <button class="btn wrong" onclick="answer(false)">✗ nochmal</button>
+    <button class="btn correct" onclick="answer(true)">✓ gewusst</button>
+  </div>
+  <div class="btns" id="flipbtn">
+    <button class="btn flip" onclick="flipCard()">umdrehen</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="s-c" style="color:var(--green)">0</div><div class="stat-l">Gewusst</div></div>
+    <div class="stat"><div class="stat-n" id="s-w" style="color:var(--red)">0</div><div class="stat-l">Nochmal</div></div>
+    <div class="stat"><div class="stat-n" id="s-l">85</div><div class="stat-l">Verbleibend</div></div>
+  </div>
+</div>
+<div class="footer">by ❤️ Mostafa Toumi</div>
+<script>
+const TYPE_META={
+  schwach:   {label:'Schwach',    bg:'#E1F5EE',color:'#0F6E56'},
+  stark:     {label:'Stark',      bg:'#FAECE7',color:'#7C2D12'},
+  gemischt:  {label:'Gemischt',   bg:'#FEF3C7',color:'#92400E'},
+  trennbar:  {label:'Trennbar',   bg:'#FCE7F3',color:'#831843'},
+  untrennbar:{label:'Untrennbar', bg:'#EDE9FE',color:'#5B21B6'},
+};
+
+const ALL=[
+  {v:"lernen",    p2:"gelernt",     h:"haben",t:"schwach",    ar:"يتعلم",       ex:"Ich habe Deutsch gelernt."},
+  {v:"kaufen",    p2:"gekauft",     h:"haben",t:"schwach",    ar:"يشتري",       ex:"Sie hat ein Buch gekauft."},
+  {v:"spielen",   p2:"gespielt",    h:"haben",t:"schwach",    ar:"يلعب",        ex:"Er hat Fußball gespielt."},
+  {v:"machen",    p2:"gemacht",     h:"haben",t:"schwach",    ar:"يفعل / يصنع", ex:"Wir haben Hausaufgaben gemacht."},
+  {v:"sagen",     p2:"gesagt",      h:"haben",t:"schwach",    ar:"يقول",        ex:"Er hat nichts gesagt."},
+  {v:"fragen",    p2:"gefragt",     h:"haben",t:"schwach",    ar:"يسأل",        ex:"Sie hat mich gefragt."},
+  {v:"kochen",    p2:"gekocht",     h:"haben",t:"schwach",    ar:"يطبخ",        ex:"Mama hat Suppe gekocht."},
+  {v:"hören",     p2:"gehört",     h:"haben",t:"schwach",    ar:"يسمع",        ex:"Ich habe Musik gehört."},
+  {v:"suchen",    p2:"gesucht",     h:"haben",t:"schwach",    ar:"يبحث",        ex:"Er hat seinen Schlüssel gesucht."},
+  {v:"zeigen",    p2:"gezeigt",     h:"haben",t:"schwach",    ar:"يُريـ",        ex:"Sie hat mir den Weg gezeigt."},
+  {v:"glauben",   p2:"geglaubt",    h:"haben",t:"schwach",    ar:"يصدق / يؤمن", ex:"Ich habe ihm geglaubt."},
+  {v:"brauchen",  p2:"gebraucht",   h:"haben",t:"schwach",    ar:"يحتاج",       ex:"Ich habe Hilfe gebraucht."},
+  {v:"warten",    p2:"gewartet",    h:"haben",t:"schwach",    ar:"ينتظر",       ex:"Wir haben lange gewartet."},
+  {v:"reden",     p2:"geredet",     h:"haben",t:"schwach",    ar:"يتكلم",       ex:"Wir haben viel geredet."},
+  {v:"arbeiten",  p2:"gearbeitet",  h:"haben",t:"schwach",    ar:"يعمل",        ex:"Er hat heute gearbeitet."},
+  {v:"lachen",    p2:"gelacht",     h:"haben",t:"schwach",    ar:"يضحك",        ex:"Wir haben viel gelacht."},
+  {v:"weinen",    p2:"geweint",     h:"haben",t:"schwach",    ar:"يبكي",        ex:"Das Kind hat geweint."},
+  {v:"tanzen",    p2:"getanzt",     h:"haben",t:"schwach",    ar:"يرقص",        ex:"Sie hat die ganze Nacht getanzt."},
+  {v:"leben",     p2:"gelebt",      h:"haben",t:"schwach",    ar:"يعيش",        ex:"Er hat in Berlin gelebt."},
+  {v:"lieben",    p2:"geliebt",     h:"haben",t:"schwach",    ar:"يحب",         ex:"Sie hat ihn sehr geliebt."},
+  {v:"heiraten",  p2:"geheiratet",  h:"haben",t:"schwach",    ar:"يتزوج",       ex:"Sie haben letztes Jahr geheiratet."},
+  {v:"reisen",    p2:"gereist",     h:"sein", t:"schwach",    ar:"يسافر",       ex:"Ich bin viel gereist."},
+  {v:"passieren", p2:"passiert",    h:"sein", t:"schwach",    ar:"يحدث",        ex:"Was ist passiert?"},
+  {v:"fahren",    p2:"gefahren",    h:"sein", t:"stark",      ar:"يسافر / يقود",ex:"Ich bin nach Berlin gefahren."},
+  {v:"gehen",     p2:"gegangen",    h:"sein", t:"stark",      ar:"يذهب",        ex:"Wir sind ins Kino gegangen."},
+  {v:"kommen",    p2:"gekommen",    h:"sein", t:"stark",      ar:"يأتي",        ex:"Er ist gestern gekommen."},
+  {v:"laufen",    p2:"gelaufen",    h:"sein", t:"stark",      ar:"يجري / يمشي", ex:"Sie ist schnell gelaufen."},
+  {v:"fliegen",   p2:"geflogen",    h:"sein", t:"stark",      ar:"يطير",        ex:"Er ist nach Paris geflogen."},
+  {v:"schwimmen", p2:"geschwommen", h:"sein", t:"stark",      ar:"يسبح",        ex:"Sie ist im Meer geschwommen."},
+  {v:"steigen",   p2:"gestiegen",   h:"sein", t:"stark",      ar:"يصعد",        ex:"Er ist ins Auto gestiegen."},
+  {v:"fallen",    p2:"gefallen",    h:"sein", t:"stark",      ar:"يسقط",        ex:"Das Glas ist gefallen."},
+  {v:"lesen",     p2:"gelesen",     h:"haben",t:"stark",      ar:"يقرأ",        ex:"Er hat das Buch gelesen."},
+  {v:"schreiben", p2:"geschrieben", h:"haben",t:"stark",      ar:"يكتب",        ex:"Sie hat einen Brief geschrieben."},
+  {v:"sprechen",  p2:"gesprochen",  h:"haben",t:"stark",      ar:"يتكلم",       ex:"Wir haben Deutsch gesprochen."},
+  {v:"essen",     p2:"gegessen",    h:"haben",t:"stark",      ar:"يأكل",        ex:"Ich habe Pizza gegessen."},
+  {v:"trinken",   p2:"getrunken",   h:"haben",t:"stark",      ar:"يشرب",        ex:"Er hat Kaffee getrunken."},
+  {v:"sehen",     p2:"gesehen",     h:"haben",t:"stark",      ar:"يرى",         ex:"Ich habe einen guten Film gesehen."},
+  {v:"geben",     p2:"gegeben",     h:"haben",t:"stark",      ar:"يعطي",        ex:"Er hat mir ein Geschenk gegeben."},
+  {v:"nehmen",    p2:"genommen",    h:"haben",t:"stark",      ar:"يأخذ",        ex:"Sie hat das Buch genommen."},
+  {v:"schlafen",  p2:"geschlafen",  h:"haben",t:"stark",      ar:"ينام",        ex:"Er hat 10 Stunden geschlafen."},
+  {v:"helfen",    p2:"geholfen",    h:"haben",t:"stark",      ar:"يساعد",       ex:"Er hat mir geholfen."},
+  {v:"finden",    p2:"gefunden",    h:"haben",t:"stark",      ar:"يجد",         ex:"Ich habe meinen Schlüssel gefunden."},
+  {v:"rufen",     p2:"gerufen",     h:"haben",t:"stark",      ar:"يصرخ / ينادي",ex:"Sie hat mich gerufen."},
+  {v:"tragen",    p2:"getragen",    h:"haben",t:"stark",      ar:"يحمل / يلبس", ex:"Er hat eine Tasche getragen."},
+  {v:"treffen",   p2:"getroffen",   h:"haben",t:"stark",      ar:"يلتقي",       ex:"Ich habe einen alten Freund getroffen."},
+  {v:"verlieren", p2:"verloren",    h:"haben",t:"stark",      ar:"يخسر / يضيع", ex:"Er hat sein Handy verloren."},
+  {v:"vergessen", p2:"vergessen",   h:"haben",t:"stark",      ar:"ينسى",        ex:"Ich habe seinen Namen vergessen."},
+  {v:"waschen",   p2:"gewaschen",   h:"haben",t:"stark",      ar:"يغسل",        ex:"Sie hat die Wäsche gewaschen."},
+  {v:"werden",    p2:"geworden",    h:"sein", t:"stark",      ar:"يصبح",        ex:"Er ist Arzt geworden."},
+  {v:"sterben",   p2:"gestorben",   h:"sein", t:"stark",      ar:"يموت",        ex:"Der alte Mann ist gestorben."},
+  {v:"bleiben",   p2:"geblieben",   h:"sein", t:"stark",      ar:"يبقى",        ex:"Ich bin zu Hause geblieben."},
+  {v:"sein",      p2:"gewesen",     h:"sein", t:"stark",      ar:"يكون",        ex:"Wo bist du gewesen?"},
+  {v:"haben",     p2:"gehabt",      h:"haben",t:"stark",      ar:"يملك",        ex:"Er hat viel Glück gehabt."},
+  {v:"denken",    p2:"gedacht",     h:"haben",t:"gemischt",   ar:"يفكر",        ex:"Ich habe an dich gedacht."},
+  {v:"bringen",   p2:"gebracht",    h:"haben",t:"gemischt",   ar:"يحضر / يجلب", ex:"Er hat Blumen gebracht."},
+  {v:"kennen",    p2:"gekannt",     h:"haben",t:"gemischt",   ar:"يعرف (شخصاً)",ex:"Ich habe ihn gut gekannt."},
+  {v:"wissen",    p2:"gewusst",     h:"haben",t:"gemischt",   ar:"يعرف (حقيقة)",ex:"Das habe ich nicht gewusst."},
+  {v:"nennen",    p2:"genannt",     h:"haben",t:"gemischt",   ar:"يسمي",        ex:"Man hat ihn Ali genannt."},
+  {v:"rennen",    p2:"gerannt",     h:"sein", t:"gemischt",   ar:"يركض",        ex:"Er ist schnell gerannt."},
+  {v:"senden",    p2:"gesandt",     h:"haben",t:"gemischt",   ar:"يرسل",        ex:"Er hat eine E-Mail gesandt."},
+  {v:"aufmachen", p2:"aufgemacht",  h:"haben",t:"trennbar",   ar:"يفتح",        ex:"Er hat die Tür aufgemacht."},
+  {v:"anrufen",   p2:"angerufen",   h:"haben",t:"trennbar",   ar:"يتصل هاتفياً",ex:"Sie hat mich angerufen."},
+  {v:"aufstehen", p2:"aufgestanden",h:"sein", t:"trennbar",   ar:"يقوم / ينهض", ex:"Er ist um 7 Uhr aufgestanden."},
+  {v:"einschlafen",p2:"eingeschlafen",h:"sein",t:"trennbar",  ar:"ينام / يغفو", ex:"Das Baby ist eingeschlafen."},
+  {v:"aufwachen", p2:"aufgewacht",  h:"sein", t:"trennbar",   ar:"يستيقظ",      ex:"Ich bin früh aufgewacht."},
+  {v:"fernsehen", p2:"ferngesehen", h:"haben",t:"trennbar",   ar:"يشاهد التلفاز",ex:"Wir haben ferngesehen."},
+  {v:"einkaufen", p2:"eingekauft",  h:"haben",t:"trennbar",   ar:"يتسوق",       ex:"Sie hat eingekauft."},
+  {v:"ankommen",  p2:"angekommen",  h:"sein", t:"trennbar",   ar:"يصل",         ex:"Der Zug ist angekommen."},
+  {v:"abfahren",  p2:"abgefahren",  h:"sein", t:"trennbar",   ar:"ينطلق / يغادر",ex:"Der Bus ist abgefahren."},
+  {v:"mitbringen",p2:"mitgebracht", h:"haben",t:"trennbar",   ar:"يحضر معه",    ex:"Er hat Kuchen mitgebracht."},
+  {v:"zumachen",  p2:"zugemacht",   h:"haben",t:"trennbar",   ar:"يغلق",        ex:"Sie hat das Fenster zugemacht."},
+  {v:"ausgehen",  p2:"ausgegangen", h:"sein", t:"trennbar",   ar:"يخرج للترفيه",ex:"Wir sind ausgegangen."},
+  {v:"anfangen",  p2:"angefangen",  h:"haben",t:"trennbar",   ar:"يبدأ",        ex:"Der Film hat angefangen."},
+  {v:"aufräumen", p2:"aufgeräumt",  h:"haben",t:"trennbar",   ar:"يرتب / ينظف", ex:"Ich habe mein Zimmer aufgeräumt."},
+  {v:"besuchen",  p2:"besucht",     h:"haben",t:"untrennbar", ar:"يزور",        ex:"Er hat seine Oma besucht."},
+  {v:"verstehen", p2:"verstanden",  h:"haben",t:"untrennbar", ar:"يفهم",        ex:"Ich habe alles verstanden."},
+  {v:"erklären",  p2:"erklärt",     h:"haben",t:"untrennbar", ar:"يشرح",        ex:"Er hat die Regel erklärt."},
+  {v:"verkaufen", p2:"verkauft",    h:"haben",t:"untrennbar", ar:"يبيع",        ex:"Er hat sein Auto verkauft."},
+  {v:"bezahlen",  p2:"bezahlt",     h:"haben",t:"untrennbar", ar:"يدفع",        ex:"Ich habe die Rechnung bezahlt."},
+  {v:"bestellen", p2:"bestellt",    h:"haben",t:"untrennbar", ar:"يطلب",        ex:"Wir haben Pizza bestellt."},
+  {v:"empfehlen", p2:"empfohlen",   h:"haben",t:"untrennbar", ar:"ينصح / يوصي", ex:"Er hat das Restaurant empfohlen."},
+  {v:"entscheiden",p2:"entschieden",h:"haben",t:"untrennbar", ar:"يقرر",        ex:"Wir haben uns entschieden."},
+  {v:"erzählen",  p2:"erzählt",     h:"haben",t:"untrennbar", ar:"يحكي / يروي", ex:"Sie hat eine Geschichte erzählt."},
+  {v:"gewinnen",  p2:"gewonnen",    h:"haben",t:"untrennbar", ar:"يفوز / يكسب", ex:"Wir haben das Spiel gewonnen."},
+  {v:"verlassen", p2:"verlassen",   h:"haben",t:"untrennbar", ar:"يغادر / يترك",ex:"Er hat das Haus verlassen."},
+  {v:"studieren", p2:"studiert",    h:"haben",t:"untrennbar", ar:"يدرس (جامعة)",ex:"Sie hat in Köln studiert."},
+  {v:"telefonieren",p2:"telefoniert",h:"haben",t:"untrennbar",ar:"يتحدث هاتفياً",ex:"Ich habe lange telefoniert."},
+  {v:"fotografieren",p2:"fotografiert",h:"haben",t:"untrennbar",ar:"يلتقط صوراً",ex:"Er hat viele Fotos fotografiert."},
+];
+
+const CONJ={haben:{ich:"habe",du:"hast",er:"hat",wir:"haben",ihr:"habt",sie:"haben"},
+            sein:{ich:"bin",du:"bist",er:"ist",wir:"sind",ihr:"seid",sie:"sind"}};
+
+let deck=[],idx=0,correct=0,wrong=0,flipped=false,filter='all';
+
+function setFilter(f,btn){filter=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');resetDeck();}
+function resetDeck(){
+  if(filter==='haben'||filter==='sein') deck=ALL.filter(x=>x.h===filter).sort(()=>Math.random()-.5);
+  else if(filter==='all') deck=[...ALL].sort(()=>Math.random()-.5);
+  else deck=ALL.filter(x=>x.t===filter).sort(()=>Math.random()-.5);
+  idx=0;correct=0;wrong=0;flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+  updateStats();showCard();
+}
+function showCard(){
+  if(idx>=deck.length){showDone();return;}
+  const c=deck[idx];
+  const tm=TYPE_META[c.t];
+  document.getElementById('f-verb').textContent=c.v;
+  document.getElementById('f-ar').textContent=c.ar;
+  document.getElementById('b-verb').textContent=c.v;
+  const hConj=CONJ[c.h].ich;
+  document.getElementById('b-hilf').textContent='ich '+hConj;
+  document.getElementById('b-hilf').className='hilf-badge '+(c.h==='haben'?'h':'s');
+  document.getElementById('b-part').textContent=c.p2;
+  document.getElementById('b-type').textContent=tm.label;
+  document.getElementById('b-type').style.cssText=`background:${tm.bg};color:${tm.color}`;
+  document.getElementById('b-ex').textContent=c.ex;
+  document.getElementById('b-ar').textContent=c.ar;
+  const total=deck.length;
+  document.getElementById('counter').textContent=(idx+1)+' / '+total;
+  document.getElementById('prog-lbl').textContent=Math.round(idx/total*100)+'%';
+  document.getElementById('prog-done').textContent=idx+' fertig';
+  document.getElementById('prog').style.width=(idx/total*100)+'%';
+  flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+}
+function flipCard(){if(flipped)return;flipped=true;document.getElementById('card').classList.add('flipped');setTimeout(()=>{document.getElementById('btns').style.display='';document.getElementById('flipbtn').style.display='none';},250);}
+function answer(ok){if(ok)correct++;else{wrong++;deck.push(deck[idx]);}idx++;updateStats();showCard();}
+function updateStats(){document.getElementById('s-c').textContent=correct;document.getElementById('s-w').textContent=wrong;document.getElementById('s-l').textContent=Math.max(0,deck.length-idx);}
+function showDone(){const pct=Math.round(correct/(correct+wrong)*100)||0;document.getElementById('card-area').innerHTML=`<div class="done"><div style="font-size:48px">${pct>=80?'🎉':pct>=50?'💪':'📚'}</div><h2>Geschafft!</h2><p style="color:var(--muted);font-size:14px">${correct} gewusst · ${wrong} nochmal · ${pct}%</p><button class="restart" onclick="location.reload()">Nochmal ↺</button></div>`;}
+resetDeck();
+</script>
+</body>
+</html>

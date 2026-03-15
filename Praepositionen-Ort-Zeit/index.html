@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Präpositionen für Ort & Zeit — Übersicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  /* Ort = teal */
+  --ort:#0F766E;--ortl:#CCFBF1;--ortt:#134E4A;--ortb:#5EEAD4;
+  /* Zeit = amber */
+  --zeit:#B45309;--zeitl:#FEF3C7;--zeitt:#92400E;--zeitb:#FDE68A;
+  /* Richtung = blue */
+  --richt:#185FA5;--richtl:#E6F1FB;--richtt:#0C447C;--richtb:#B5D4F4;
+  /* in */
+  --cin:#7C3AED;--cinl:#EDE9FE;--cint:#5B21B6;--cinb:#C4B5FD;
+  /* an */
+  --can:#D85A30;--canl:#FAECE7;--cant:#7C2D12;--canb:#FDBA74;
+  /* auf */
+  --cauf:#185FA5;--caufl:#E6F1FB;--cauft:#0C447C;--caufb:#B5D4F4;
+  /* nach */
+  --cnach:#BE185D;--cnachl:#FCE7F3;--cnacht:#831843;--cnachb:#F9A8D4;
+  /* aus */
+  --caus:#0891B2;--causl:#E0F2FE;--caust:#0C4A6E;--causb:#7DD3FC;
+  /* bei */
+  --cbei:#1D9E75;--cbeil:#E1F5EE;--cbeit:#0F6E56;--cbeib:#9FE1CB;
+  /* zu */
+  --czu:#4B5563;--czul:#F3F4F6;--czut:#1F2937;--czub:#D1D5DB;
+  /* von */
+  --cvon:#92400E;--cvonl:#FEF3C7;--cvont:#78350F;--cvonb:#FDE68A;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.10)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:60px}
+
+.hero{width:100%;max-width:740px;padding:clamp(32px,8vw,60px) 24px 0;text-align:center}
+.tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--ortt);background:var(--ortl);border:1px solid var(--ortb);border-radius:20px;padding:4px 14px;margin-bottom:16px}
+.h1{font-family:'DM Serif Display',serif;font-size:clamp(26px,6.5vw,46px);letter-spacing:-.5px;line-height:1.1}
+.h1 em{font-style:italic;color:var(--ort)}
+.sub{font-size:14px;color:var(--muted);margin:10px auto 0;line-height:1.6;max-width:500px}
+
+/* sticky nav */
+.snav{position:sticky;top:0;z-index:100;width:100%;background:rgba(247,244,239,.94);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border)}
+.snav-i{max-width:740px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none}
+.snav-i::-webkit-scrollbar{display:none}
+.snb{flex-shrink:0;padding:12px 15px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--muted);background:transparent;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;text-decoration:none;display:inline-block;transition:color .15s,border-color .15s;-webkit-tap-highlight-color:transparent}
+.snb:hover{color:var(--text)}
+.snb.active{color:var(--ortt);border-bottom-color:var(--ort)}
+
+/* section header */
+.sh{width:100%;max-width:740px;padding:clamp(28px,6vw,44px) 24px 0;display:flex;align-items:center;gap:12px;scroll-margin-top:52px}
+.sh-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.sh-title{font-family:'DM Serif Display',serif;font-size:clamp(20px,5vw,28px)}
+.sh-line{flex:1;height:1px;background:var(--border)}
+
+/* overview intro 3-col */
+.overview-grid{width:100%;max-width:740px;padding:clamp(18px,4vw,28px) 24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:540px){.overview-grid{grid-template-columns:1fr}}
+.ov-card{border-radius:var(--r);padding:18px 20px;border:1px solid}
+.ov-top{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.ov-dot{width:9px;height:9px;border-radius:50%}
+.ov-title{font-family:'DM Serif Display',serif;font-size:17px}
+.ov-body{font-size:13px;line-height:1.7}
+.ov-chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.ov-chip{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600}
+
+/* big prep card */
+.prep-wrap{width:100%;max-width:740px;padding:12px 24px 0}
+.prep-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
+.pc-hdr{padding:16px 20px 14px;display:flex;align-items:center;gap:14px;border-bottom:1px solid var(--border)}
+.pc-word{font-family:'DM Serif Display',serif;font-size:clamp(30px,8vw,42px);line-height:1}
+.pc-info{display:flex;flex-direction:column;gap:4px}
+.pc-mean{font-size:14px;font-weight:600}
+.pc-ar{font-size:14px;direction:rtl}
+.pc-kasus{font-size:11px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:20px;display:inline-block;margin-top:2px}
+.pc-body{padding:16px 20px;display:flex;flex-direction:column;gap:14px}
+
+/* rule row inside a prep card */
+.rule-row{display:flex;gap:14px;padding:12px 14px;border-radius:var(--rs);border:1px solid var(--border)}
+.rr-icon{font-size:22px;flex-shrink:0;line-height:1;margin-top:2px}
+.rr-content{flex:1}
+.rr-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px}
+.rr-body{font-size:13px;color:var(--muted);line-height:1.65}
+.rr-body strong{color:var(--text);font-weight:600}
+.rr-body code{font-family:monospace;font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;border:1px solid var(--border)}
+
+/* example rows */
+.ex-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.ex-r{display:flex;align-items:baseline;gap:10px;font-size:13px;flex-wrap:wrap}
+.ex-de{font-weight:500;color:var(--text)}
+.ex-de b{font-weight:700}
+.ex-ar{font-size:12px;color:var(--hint);direction:rtl}
+
+/* contrast table inside card */
+.ctbl{width:100%;border-collapse:collapse;font-size:13px;border-radius:var(--rs);overflow:hidden;border:1px solid var(--border)}
+.ctbl th{padding:7px 12px;text-align:left;font-size:11px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);background:var(--bg);border-bottom:1px solid var(--border)}
+.ctbl td{padding:7px 12px;border-bottom:1px solid var(--border);font-size:13px;color:var(--muted)}
+.ctbl tr:last-child td{border-bottom:none}
+.ctbl td:first-child{font-weight:600;color:var(--text)}
+.ctbl .ar{direction:rtl;text-align:right;font-size:12px}
+
+/* comparison grid (in vs an vs auf etc) */
+.cmp-grid{width:100%;max-width:740px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.cmp-card{border-radius:var(--rs);padding:14px 16px;border:1px solid}
+.cmp-prep{font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:6px}
+.cmp-rule{font-size:12px;line-height:1.6}
+.cmp-ex{font-size:12px;font-style:italic;margin-top:6px;color:var(--muted)}
+
+/* tips */
+.tips-grid{width:100%;max-width:740px;padding:12px 24px 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+.tip-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:18px 20px;box-shadow:var(--sh)}
+.tip-icon{font-size:20px;margin-bottom:8px;display:block}
+.tip-title{font-family:'DM Serif Display',serif;font-size:16px;margin-bottom:8px}
+.tip-body{font-size:13px;color:var(--muted);line-height:1.75}
+.tip-body strong{color:var(--text);font-weight:600}
+.tip-body code{font-family:monospace;font-size:12px;background:var(--bg);padding:1px 5px;border-radius:4px;border:1px solid var(--border)}
+
+.footer{width:100%;max-width:740px;padding:clamp(36px,8vw,56px) 24px 32px;display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;border-top:1px solid var(--border);margin-top:clamp(36px,8vw,56px)}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:16px}
+.footer-credit{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);margin-top:2px}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="tag">Grammatik Übersicht</div>
+  <h1 class="h1">Präpositionen für<br><em>Ort & Zeit</em></h1>
+  <p class="sub">Wann benutzt man <strong>in, im, am, an, auf, nach, aus, bei, zu, von</strong>? — Alle Regeln mit arabischen Bedeutungen, Beispielen und einem einfachen System zum Erinnern.</p>
+</div>
+
+<nav class="snav">
+  <div class="snav-i">
+    <a class="snb active" href="#ueberblick">Überblick</a>
+    <a class="snb" href="#in">in / im</a>
+    <a class="snb" href="#an">an / am</a>
+    <a class="snb" href="#auf">auf</a>
+    <a class="snb" href="#nach">nach</a>
+    <a class="snb" href="#aus">aus</a>
+    <a class="snb" href="#bei">bei</a>
+    <a class="snb" href="#zu">zu</a>
+    <a class="snb" href="#von">von</a>
+    <a class="snb" href="#zeit">Zeit-Tabelle</a>
+    <a class="snb" href="#ort">Ort-Tabelle</a>
+    <a class="snb" href="#vergleich">Vergleich</a>
+    <a class="snb" href="#tipps">Tipps</a>
+  </div>
+</nav>
+
+<!-- ÜBERBLICK -->
+<div class="sh" id="ueberblick">
+  <div class="sh-dot" style="background:var(--ort)"></div>
+  <div class="sh-title">Der Überblick — نظرة عامة</div>
+  <div class="sh-line"></div>
+</div>
+<div class="overview-grid">
+  <div class="ov-card" style="background:var(--ortl);border-color:var(--ortb)">
+    <div class="ov-top"><div class="ov-dot" style="background:var(--ort)"></div><div class="ov-title" style="color:var(--ortt)">Ort</div></div>
+    <div class="ov-body" style="color:var(--ortt)">Wo befindet sich jemand/etwas? — <strong>أين؟</strong></div>
+    <div class="ov-chips">
+      <span class="ov-chip" style="background:rgba(15,118,110,.12);color:var(--ortt)">in</span>
+      <span class="ov-chip" style="background:rgba(15,118,110,.12);color:var(--ortt)">an</span>
+      <span class="ov-chip" style="background:rgba(15,118,110,.12);color:var(--ortt)">auf</span>
+      <span class="ov-chip" style="background:rgba(15,118,110,.12);color:var(--ortt)">bei</span>
+      <span class="ov-chip" style="background:rgba(15,118,110,.12);color:var(--ortt)">zu</span>
+    </div>
+  </div>
+  <div class="ov-card" style="background:var(--zeitl);border-color:var(--zeitb)">
+    <div class="ov-top"><div class="ov-dot" style="background:var(--zeit)"></div><div class="ov-title" style="color:var(--zeitt)">Zeit</div></div>
+    <div class="ov-body" style="color:var(--zeitt)">Wann passiert etwas? — <strong>متى؟</strong></div>
+    <div class="ov-chips">
+      <span class="ov-chip" style="background:rgba(180,83,9,.12);color:var(--zeitt)">im</span>
+      <span class="ov-chip" style="background:rgba(180,83,9,.12);color:var(--zeitt)">am</span>
+      <span class="ov-chip" style="background:rgba(180,83,9,.12);color:var(--zeitt)">in</span>
+      <span class="ov-chip" style="background:rgba(180,83,9,.12);color:var(--zeitt)">um</span>
+      <span class="ov-chip" style="background:rgba(180,83,9,.12);color:var(--zeitt)">seit</span>
+      <span class="ov-chip" style="background:rgba(180,83,9,.12);color:var(--zeitt)">vor</span>
+    </div>
+  </div>
+  <div class="ov-card" style="background:var(--richtl);border-color:var(--richtb)">
+    <div class="ov-top"><div class="ov-dot" style="background:var(--richt)"></div><div class="ov-title" style="color:var(--richtt)">Richtung</div></div>
+    <div class="ov-body" style="color:var(--richtt)">Wohin geht man? — <strong>إلى أين؟</strong></div>
+    <div class="ov-chips">
+      <span class="ov-chip" style="background:rgba(24,95,165,.12);color:var(--richtt)">nach</span>
+      <span class="ov-chip" style="background:rgba(24,95,165,.12);color:var(--richtt)">in</span>
+      <span class="ov-chip" style="background:rgba(24,95,165,.12);color:var(--richtt)">zu</span>
+      <span class="ov-chip" style="background:rgba(24,95,165,.12);color:var(--richtt)">aus</span>
+      <span class="ov-chip" style="background:rgba(24,95,165,.12);color:var(--richtt)">von</span>
+    </div>
+  </div>
+</div>
+
+<!-- IN / IM -->
+<div class="sh" id="in">
+  <div class="sh-dot" style="background:var(--cin)"></div>
+  <div class="sh-title">in / im</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--cinl)">
+      <div class="pc-word" style="color:var(--cint)">in / im</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--cint)">in / inside — في / داخل</div>
+        <div class="pc-ar" style="color:var(--cint)">في الداخل · في (مكان) · خلال (وقت)</div>
+        <span class="pc-kasus" style="background:rgba(124,58,237,.12);color:var(--cint)">+ Dativ (Ort) · + Akkusativ (Richtung)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <!-- ORT -->
+      <div class="rule-row" style="background:var(--ortl);border-color:var(--ortb)">
+        <div class="rr-icon">📍</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--ortt)">Ort — Wo? (+ Dativ)</div>
+          <div class="rr-body" style="color:var(--ortt)">
+            <strong>in + Dativ</strong> = sich innerhalb eines Ortes befinden<br>
+            Städte & Länder ohne Artikel: <code>in Berlin · in Deutschland · in Marokko</code><br>
+            Räume & Gebäude: <code>im Zimmer · in der Schule · im Supermarkt</code><br>
+            <strong>im = in dem</strong> (mask./neutr.) · <strong>in der</strong> (fem.)
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich wohne <b>in</b> Berlin.</span><span class="ex-ar">أنا أسكن في برلين</span></div>
+            <div class="ex-r"><span class="ex-de">Er ist <b>im</b> Zimmer.</span><span class="ex-ar">هو في الغرفة</span></div>
+            <div class="ex-r"><span class="ex-de">Sie arbeitet <b>in der</b> Schule.</span><span class="ex-ar">هي تعمل في المدرسة</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- RICHTUNG -->
+      <div class="rule-row" style="background:var(--richtl);border-color:var(--richtb)">
+        <div class="rr-icon">➡️</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--richtt)">Richtung — Wohin? (+ Akkusativ)</div>
+          <div class="rr-body" style="color:var(--richtt)">
+            <strong>in + Akkusativ</strong> = Bewegung in einen Ort hinein<br>
+            <code>in die Stadt · ins Kino · in den Supermarkt · ins Ausland</code><br>
+            <strong>ins = in das</strong> (neutr.) · <strong>in den</strong> (mask.) · <strong>in die</strong> (fem./Pl.)
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich gehe <b>in die</b> Schule.</span><span class="ex-ar">أنا أذهب إلى المدرسة</span></div>
+            <div class="ex-r"><span class="ex-de">Wir fahren <b>in die</b> Türkei.</span><span class="ex-ar">نحن نسافر إلى تركيا</span></div>
+            <div class="ex-r"><span class="ex-de">Er geht <b>ins</b> Kino.</span><span class="ex-ar">هو يذهب إلى السينما</span></div>
+          </div>
+        </div>
+      </div>
+      <!-- ZEIT -->
+      <div class="rule-row" style="background:var(--zeitl);border-color:var(--zeitb)">
+        <div class="rr-icon">📅</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--zeitt)">Zeit — Wann?</div>
+          <div class="rr-body" style="color:var(--zeitt)">
+            <strong>im</strong> = Monate & Jahreszeiten: <code>im Januar · im Sommer · im Winter</code><br>
+            <strong>in + Dauer</strong>: <code>in einer Stunde · in zwei Wochen · in drei Tagen</code>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich fahre <b>im</b> August.</span><span class="ex-ar">سأسافر في أغسطس</span></div>
+            <div class="ex-r"><span class="ex-de">Ich komme <b>in</b> einer Stunde.</span><span class="ex-ar">سآتي خلال ساعة</span></div>
+            <div class="ex-r"><span class="ex-de">Das Fest ist <b>im</b> Sommer.</span><span class="ex-ar">المهرجان في الصيف</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AN / AM -->
+<div class="sh" id="an">
+  <div class="sh-dot" style="background:var(--can)"></div>
+  <div class="sh-title">an / am</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--canl)">
+      <div class="pc-word" style="color:var(--cant)">an / am</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--cant)">at / on — على / عند / في</div>
+        <div class="pc-ar" style="color:var(--cant)">على (سطح) · عند (حافة) · في (يوم)</div>
+        <span class="pc-kasus" style="background:rgba(216,90,48,.12);color:var(--cant)">+ Dativ (Ort/Zeit) · + Akkusativ (Richtung)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--ortl);border-color:var(--ortb)">
+        <div class="rr-icon">📍</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--ortt)">Ort — Wo?</div>
+          <div class="rr-body" style="color:var(--ortt)">
+            An einer <strong>Grenze / Kante / Oberfläche</strong> sein — an Gewässern, Straßen, Wänden<br>
+            <code>am Meer · am Fluss · an der Wand · an der Ampel · am Tisch</code><br>
+            <strong>am = an dem</strong> (mask./neutr.)
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Wir sitzen <b>am</b> Tisch.</span><span class="ex-ar">نحن نجلس على الطاولة</span></div>
+            <div class="ex-r"><span class="ex-de">Das Bild hängt <b>an der</b> Wand.</span><span class="ex-ar">الصورة معلقة على الجدار</span></div>
+            <div class="ex-r"><span class="ex-de">Wir wohnen <b>am</b> Meer.</span><span class="ex-ar">نحن نسكن على البحر</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-row" style="background:var(--zeitl);border-color:var(--zeitb)">
+        <div class="rr-icon">📅</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--zeitt)">Zeit — Wann?</div>
+          <div class="rr-body" style="color:var(--zeitt)">
+            <strong>am</strong> = Wochentage & Tageszeiten (außer "in der Nacht"):<br>
+            <code>am Montag · am Dienstag · am Morgen · am Abend · am Wochenende</code>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich arbeite <b>am</b> Montag.</span><span class="ex-ar">أعمل يوم الاثنين</span></div>
+            <div class="ex-r"><span class="ex-de">Wir treffen uns <b>am</b> Abend.</span><span class="ex-ar">نلتقي في المساء</span></div>
+            <div class="ex-r"><span class="ex-de">Was machst du <b>am</b> Wochenende?</span><span class="ex-ar">ماذا ستفعل في نهاية الأسبوع؟</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUF -->
+<div class="sh" id="auf">
+  <div class="sh-dot" style="background:var(--cauf)"></div>
+  <div class="sh-title">auf</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--caufl)">
+      <div class="pc-word" style="color:var(--cauft)">auf</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--cauft)">on top of — فوق / على السطح</div>
+        <div class="pc-ar" style="color:var(--cauft)">على السطح الأفقي · إلى (قرى/إنسل)</div>
+        <span class="pc-kasus" style="background:rgba(24,95,165,.12);color:var(--cauft)">+ Dativ (Ort) · + Akkusativ (Richtung)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--ortl);border-color:var(--ortb)">
+        <div class="rr-icon">📍</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--ortt)">Ort — auf einer Oberfläche</div>
+          <div class="rr-body" style="color:var(--ortt)">
+            Auf einer horizontalen <strong>Oberfläche</strong> sein:<br>
+            <code>auf dem Tisch · auf dem Boden · auf der Straße</code><br>
+            Auf Inseln & bei öffentlichen Einrichtungen:<br>
+            <code>auf der Post · auf der Bank · auf der Party</code>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Das Buch liegt <b>auf dem</b> Tisch.</span><span class="ex-ar">الكتاب على الطاولة</span></div>
+            <div class="ex-r"><span class="ex-de">Ich war <b>auf der</b> Party.</span><span class="ex-ar">كنت في الحفلة</span></div>
+            <div class="ex-r"><span class="ex-de">Ich gehe <b>auf die</b> Post.</span><span class="ex-ar">أنا أذهب إلى مكتب البريد</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-row" style="background:var(--canl);border-color:var(--canb)">
+        <div class="rr-icon">💡</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--cant)">an vs. auf — der Unterschied</div>
+          <div class="rr-body" style="color:var(--cant)">
+            <strong>an</strong> = vertikale Fläche / Kante: <em>an der Wand, am Tisch (sitzen)</em><br>
+            <strong>auf</strong> = horizontale Fläche / oben drauf: <em>auf dem Tisch (liegen)</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NACH -->
+<div class="sh" id="nach">
+  <div class="sh-dot" style="background:var(--cnach)"></div>
+  <div class="sh-title">nach</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--cnachl)">
+      <div class="pc-word" style="color:var(--cnacht)">nach</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--cnacht)">to / after — إلى / بعد</div>
+        <div class="pc-ar" style="color:var(--cnacht)">إلى (دون أداة تعريف) · بعد (وقت)</div>
+        <span class="pc-kasus" style="background:rgba(190,24,93,.12);color:var(--cnacht)">+ Dativ (immer)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--richtl);border-color:var(--richtb)">
+        <div class="rr-icon">✈️</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--richtt)">Richtung — Wohin? (kein Artikel)</div>
+          <div class="rr-body" style="color:var(--richtt)">
+            <strong>nach</strong> = Richtung zu Städten, Ländern (ohne Artikel) und "nach Hause":<br>
+            <code>nach Berlin · nach Deutschland · nach Hause · nach oben · nach links</code>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich fahre <b>nach</b> Berlin.</span><span class="ex-ar">أنا أسافر إلى برلين</span></div>
+            <div class="ex-r"><span class="ex-de">Wir fliegen <b>nach</b> Marokko.</span><span class="ex-ar">نحن نطير إلى المغرب</span></div>
+            <div class="ex-r"><span class="ex-de">Ich gehe <b>nach</b> Hause.</span><span class="ex-ar">أنا أذهب إلى البيت</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-row" style="background:var(--zeitl);border-color:var(--zeitb)">
+        <div class="rr-icon">⏰</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--zeitt)">Zeit — nach (= بعد)</div>
+          <div class="rr-body" style="color:var(--zeitt)">
+            <strong>nach + Dativ</strong> = nach einem Zeitpunkt / Ereignis:<br>
+            <code>nach der Arbeit · nach dem Essen · nach zwei Stunden</code>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Wir treffen uns <b>nach</b> der Arbeit.</span><span class="ex-ar">نلتقي بعد العمل</span></div>
+            <div class="ex-r"><span class="ex-de">Ruf mich <b>nach</b> dem Essen an.</span><span class="ex-ar">اتصل بي بعد الأكل</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-row" style="background:var(--canl);border-color:var(--canb)">
+        <div class="rr-icon">💡</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--cant)">nach vs. in — Wohin? Richtung</div>
+          <div class="rr-body" style="color:var(--cant)">
+            <strong>nach</strong> → ohne Artikel: <em>nach Berlin, nach Hause, nach oben</em><br>
+            <strong>in die / in den / ins</strong> → mit Artikel: <em>in die Türkei, in den Park, ins Kino</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AUS -->
+<div class="sh" id="aus">
+  <div class="sh-dot" style="background:var(--caus)"></div>
+  <div class="sh-title">aus</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--causl)">
+      <div class="pc-word" style="color:var(--caust)">aus</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--caust)">from / out of — من / خارج</div>
+        <div class="pc-ar" style="color:var(--caust)">من (الأصل) · من الداخل إلى الخارج</div>
+        <span class="pc-kasus" style="background:rgba(8,145,178,.12);color:var(--caust)">+ Dativ (immer)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--richtl);border-color:var(--richtb)">
+        <div class="rr-icon">🌍</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--richtt)">Herkunft — Woher?</div>
+          <div class="rr-body" style="color:var(--richtt)">
+            <strong>aus</strong> = Herkunft aus Städten, Ländern (ohne Artikel) und Räumen:<br>
+            <code>aus Berlin · aus Deutschland · aus dem Zimmer · aus der Küche</code>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich komme <b>aus</b> Marokko.</span><span class="ex-ar">أنا من المغرب</span></div>
+            <div class="ex-r"><span class="ex-de">Er kommt <b>aus</b> dem Zimmer.</span><span class="ex-ar">هو يخرج من الغرفة</span></div>
+            <div class="ex-r"><span class="ex-de">Sie kommt <b>aus</b> Berlin.</span><span class="ex-ar">هي من برلين</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-row" style="background:var(--canl);border-color:var(--canb)">
+        <div class="rr-icon">💡</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--cant)">aus vs. von — Woher?</div>
+          <div class="rr-body" style="color:var(--cant)">
+            <strong>aus</strong> → Herkunft aus einem <em>Inneren</em> (Land, Stadt, Gebäude):<br>
+            <em>Ich komme <strong>aus</strong> Marokko.</em><br>
+            <strong>von</strong> → Herkunft von einer <em>Person oder Oberfläche</em>:<br>
+            <em>Ich komme <strong>vom</strong> Arzt. / Ich komme <strong>von</strong> Maria.</em>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BEI -->
+<div class="sh" id="bei">
+  <div class="sh-dot" style="background:var(--cbei)"></div>
+  <div class="sh-title">bei</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--cbeil)">
+      <div class="pc-word" style="color:var(--cbeit)">bei</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--cbeit)">at / near / with — عند / بالقرب من</div>
+        <div class="pc-ar" style="color:var(--cbeit)">عند (شخص أو مكان) · بالقرب من</div>
+        <span class="pc-kasus" style="background:rgba(29,158,117,.12);color:var(--cbeit)">+ Dativ (immer)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--ortl);border-color:var(--ortb)">
+        <div class="rr-icon">🏠</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--ortt)">Ort — bei einer Person / Firma</div>
+          <div class="rr-body" style="color:var(--ortt)">
+            <strong>bei</strong> = sich beim jemanden befinden, beim Arzt, beim Friseur:<br>
+            <code>bei meiner Mutter · beim Arzt · bei der Arbeit · bei Lidl</code><br>
+            <strong>beim = bei dem</strong> (mask./neutr.)
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich bin <b>bei</b> meiner Mutter.</span><span class="ex-ar">أنا عند أمي</span></div>
+            <div class="ex-r"><span class="ex-de">Er wartet <b>beim</b> Arzt.</span><span class="ex-ar">هو ينتظر عند الطبيب</span></div>
+            <div class="ex-r"><span class="ex-de">Sie wohnt <b>bei</b> ihrer Freundin.</span><span class="ex-ar">هي تسكن عند صديقتها</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ZU -->
+<div class="sh" id="zu">
+  <div class="sh-dot" style="background:var(--czu)"></div>
+  <div class="sh-title">zu</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--czul)">
+      <div class="pc-word" style="color:var(--czut)">zu</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--czut)">to (a person/place) — إلى</div>
+        <div class="pc-ar" style="color:var(--czut)">إلى (شخص أو مكان بأداة تعريف)</div>
+        <span class="pc-kasus" style="background:rgba(75,85,99,.1);color:var(--czut)">+ Dativ (immer)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--richtl);border-color:var(--richtb)">
+        <div class="rr-icon">🚶</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--richtt)">Richtung — zu einer Person oder Institution</div>
+          <div class="rr-body" style="color:var(--richtt)">
+            <strong>zu</strong> = Bewegung zu einer Person oder zu Einrichtungen (mit Artikel):<br>
+            <code>zum Arzt · zur Schule · zu meiner Mutter · zum Bahnhof</code><br>
+            <strong>zum = zu dem</strong> (mask./neutr.) · <strong>zur = zu der</strong> (fem.)
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich gehe <b>zum</b> Arzt.</span><span class="ex-ar">أنا أذهب إلى الطبيب</span></div>
+            <div class="ex-r"><span class="ex-de">Ich fahre <b>zur</b> Schule.</span><span class="ex-ar">أنا أذهب إلى المدرسة</span></div>
+            <div class="ex-r"><span class="ex-de">Komm <b>zu</b> mir!</span><span class="ex-ar">تعال إليّ!</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="rule-row" style="background:var(--canl);border-color:var(--canb)">
+        <div class="rr-icon">💡</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--cant)">nach vs. zu vs. in — Richtung im Vergleich</div>
+          <table class="ctbl" style="margin-top:8px">
+            <thead><tr><th>Präp.</th><th>Verwendung</th><th>Beispiel</th></tr></thead>
+            <tbody>
+              <tr><td>nach</td><td>Städte/Länder ohne Artikel</td><td>nach Berlin, nach Hause</td></tr>
+              <tr><td>in die/ins</td><td>Orte mit Artikel (Gebäude, Länder mit Artikel)</td><td>in die Türkei, ins Kino</td></tr>
+              <tr><td>zu/zum/zur</td><td>Personen & Einrichtungen</td><td>zum Arzt, zur Schule</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VON -->
+<div class="sh" id="von">
+  <div class="sh-dot" style="background:var(--cvon)"></div>
+  <div class="sh-title">von</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-hdr" style="background:var(--cvonl)">
+      <div class="pc-word" style="color:var(--cvont)">von</div>
+      <div class="pc-info">
+        <div class="pc-mean" style="color:var(--cvont)">from / of — من / عن</div>
+        <div class="pc-ar" style="color:var(--cvont)">من (شخص / سطح) · عن (موضوع)</div>
+        <span class="pc-kasus" style="background:rgba(146,64,14,.12);color:var(--cvont)">+ Dativ (immer)</span>
+      </div>
+    </div>
+    <div class="pc-body">
+      <div class="rule-row" style="background:var(--richtl);border-color:var(--richtb)">
+        <div class="rr-icon">👤</div>
+        <div class="rr-content">
+          <div class="rr-title" style="color:var(--richtt)">Herkunft — von einer Person / Veranstaltung</div>
+          <div class="rr-body" style="color:var(--richtt)">
+            <strong>von</strong> = Herkunft von einer Person, Oberfläche oder Veranstaltung:<br>
+            <code>vom Arzt · von der Party · von meiner Mutter · vom Bahnhof</code><br>
+            <strong>vom = von dem</strong>
+          </div>
+          <div class="ex-list">
+            <div class="ex-r"><span class="ex-de">Ich komme <b>vom</b> Arzt.</span><span class="ex-ar">أنا قادم من الطبيب</span></div>
+            <div class="ex-r"><span class="ex-de">Das ist ein Geschenk <b>von</b> Maria.</span><span class="ex-ar">هذه هدية من ماريا</span></div>
+            <div class="ex-r"><span class="ex-de">Er kommt gerade <b>von der</b> Arbeit.</span><span class="ex-ar">هو قادم للتو من العمل</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ZEIT TABELLE -->
+<div class="sh" id="zeit">
+  <div class="sh-dot" style="background:var(--zeit)"></div>
+  <div class="sh-title">Zeit — die komplette Tabelle</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-body" style="padding-top:0">
+      <table class="ctbl">
+        <thead><tr><th>Präp.</th><th>Wann?</th><th>Beispiel</th><th>Arabisch</th></tr></thead>
+        <tbody>
+          <tr><td>am</td><td>Wochentage, Tageszeiten</td><td>am Montag, am Abend</td><td class="ar">يوم الاثنين، في المساء</td></tr>
+          <tr><td>im</td><td>Monate, Jahreszeiten</td><td>im Juli, im Winter</td><td class="ar">في يوليو، في الشتاء</td></tr>
+          <tr><td>um</td><td>Uhrzeiten</td><td>um 8 Uhr, um Mitternacht</td><td class="ar">الساعة 8</td></tr>
+          <tr><td>in</td><td>Dauer bis zum Ereignis</td><td>in einer Stunde, in 3 Tagen</td><td class="ar">خلال ساعة، بعد 3 أيام</td></tr>
+          <tr><td>nach</td><td>nach einem Ereignis</td><td>nach der Arbeit, nach dem Essen</td><td class="ar">بعد العمل، بعد الأكل</td></tr>
+          <tr><td>vor</td><td>vor einem Ereignis</td><td>vor dem Essen, vor einer Woche</td><td class="ar">قبل الأكل، منذ أسبوع</td></tr>
+          <tr><td>seit</td><td>Beginn bis jetzt (Präsens!)</td><td>seit einem Jahr, seit Montag</td><td class="ar">منذ سنة (لا يزال)</td></tr>
+          <tr><td>bis</td><td>Ende eines Zeitraums</td><td>bis Freitag, bis 18 Uhr</td><td class="ar">حتى الجمعة</td></tr>
+          <tr><td>ab</td><td>Beginn (in der Zukunft)</td><td>ab Montag, ab nächster Woche</td><td class="ar">ابتداءً من الاثنين</td></tr>
+          <tr><td>während</td><td>während eines Ereignisses</td><td>während der Arbeit, während des Films</td><td class="ar">أثناء العمل</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ORT TABELLE -->
+<div class="sh" id="ort">
+  <div class="sh-dot" style="background:var(--ort)"></div>
+  <div class="sh-title">Ort & Richtung — die komplette Tabelle</div>
+  <div class="sh-line"></div>
+</div>
+<div class="prep-wrap">
+  <div class="prep-card">
+    <div class="pc-body" style="padding-top:0">
+      <table class="ctbl">
+        <thead><tr><th>Präp.</th><th>Frage</th><th>Verwendung</th><th>Beispiel</th></tr></thead>
+        <tbody>
+          <tr><td>in (Dativ)</td><td>Wo?</td><td>Städte, Länder, Räume (innen)</td><td>in Berlin, im Zimmer</td></tr>
+          <tr><td>in (Akk)</td><td>Wohin?</td><td>in ein Gebäude/Land hinein</td><td>in die Schule, ins Kino</td></tr>
+          <tr><td>an (Dativ)</td><td>Wo?</td><td>Kante, Grenze, Gewässer</td><td>am Meer, an der Wand</td></tr>
+          <tr><td>auf (Dativ)</td><td>Wo?</td><td>horizontale Fläche, öffentl. Ämter</td><td>auf dem Tisch, auf der Post</td></tr>
+          <tr><td>nach</td><td>Wohin?</td><td>Städte/Länder ohne Artikel, Hause</td><td>nach Berlin, nach Hause</td></tr>
+          <tr><td>zu/zum/zur</td><td>Wohin?</td><td>Personen & Einrichtungen</td><td>zum Arzt, zur Schule</td></tr>
+          <tr><td>bei/beim</td><td>Wo?</td><td>bei einer Person / Firma</td><td>bei der Mutter, beim Arzt</td></tr>
+          <tr><td>aus</td><td>Woher?</td><td>Herkunft aus Ort/Raum</td><td>aus Berlin, aus dem Zimmer</td></tr>
+          <tr><td>von/vom</td><td>Woher?</td><td>Herkunft von Person / Oberfläche</td><td>vom Arzt, von Maria</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- VERGLEICH -->
+<div class="sh" id="vergleich">
+  <div class="sh-dot" style="background:var(--text)"></div>
+  <div class="sh-title">Schnellvergleich — Verwechslungsgefahr!</div>
+  <div class="sh-line"></div>
+</div>
+<div class="cmp-grid">
+  <div class="cmp-card" style="background:var(--cnachl);border-color:var(--cnachb)">
+    <div class="cmp-prep" style="color:var(--cnacht)">nach</div>
+    <div class="cmp-rule" style="color:var(--cnacht)"><strong>Städte/Länder ohne Artikel</strong><br>nach Berlin · nach Hause · nach links</div>
+    <div class="cmp-ex">Ich fahre nach Berlin.</div>
+  </div>
+  <div class="cmp-card" style="background:var(--cinl);border-color:var(--cinb)">
+    <div class="cmp-prep" style="color:var(--cint)">in die</div>
+    <div class="cmp-rule" style="color:var(--cint)"><strong>Länder MIT Artikel / Gebäude</strong><br>in die Türkei · in die USA · ins Kino</div>
+    <div class="cmp-ex">Ich fahre in die Türkei.</div>
+  </div>
+  <div class="cmp-card" style="background:var(--czul);border-color:var(--czub)">
+    <div class="cmp-prep" style="color:var(--czut)">zum / zur</div>
+    <div class="cmp-rule" style="color:var(--czut)"><strong>Personen & Einrichtungen</strong><br>zum Arzt · zur Schule · zu Maria</div>
+    <div class="cmp-ex">Ich gehe zum Arzt.</div>
+  </div>
+  <div class="cmp-card" style="background:var(--causl);border-color:var(--causb)">
+    <div class="cmp-prep" style="color:var(--caust)">aus</div>
+    <div class="cmp-rule" style="color:var(--caust)"><strong>Herkunft aus Ort/Gebäude</strong><br>aus Marokko · aus dem Zimmer</div>
+    <div class="cmp-ex">Ich komme aus Marokko.</div>
+  </div>
+  <div class="cmp-card" style="background:var(--cvonl);border-color:var(--cvonb)">
+    <div class="cmp-prep" style="color:var(--cvont)">von / vom</div>
+    <div class="cmp-rule" style="color:var(--cvont)"><strong>Herkunft von Person / Veranstaltung</strong><br>vom Arzt · von Maria · von der Party</div>
+    <div class="cmp-ex">Ich komme vom Arzt.</div>
+  </div>
+  <div class="cmp-card" style="background:var(--cbeil);border-color:var(--cbeib)">
+    <div class="cmp-prep" style="color:var(--cbeit)">bei / beim</div>
+    <div class="cmp-rule" style="color:var(--cbeit)"><strong>Aufenthaltsort bei Person/Firma</strong><br>bei meiner Mutter · beim Arzt · bei Lidl</div>
+    <div class="cmp-ex">Ich bin beim Arzt.</div>
+  </div>
+</div>
+
+<!-- TIPPS -->
+<div class="sh" id="tipps">
+  <div class="sh-dot" style="background:var(--text)"></div>
+  <div class="sh-title">Eselsbrücken & Tipps</div>
+  <div class="sh-line"></div>
+</div>
+<div class="tips-grid">
+  <div class="tip-box">
+    <span class="tip-icon">🕐</span>
+    <div class="tip-title">Zeit-Eselsbrücke: A-I-U</div>
+    <div class="tip-body">
+      <strong>A</strong>m → <strong>A</strong>bend, <strong>A</strong>bende, Wochentage<br>
+      <strong>I</strong>m → <strong>I</strong>m Monat, <strong>I</strong>m Jahr, Jahreszeiten<br>
+      <strong>U</strong>m → <strong>U</strong>hrzeit (um 8 Uhr, um Mitternacht)<br><br>
+      <em>Am Montag · Im Januar · Um 8 Uhr</em>
+    </div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🧭</span>
+    <div class="tip-title">Richtung: nach — in — zu</div>
+    <div class="tip-body">
+      <strong>nach</strong> = kein Artikel → <em>nach Berlin</em><br>
+      <strong>in die/ins</strong> = mit Artikel → <em>ins Kino, in die Türkei</em><br>
+      <strong>zu/zum/zur</strong> = Person oder Einrichtung → <em>zum Arzt</em><br><br>
+      Faustregel: Hat der Ort einen Artikel? → <strong>in</strong> oder <strong>zu</strong>. Kein Artikel? → <strong>nach</strong>.
+    </div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">📐</span>
+    <div class="tip-title">an vs. auf — Oberfläche</div>
+    <div class="tip-body">
+      <strong>an</strong> = vertikale Fläche oder Rand:<br>
+      <em>an der Wand, am Tisch sitzen, am Meer</em><br><br>
+      <strong>auf</strong> = horizontale Fläche, obendrauf:<br>
+      <em>auf dem Tisch liegen, auf dem Boden</em>
+    </div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🔄</span>
+    <div class="tip-title">aus vs. von — Woher?</div>
+    <div class="tip-body">
+      <strong>aus</strong> = aus dem <em>Inneren</em> kommen:<br>
+      <em>aus Marokko, aus dem Zimmer</em><br><br>
+      <strong>von</strong> = von einer <em>Person oder Oberfläche</em>:<br>
+      <em>vom Arzt, von Maria, von der Party</em>
+    </div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">⏳</span>
+    <div class="tip-title">seit — immer Präsens!</div>
+    <div class="tip-body">
+      Im Deutschen verwendet man <strong>seit + Präsens</strong> wenn etwas noch andauert:<br><br>
+      <em>Ich lerne <strong>seit</strong> einem Jahr Deutsch.</em><br>
+      (= Ich lerne noch — bis heute)<br><br>
+      Im Arabischen sagt man غالباً الماضي، aber im Deutschen → <strong>Präsens</strong>!
+    </div>
+  </div>
+  <div class="tip-box">
+    <span class="tip-icon">🏠</span>
+    <div class="tip-title">zu Hause vs. nach Hause</div>
+    <div class="tip-body">
+      <strong>zu Hause</strong> = Ort (Wo?) → <em>Ich bin zu Hause.</em><br>
+      أنا في البيت (موجود)<br><br>
+      <strong>nach Hause</strong> = Richtung (Wohin?) → <em>Ich gehe nach Hause.</em><br>
+      أنا ذاهب إلى البيت
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-brand">Spiel Deutsch</div>
+  <div class="footer-credit">by ❤️ Mostafa Toumi</div>
+</div>
+
+<script>
+const IDS=['ueberblick','in','an','auf','nach','aus','bei','zu','von','zeit','ort','vergleich','tipps'];
+const btns=document.querySelectorAll('.snb');
+function upd(){
+  let a=IDS[0];
+  IDS.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=80)a=id;});
+  btns.forEach(b=>b.classList.toggle('active',b.getAttribute('href')==='#'+a));
+}
+window.addEventListener('scroll',upd,{passive:true});upd();
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Präpositionen Ort & Zeit — Lernkarten</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --ort:#0F766E;--ortl:#CCFBF1;--ortt:#134E4A;--ortb:#5EEAD4;
+  --zeit:#B45309;--zeitl:#FEF3C7;--zeitt:#92400E;--zeitb:#FDE68A;
+  --richt:#185FA5;--richtl:#E6F1FB;--richtt:#0C447C;--richtb:#B5D4F4;
+  --green:#1D9E75;--greenl:#E1F5EE;--greent:#0F6E56;
+  --red:#D85A30;--redl:#FAECE7;--redt:#993C1D;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 8px 32px rgba(28,25,23,0.12)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:32px}
+.hdr{width:100%;max-width:560px;padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,24px)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.counter{font-size:13px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.prog-wrap{width:100%;max-width:560px;padding:12px 20px 0}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px}
+.prog-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--ort);border-radius:4px;transition:width .4s}
+.filters{width:100%;max-width:560px;padding:12px 20px 0;overflow-x:auto;scrollbar-width:none}
+.filters::-webkit-scrollbar{display:none}
+.filter-row{display:flex;gap:7px;width:max-content}
+.fb{padding:5px 13px;border-radius:20px;border:1px solid var(--bm);font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s;-webkit-tap-highlight-color:transparent}
+.fb.all.active{background:var(--text);color:var(--bg);border-color:var(--text)}
+.fb.ort.active{background:var(--ortl);color:var(--ortt);border-color:var(--ort)}
+.fb.zeit.active{background:var(--zeitl);color:var(--zeitt);border-color:var(--zeit)}
+.fb.richtung.active{background:var(--richtl);color:var(--richtt);border-color:var(--richt)}
+.card-area{width:100%;max-width:560px;padding:14px 20px 0;display:flex;flex-direction:column}
+.card-wrap{perspective:1000px;height:clamp(240px,52vw,300px);cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.card{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.card.flipped{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:var(--r);background:var(--surface);box-shadow:var(--shc);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 24px;gap:7px;border:1px solid var(--border)}
+.back{transform:rotateY(180deg)}
+.f-label{font-size:10px;font-weight:600;letter-spacing:1.2px;text-transform:uppercase;color:var(--hint)}
+.f-prep{font-family:'DM Serif Display',serif;font-size:clamp(44px,12vw,64px);color:var(--text);line-height:1}
+.f-hint{font-size:11px;color:var(--hint);margin-top:4px}
+.cat-badge{padding:5px 16px;border-radius:20px;font-size:13px;font-weight:600}
+.f-rule{font-size:14px;font-weight:600;color:var(--text);text-align:center;line-height:1.4;max-width:290px}
+.f-ar{font-size:14px;color:var(--muted);direction:rtl;text-align:center}
+.f-exs{display:flex;flex-direction:column;gap:4px;align-items:center;margin-top:2px}
+.f-ex{font-size:12px;color:var(--muted);font-style:italic;text-align:center;line-height:1.4}
+.f-kasus{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--hint)}
+.btns{display:flex;gap:10px;margin-top:12px}
+.btn{flex:1;padding:13px;border-radius:var(--rs);border:1px solid var(--bm);background:var(--surface);color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;box-shadow:var(--sh)}
+.btn:active{transform:scale(.97)}
+.btn.wrong{border-color:var(--red);color:var(--redt);background:var(--redl)}
+.btn.correct{border-color:var(--green);color:var(--greent);background:var(--greenl)}
+.btn.flip{background:var(--text);color:var(--bg);border-color:var(--text)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:12px}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:12px 8px;text-align:center;box-shadow:var(--sh)}
+.stat-n{font-family:'DM Serif Display',serif;font-size:24px;line-height:1}
+.stat-l{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);margin-top:3px}
+.done{text-align:center;padding:40px 20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.done h2{font-family:'DM Serif Display',serif;font-size:28px}
+.restart{padding:13px 32px;border-radius:var(--rs);background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:none;cursor:pointer}
+.footer{padding:20px 0 8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);text-align:center;width:100%}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="title">Präpositionen Ort & Zeit</div><div class="subtitle">Präposition → Regel + Beispiele</div></div>
+  <span class="counter" id="counter">1 / 28</span>
+</div>
+<div class="prog-wrap">
+  <div class="prog-meta"><span id="prog-lbl">0%</span><span id="prog-done">0 fertig</span></div>
+  <div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div>
+</div>
+<div class="filters">
+  <div class="filter-row">
+    <button class="fb all active" onclick="setFilter('all',this)">Alle</button>
+    <button class="fb ort" onclick="setFilter('ort',this)">Ort</button>
+    <button class="fb zeit" onclick="setFilter('zeit',this)">Zeit</button>
+    <button class="fb richtung" onclick="setFilter('richtung',this)">Richtung</button>
+  </div>
+</div>
+<div class="card-area" id="card-area">
+  <div class="card-wrap" onclick="flipCard()">
+    <div class="card" id="card">
+      <div class="face front">
+        <div class="f-label">Präposition</div>
+        <div class="f-prep" id="f-prep">in / im</div>
+        <div class="f-hint">Wann benutzt man sie?</div>
+      </div>
+      <div class="face back">
+        <div class="f-label">Regel</div>
+        <div class="cat-badge" id="b-cat"></div>
+        <div class="f-rule" id="b-rule"></div>
+        <div class="f-ar" id="b-ar"></div>
+        <div class="f-kasus" id="b-kasus"></div>
+        <div class="f-exs" id="b-exs"></div>
+      </div>
+    </div>
+  </div>
+  <div class="btns" id="btns" style="display:none">
+    <button class="btn wrong" onclick="answer(false)">✗ nochmal</button>
+    <button class="btn correct" onclick="answer(true)">✓ gewusst</button>
+  </div>
+  <div class="btns" id="flipbtn">
+    <button class="btn flip" onclick="flipCard()">umdrehen</button>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-n" id="s-c" style="color:var(--green)">0</div><div class="stat-l">Gewusst</div></div>
+    <div class="stat"><div class="stat-n" id="s-w" style="color:var(--red)">0</div><div class="stat-l">Nochmal</div></div>
+    <div class="stat"><div class="stat-n" id="s-l">28</div><div class="stat-l">Verbleibend</div></div>
+  </div>
+</div>
+<div class="footer">by ❤️ Mostafa Toumi</div>
+<script>
+const CAT={
+  ort:    {bg:'#CCFBF1',color:'#134E4A',label:'Ort'},
+  zeit:   {bg:'#FEF3C7',color:'#92400E',label:'Zeit'},
+  richtung:{bg:'#E6F1FB',color:'#0C447C',label:'Richtung'},
+};
+const ALL=[
+  {p:"in",       cat:"ort",      ar:"في الداخل",    kasus:"+ Dativ",        rule:"Innerhalb eines Ortes / Raumes / Landes",      exs:["Ich wohne in Berlin.","Er ist im Zimmer.","Sie arbeitet in der Schule."]},
+  {p:"im",       cat:"zeit",     ar:"في (شهر / فصل)",kasus:"+ Dativ",       rule:"Monat oder Jahreszeit",                        exs:["im Januar","im Sommer","im Winter"]},
+  {p:"am",       cat:"zeit",     ar:"في (يوم / وقت)",kasus:"+ Dativ",       rule:"Wochentage und Tageszeiten",                   exs:["am Montag","am Abend","am Wochenende"]},
+  {p:"um",       cat:"zeit",     ar:"الساعة ...",    kasus:"+ Akkusativ",   rule:"Uhrzeiten",                                    exs:["um 8 Uhr","um Mitternacht","um 15:30 Uhr"]},
+  {p:"in + Dauer",cat:"zeit",    ar:"خلال / بعد مدة",kasus:"+ Akkusativ",  rule:"Zeitspanne bis zum Ereignis (Zukunft)",         exs:["in einer Stunde","in drei Tagen","in zwei Wochen"]},
+  {p:"seit",     cat:"zeit",     ar:"منذ (لا يزال)", kasus:"+ Dativ",       rule:"Beginn bis jetzt — immer mit Präsens!",         exs:["seit einem Jahr","seit Montag","seit 2020"]},
+  {p:"vor",      cat:"zeit",     ar:"قبل",           kasus:"+ Dativ",       rule:"Vor einem Zeitpunkt / Ereignis",               exs:["vor dem Essen","vor einer Woche","vor dem Meeting"]},
+  {p:"nach",     cat:"zeit",     ar:"بعد",           kasus:"+ Dativ",       rule:"Nach einem Zeitpunkt / Ereignis",              exs:["nach der Arbeit","nach dem Essen","nach zwei Stunden"]},
+  {p:"bis",      cat:"zeit",     ar:"حتى",           kasus:"+ Akkusativ",   rule:"Ende eines Zeitraums",                         exs:["bis Freitag","bis 18 Uhr","bis nächste Woche"]},
+  {p:"ab",       cat:"zeit",     ar:"ابتداءً من",     kasus:"+ Dativ",       rule:"Beginn ab einem Zeitpunkt (Zukunft)",          exs:["ab Montag","ab nächster Woche","ab dem 1. Mai"]},
+  {p:"während",  cat:"zeit",     ar:"أثناء",         kasus:"+ Genitiv",     rule:"Während eines Zeitraums / Ereignisses",        exs:["während der Arbeit","während des Films","während des Unterrichts"]},
+  {p:"an",       cat:"ort",      ar:"عند الحافة / على",kasus:"+ Dativ",     rule:"An einer Grenze, Kante oder Wand",             exs:["am Meer","an der Wand","am Tisch sitzen"]},
+  {p:"auf",      cat:"ort",      ar:"فوق السطح",     kasus:"+ Dativ (Wo)",  rule:"Auf einer horizontalen Fläche / öffentl. Amt", exs:["auf dem Tisch","auf dem Boden","auf der Post"]},
+  {p:"bei",      cat:"ort",      ar:"عند (شخص / مكان)",kasus:"+ Dativ",    rule:"Beim jemanden / bei einer Firma sein",         exs:["bei der Mutter","beim Arzt","bei Lidl"]},
+  {p:"zu Hause", cat:"ort",      ar:"في البيت (موجود)",kasus:"—",          rule:"Aufenthaltsort: zu Hause = man ist dort",       exs:["Ich bin zu Hause.","Er bleibt zu Hause."]},
+  {p:"in (→)",   cat:"richtung", ar:"إلى (داخل مكان)",kasus:"+ Akkusativ", rule:"Bewegung in ein Gebäude / Land hinein",         exs:["in die Schule gehen","ins Kino fahren","in die Türkei fahren"]},
+  {p:"nach",     cat:"richtung", ar:"إلى (بلد / مدينة)",kasus:"+ Dativ",  rule:"Richtung: Städte & Länder ohne Artikel",        exs:["nach Berlin","nach Marokko","nach Hause"]},
+  {p:"zu / zum / zur",cat:"richtung",ar:"إلى (شخص / جهة)",kasus:"+ Dativ",rule:"Richtung zu Person oder Einrichtung",           exs:["zum Arzt","zur Schule","zu meiner Mutter"]},
+  {p:"nach Hause",cat:"richtung",ar:"إلى البيت (حركة)",kasus:"—",         rule:"Richtung: nach Hause = Bewegung zum Heimort",   exs:["Ich gehe nach Hause.","Sie fährt nach Hause."]},
+  {p:"aus",      cat:"richtung", ar:"من الداخل إلى الخارج",kasus:"+ Dativ",rule:"Herkunft aus einem Ort / Gebäude",              exs:["aus Marokko","aus dem Zimmer","aus der Schule"]},
+  {p:"von / vom",cat:"richtung", ar:"من (شخص / سطح)", kasus:"+ Dativ",    rule:"Herkunft von einer Person oder Veranstaltung",  exs:["vom Arzt","von Maria","von der Party"]},
+  {p:"an (→)",   cat:"richtung", ar:"إلى حافة / شاطئ",kasus:"+ Akkusativ",rule:"Bewegung zu einer Grenze / einem Gewässer",     exs:["ans Meer fahren","an den Fluss","an die Wand hängen"]},
+  {p:"auf (→)",  cat:"richtung", ar:"إلى فوق السطح",  kasus:"+ Akkusativ",rule:"Bewegung auf eine Fläche / zu einem öffentl. Ort",exs:["auf den Tisch legen","auf die Post gehen","auf die Insel fahren"]},
+];
+
+let deck=[],idx=0,correct=0,wrong=0,flipped=false,filter='all';
+function setFilter(f,btn){filter=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));btn.classList.add('active');resetDeck();}
+function resetDeck(){
+  deck=(filter==='all'?[...ALL]:ALL.filter(x=>x.cat===filter)).sort(()=>Math.random()-.5);
+  idx=0;correct=0;wrong=0;flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+  updateStats();showCard();
+}
+function showCard(){
+  if(idx>=deck.length){showDone();return;}
+  const c=deck[idx];const cm=CAT[c.cat];
+  document.getElementById('f-prep').textContent=c.p;
+  document.getElementById('b-cat').textContent=cm.label;
+  document.getElementById('b-cat').style.cssText=`background:${cm.bg};color:${cm.color}`;
+  document.getElementById('b-rule').textContent=c.rule;
+  document.getElementById('b-ar').textContent=c.ar;
+  document.getElementById('b-kasus').textContent=c.kasus;
+  const exs=document.getElementById('b-exs');exs.innerHTML='';
+  c.exs.forEach(e=>{const d=document.createElement('div');d.className='f-ex';d.textContent='→ '+e;exs.appendChild(d);});
+  const total=deck.length;
+  document.getElementById('counter').textContent=(idx+1)+' / '+total;
+  document.getElementById('prog-lbl').textContent=Math.round(idx/total*100)+'%';
+  document.getElementById('prog-done').textContent=idx+' fertig';
+  document.getElementById('prog').style.width=(idx/total*100)+'%';
+  flipped=false;
+  document.getElementById('card').classList.remove('flipped');
+  document.getElementById('btns').style.display='none';
+  document.getElementById('flipbtn').style.display='';
+}
+function flipCard(){if(flipped)return;flipped=true;document.getElementById('card').classList.add('flipped');setTimeout(()=>{document.getElementById('btns').style.display='';document.getElementById('flipbtn').style.display='none';},250);}
+function answer(ok){if(ok)correct++;else{wrong++;deck.push(deck[idx]);}idx++;updateStats();showCard();}
+function updateStats(){document.getElementById('s-c').textContent=correct;document.getElementById('s-w').textContent=wrong;document.getElementById('s-l').textContent=Math.max(0,deck.length-idx);}
+function showDone(){const pct=Math.round(correct/(correct+wrong)*100)||0;document.getElementById('card-area').innerHTML=`<div class="done"><div style="font-size:48px">${pct>=80?'🎉':pct>=50?'💪':'📚'}</div><h2>Geschafft!</h2><p style="color:var(--muted);font-size:14px">${correct} gewusst · ${wrong} nochmal · ${pct}%</p><button class="restart" onclick="location.reload()">Nochmal ↺</button></div>`;}
+resetDeck();
+</script>
+</body>
+</html>

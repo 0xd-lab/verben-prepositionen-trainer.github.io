@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Präpositionen — Match</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F4EF;--surface:#fff;--text:#1C1917;--muted:#78716C;--hint:#A8A29E;
+  --ort:#0F766E;--ortl:#CCFBF1;--ortt:#134E4A;--ortb:#5EEAD4;
+  --zeit:#B45309;--zeitl:#FEF3C7;--zeitt:#92400E;--zeitb:#FDE68A;
+  --richt:#185FA5;--richtl:#E6F1FB;--richtt:#0C447C;--richtb:#B5D4F4;
+  --green:#1D9E75;--greenl:#E1F5EE;--greent:#0F6E56;
+  --red:#D85A30;--redl:#FAECE7;
+  --border:rgba(28,25,23,0.1);--bm:rgba(28,25,23,0.15);
+  --r:16px;--rs:12px;--sh:0 2px 12px rgba(28,25,23,0.07);--shc:0 4px 20px rgba(28,25,23,0.10)
+}
+html,body{min-height:100%;background:var(--bg);font-family:'DM Sans',sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+body{display:flex;flex-direction:column;align-items:center;padding-bottom:32px}
+.hdr{width:100%;max-width:660px;padding:20px 20px 0;display:flex;justify-content:space-between;align-items:flex-start}
+.title{font-family:'DM Serif Display',serif;font-size:clamp(18px,5vw,24px)}
+.subtitle{font-size:12px;color:var(--muted);margin-top:3px}
+.meta{text-align:right;font-size:12px;color:var(--muted)}
+.prog-wrap{width:100%;max-width:660px;padding:10px 20px 0}
+.prog-bar{height:4px;background:var(--border);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;background:var(--ort);border-radius:4px;transition:width .4s}
+.srow{width:100%;max-width:660px;padding:10px 20px 0;display:flex;gap:10px}
+.sp{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:10px 8px;text-align:center;box-shadow:var(--sh)}
+.sp-n{font-family:'DM Serif Display',serif;font-size:20px;line-height:1}
+.sp-l{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--hint);margin-top:3px}
+/* Hint box */
+.hint-wrap{width:100%;max-width:660px;padding:10px 20px 0}
+.hint-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:10px 16px;font-size:13px;color:var(--muted);box-shadow:var(--sh)}
+.hint-box strong{color:var(--text)}
+/* Buckets — 3 col */
+.buckets{width:100%;max-width:660px;padding:10px 20px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.bucket{border-radius:var(--rs);border:2px dashed;padding:10px 8px;min-height:80px;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .2s}
+.bucket.dragover{transform:scale(1.04);box-shadow:var(--shc)}
+.bucket.ort{border-color:var(--ortb);background:var(--ortl)}
+.bucket.zeit{border-color:var(--zeitb);background:var(--zeitl)}
+.bucket.richtung{border-color:var(--richtb);background:var(--richtl)}
+.bt{font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;text-align:center}
+.bucket.ort .bt{color:var(--ortt)}
+.bucket.zeit .bt{color:var(--zeitt)}
+.bucket.richtung .bt{color:var(--richtt)}
+.bt-sub{font-size:10px;opacity:.65;text-align:center;direction:rtl}
+.bucket.ort .bt-sub{color:var(--ortt)}
+.bucket.zeit .bt-sub{color:var(--zeitt)}
+.bucket.richtung .bt-sub{color:var(--richtt)}
+.bc{display:flex;flex-wrap:wrap;gap:4px;justify-content:center;width:100%}
+.pchip{font-family:'DM Serif Display',serif;font-size:14px;padding:3px 9px;border-radius:20px;white-space:nowrap}
+.pchip.ok{background:rgba(255,255,255,.75)}
+.pchip.fail{text-decoration:line-through;opacity:.5}
+/* Pool */
+.pool-lbl{width:100%;max-width:660px;padding:12px 20px 4px;font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--hint)}
+.pool{width:100%;max-width:660px;padding:0 20px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;min-height:48px}
+.chip{background:var(--surface);border:1.5px solid var(--bm);border-radius:20px;padding:9px 16px;font-family:'DM Serif Display',serif;font-size:17px;cursor:grab;user-select:none;box-shadow:var(--sh);transition:transform .15s,box-shadow .15s;-webkit-tap-highlight-color:transparent}
+.chip:active{cursor:grabbing;transform:scale(1.06);box-shadow:var(--shc)}
+.chip.dragging{opacity:.4}
+.chip.selected{background:var(--text);color:var(--bg);border-color:var(--text);transform:scale(1.06)}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;z-index:100}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{background:var(--greenl);color:var(--greent);border:1px solid var(--green)}
+.toast.fail{background:var(--redl);color:var(--red);border:1px solid var(--red)}
+.done{width:100%;max-width:660px;padding:40px 20px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
+.done h2{font-family:'DM Serif Display',serif;font-size:28px}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;margin-top:8px}
+.dg{background:var(--surface);border:1px solid var(--border);border-radius:var(--rs);padding:14px 8px;text-align:center;box-shadow:var(--sh)}
+.dg-n{font-family:'DM Serif Display',serif;font-size:26px;line-height:1}
+.dg-l{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;color:var(--hint);margin-top:4px}
+.restart{padding:13px 32px;border-radius:var(--rs);background:var(--text);color:var(--bg);font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:none;cursor:pointer;margin-top:4px}
+.footer{padding:20px 0 8px;font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--hint);text-align:center;width:100%}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div><div class="title">Präpositionen Match</div><div class="subtitle">Ort · Zeit · Richtung</div></div>
+  <div class="meta" id="meta">Runde 1 / 4</div>
+</div>
+<div class="prog-wrap"><div class="prog-bar"><div class="prog-fill" id="prog" style="width:0%"></div></div></div>
+<div class="srow">
+  <div class="sp"><div class="sp-n" id="sc-ok" style="color:var(--green)">0</div><div class="sp-l">Richtig</div></div>
+  <div class="sp"><div class="sp-n" id="sc-no" style="color:var(--red)">0</div><div class="sp-l">Falsch</div></div>
+  <div class="sp"><div class="sp-n" id="sc-pt" style="color:var(--ort)">0</div><div class="sp-l">Punkte</div></div>
+</div>
+<div class="hint-wrap">
+  <div class="hint-box" id="hint-box">Ziehe jede Präposition in die richtige Kategorie.</div>
+</div>
+<div class="buckets">
+  <div class="bucket ort" id="b-ort" ondragover="dov(event)" ondrop="drop(event,'ort')" onclick="tapBucket('ort')">
+    <div class="bt">Ort</div><div class="bt-sub">أين؟</div><div class="bc" id="bc-ort"></div>
+  </div>
+  <div class="bucket zeit" id="b-zeit" ondragover="dov(event)" ondrop="drop(event,'zeit')" onclick="tapBucket('zeit')">
+    <div class="bt">Zeit</div><div class="bt-sub">متى؟</div><div class="bc" id="bc-zeit"></div>
+  </div>
+  <div class="bucket richtung" id="b-richtung" ondragover="dov(event)" ondrop="drop(event,'richtung')" onclick="tapBucket('richtung')">
+    <div class="bt">Richtung</div><div class="bt-sub">إلى أين / من أين</div><div class="bc" id="bc-richtung"></div>
+  </div>
+</div>
+<div class="pool-lbl">Präpositionen zum Zuordnen:</div>
+<div class="pool" id="pool"></div>
+<div class="toast" id="toast"></div>
+<div class="footer">by ❤️ Mostafa Toumi</div>
+<script>
+const ALL=[
+  // ORT
+  {p:"in",         cat:"ort",  hint:"in = innerhalb eines Ortes"},
+  {p:"im (Ort)",   cat:"ort",  hint:"im = in dem — Raum"},
+  {p:"an / am",    cat:"ort",  hint:"an = Kante, Grenze, Gewässer"},
+  {p:"auf (Ort)",  cat:"ort",  hint:"auf = horizontale Fläche"},
+  {p:"bei",        cat:"ort",  hint:"bei = beim jemanden sein"},
+  {p:"zu Hause",   cat:"ort",  hint:"zu Hause = Aufenthaltsort"},
+  // ZEIT
+  {p:"im (Zeit)",  cat:"zeit", hint:"im = Monate & Jahreszeiten"},
+  {p:"am (Zeit)",  cat:"zeit", hint:"am = Wochentage & Tageszeiten"},
+  {p:"um",         cat:"zeit", hint:"um = Uhrzeiten"},
+  {p:"seit",       cat:"zeit", hint:"seit = begann und dauert noch"},
+  {p:"vor",        cat:"zeit", hint:"vor = vor einem Ereignis"},
+  {p:"nach (Zeit)",cat:"zeit", hint:"nach = nach einem Ereignis"},
+  {p:"bis",        cat:"zeit", hint:"bis = Ende eines Zeitraums"},
+  {p:"ab",         cat:"zeit", hint:"ab = Beginn ab einem Zeitpunkt"},
+  {p:"während",    cat:"zeit", hint:"während = in dieser Zeitspanne"},
+  // RICHTUNG
+  {p:"nach (→)",   cat:"richtung",hint:"nach = Städte/Länder ohne Artikel"},
+  {p:"in die (→)", cat:"richtung",hint:"in die = Gebäude/Länder mit Artikel"},
+  {p:"zu / zum",   cat:"richtung",hint:"zu = Richtung zu Person/Einrichtung"},
+  {p:"aus",        cat:"richtung",hint:"aus = Herkunft aus Ort"},
+  {p:"von / vom",  cat:"richtung",hint:"von = Herkunft von Person"},
+  {p:"nach Hause", cat:"richtung",hint:"nach Hause = Bewegung heimwärts"},
+];
+const CAT_COLORS={
+  ort:      {ok:'rgba(255,255,255,.75)',t:'var(--ortt)'},
+  zeit:     {ok:'rgba(255,255,255,.75)',t:'var(--zeitt)'},
+  richtung: {ok:'rgba(255,255,255,.75)',t:'var(--richtt)'},
+};
+const PER=7;
+let rounds=[],rIdx=0,correct=0,wrong=0,points=0,dragItem=null,selectedChip=null;
+
+function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
+
+function init(){
+  const sh=shuffle(ALL);rounds=[];
+  for(let i=0;i<sh.length;i+=PER)rounds.push(sh.slice(i,i+PER));
+  rIdx=0;correct=0;wrong=0;points=0;loadRound();
+}
+
+function loadRound(){
+  if(rIdx>=rounds.length){showDone();return;}
+  selectedChip=null;
+  const items=rounds[rIdx];
+  document.getElementById('meta').textContent='Runde '+(rIdx+1)+' / '+rounds.length;
+  document.getElementById('prog').style.width=(rIdx/rounds.length*100)+'%';
+  ['ort','zeit','richtung'].forEach(k=>{document.getElementById('bc-'+k).innerHTML='';});
+  // hint: show which cats appear in this round
+  const cats=[...new Set(items.map(i=>i.cat))];
+  const catMap={ort:'Ort (Wo?)',zeit:'Zeit (Wann?)',richtung:'Richtung (Wohin?/Woher?)'};
+  document.getElementById('hint-box').innerHTML='<strong>Kategorien:</strong> '+cats.map(c=>catMap[c]).join(' · ');
+  const pool=document.getElementById('pool');pool.innerHTML='';
+  shuffle(items).forEach(item=>{
+    const chip=document.createElement('div');
+    chip.className='chip';chip.textContent=item.p;chip.dataset.p=item.p;chip.dataset.cat=item.cat;chip.dataset.hint=item.hint;
+    chip.draggable=true;
+    chip.addEventListener('dragstart',e=>{dragItem=chip;chip.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    chip.addEventListener('dragend',()=>{chip.classList.remove('dragging');dragItem=null;});
+    chip.addEventListener('click',()=>selectChip(chip));
+    pool.appendChild(chip);
+  });
+}
+
+function selectChip(chip){
+  if(selectedChip===chip){chip.classList.remove('selected');selectedChip=null;return;}
+  if(selectedChip)selectedChip.classList.remove('selected');
+  chip.classList.add('selected');selectedChip=chip;
+}
+function tapBucket(cat){if(!selectedChip)return;placeChip(selectedChip,cat);selectedChip=null;}
+function dov(e){e.preventDefault();e.currentTarget.classList.add('dragover');}
+function drop(e,cat){e.preventDefault();e.currentTarget.classList.remove('dragover');if(!dragItem)return;placeChip(dragItem,cat);}
+document.querySelectorAll('.bucket').forEach(b=>b.addEventListener('dragleave',()=>b.classList.remove('dragover')));
+
+function placeChip(chip,cat){
+  const cc=chip.dataset.cat,p=chip.dataset.p,hint=chip.dataset.hint;
+  const ok=cat===cc;
+  if(ok){correct++;points+=2;}else{wrong++;points=Math.max(0,points-1);}
+  document.getElementById('sc-ok').textContent=correct;
+  document.getElementById('sc-no').textContent=wrong;
+  document.getElementById('sc-pt').textContent=points;
+  const cc2=CAT_COLORS[cat];
+  const placed=document.createElement('span');
+  placed.className='pchip '+(ok?'ok':'fail');
+  placed.style.cssText=ok?`background:${cc2.ok};color:${cc2.t}`:
+    `background:var(--redl);color:var(--red)`;
+  placed.textContent=p+(ok?'':' ✗');
+  document.getElementById('bc-'+cat).appendChild(placed);
+  if(!ok){
+    showToast('✗ '+p+' → '+cc,'fail');
+    // also show in correct bucket
+    const cc3=CAT_COLORS[cc];
+    const hint2=document.createElement('span');hint2.className='pchip ok';
+    hint2.textContent=p+' ✓';hint2.style.cssText=`background:${cc3.ok};color:${cc3.t};opacity:.4`;
+    document.getElementById('bc-'+cc).appendChild(hint2);
+  } else {
+    showToast('✓ '+p,'ok');
+  }
+  chip.remove();
+  if(document.getElementById('pool').children.length===0){setTimeout(()=>{rIdx++;loadRound();},700);}
+}
+
+let toastTimer;
+function showToast(msg,type){
+  const t=document.getElementById('toast');clearTimeout(toastTimer);
+  t.textContent=msg;t.className='toast show '+type;
+  toastTimer=setTimeout(()=>t.classList.remove('show'),1300);
+}
+
+function showDone(){
+  document.querySelector('.buckets').style.display='none';
+  document.querySelector('.pool-lbl').style.display='none';
+  document.getElementById('pool').style.display='none';
+  document.querySelector('.hint-wrap').style.display='none';
+  document.getElementById('prog').style.width='100%';
+  const total=correct+wrong,pct=Math.round(correct/total*100)||0;
+  const d=document.createElement('div');d.className='done';
+  d.innerHTML=`<div style="font-size:48px">${pct>=90?'🏆':pct>=70?'🎉':pct>=50?'💪':'📚'}</div>
+  <h2>Fertig!</h2>
+  <div style="font-family:'DM Serif Display',serif;font-size:56px;line-height:1">${pct}%</div>
+  <div class="dgrid">
+    <div class="dg"><div class="dg-n" style="color:var(--green)">${correct}</div><div class="dg-l">Richtig</div></div>
+    <div class="dg"><div class="dg-n" style="color:var(--red)">${wrong}</div><div class="dg-l">Falsch</div></div>
+    <div class="dg"><div class="dg-n" style="color:var(--ort)">${points}</div><div class="dg-l">Punkte</div></div>
+  </div>
+  <button class="restart" onclick="location.reload()">Nochmal ↺</button>`;
+  document.querySelector('.footer').before(d);
+}
+init();
+</script>
+</body>
+</html>
